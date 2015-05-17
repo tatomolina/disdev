@@ -1,0 +1,5 @@
+<h1>StandUps</h1>
+
+<% @standUps.each do |standUp| %>
+  <%= link_to standUp.created_at.to_formatted_s(:long), stand_up_path(standUp) %>
+<% end %>
