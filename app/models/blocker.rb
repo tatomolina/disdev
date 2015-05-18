@@ -8,4 +8,5 @@ class Blocker < ActiveRecord::Base
     too_long: "must have at most %{count} words"
   }
   belongs_to :stand_up
+  validates :stand_up, presence: true
 end
