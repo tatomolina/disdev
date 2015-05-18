@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517231947) do
+ActiveRecord::Schema.define(version: 20150517232319) do
+
+  create_table "blockers", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "stand_up_id"
+  end
+
+  add_index "blockers", ["stand_up_id"], name: "index_blockers_on_stand_up_id"
 
   create_table "stand_ups", force: true do |t|
     t.datetime "created_at"

@@ -4,6 +4,6 @@ class StandUpsController < ApplicationController
   end
 
   def show
-    @StandUp = StandUp.find(params[:id])
+    @standUp = StandUp.find(params[:id])
   end
 end

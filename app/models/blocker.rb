@@ -1,4 +1,4 @@
-class Task < ActiveRecord::Base
+class Blocker < ActiveRecord::Base
   validates :title, presence: true, length: {minimum: 5}
   validates :description, presence: true, length: {
     minimum: 3,
