@@ -4,13 +4,17 @@
   <h3>Tasks</h3>
   <ul>
     <% @standUp.tasks.each do |task| %>
+      <% if task.created_at > DateTime.yesterday # no es la mejor manera pero anda me gustaria compara con hoy%>
       <li><%= link_to task.title, task_path(task) %></li>
+      <% end %>
     <% end %>
   </ul>
   <h3>Blockers</h3>
   <ul>
     <% @standUp.blockers.each do |blocker| %>
+      <% if blocker.created_at > DateTime.yesterday %>
       <li><%= link_to blocker.title, blocker_path(blocker) %></li>
+      <% end %>
     <% end %>
   </ul>
 </div>
