@@ -7,6 +7,7 @@ gem 'rails', '4.1.4'
 # Fix the conflict with the system 'rake':
 gem 'rake', '~> 0.9.6'
 
+gem 'bootstrap-sass', '~> 3.3.4'
 gem 'devise', '~> 3.4.1'
 gem 'rails_admin', '~> 0.6.7'
 # Support for databases and environment.
@@ -19,6 +20,7 @@ gem 'rails_admin', '~> 0.6.7'
 # $ rhc env set BUNDLE_WITHOUT="development test postgresql"
 #
 group :development, :test do
+  gem 'rails_layout', '~> 1.0.25'
   gem 'sqlite3'
   gem 'minitest'
   gem 'thor'

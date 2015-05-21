@@ -1,5 +1,8 @@
-<h1>StandUp</h1>
+<h1 class="text-center">StandUp</h1>
+<div class = "row">
+  <%= render 'yesterday' %>
 
-<%= render 'yesterday' %>
+  <%= render 'today' %>
+</div>
 
-<%= render 'today' %>
+<%= link_to 'New', '#', class: "btn btn-primary btn-lg" %>

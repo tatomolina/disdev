@@ -1,20 +1,34 @@
-<h2>Today</h2>
+<div class="col-md-6">
+  <h2 class="text-center">Today</h2>
 
-<div>
-  <h3>Tasks</h3>
-  <ul>
-    <% @standUp.tasks.each do |task| %>
-      <% if task.created_at > DateTime.yesterday # no es la mejor manera pero anda me gustaria compara con hoy%>
-      <li><%= link_to task.title, task_path(task) %></li>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="text-center panel-title">Tasks</h3>
+  </div>
+
+  <div class="panel-body">
+    <ul class="nav nav-pills nav-stacked text-center">
+      <% @standUp.tasks.each do |task| %>
+        <% if task.created_at > DateTime.yesterday # no es la mejor manera pero anda. me gustaria comparar con hoy%>
+        <li><%= link_to task.title, task_path(task) %></li>
+        <% end %>
       <% end %>
-    <% end %>
-  </ul>
-  <h3>Blockers</h3>
-  <ul>
-    <% @standUp.blockers.each do |blocker| %>
-      <% if blocker.created_at > DateTime.yesterday %>
-      <li><%= link_to blocker.title, blocker_path(blocker) %></li>
+    </ul>
+  </div>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="text-center panel-title">Blockers</h3>
+  </div>
+
+  <div class="panel-body">
+    <ul class="nav nav-pills nav-stacked text-center">
+      <% @standUp.blockers.each do |blocker| %>
+        <% if blocker.created_at > DateTime.yesterday %>
+        <li><%= link_to blocker.title, blocker_path(blocker) %></li>
+        <% end %>
       <% end %>
-    <% end %>
-  </ul>
+    </ul>
+  </div>
 </div>
