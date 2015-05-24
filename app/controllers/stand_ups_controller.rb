@@ -1,6 +1,9 @@
 class StandUpsController < ApplicationController
   def index
-    @standUps = StandUp.all
+    @standUps = StandUp
+    .all
+    .limit(10)
+    .order(created_at: :desc)
   end
 
   def show
@@ -28,6 +31,7 @@ class StandUpsController < ApplicationController
 
   def edit
     @standUp = StandUp.find(params[:id])
+    authorize @standUp
     @standUps = looking_yesterday(@standUp.created_at)
   end
 
@@ -39,6 +43,13 @@ class StandUpsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+		@standUp = StandUp.find(params[:id])
+		@standUp.destroy
+
+		redirect_to stand_ups_path
   end
 
   private

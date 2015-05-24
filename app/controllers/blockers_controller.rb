@@ -31,7 +31,7 @@ class BlockersController < ApplicationController
 		@blocker = Blocker.find(params[:id])
 		@blocker.destroy
 
-		redirect_to articles_path
+		redirect_to blockers_path
   end
 private
 

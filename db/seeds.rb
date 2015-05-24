@@ -3,6 +3,7 @@ tatoUser = User.new(
   :password              => "12345678",
   :password_confirmation => "12345678"
 )
+tatoUser.add_role :admin
 tatoUser.save!
 
 for i in 1..5

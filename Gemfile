@@ -7,6 +7,8 @@ gem 'rails', '4.1.4'
 # Fix the conflict with the system 'rake':
 gem 'rake', '~> 0.9.6'
 
+gem 'pundit', '~> 1.0.0'
+gem 'rolify', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'devise', '~> 3.4.1'
 gem 'rails_admin', '~> 0.6.7'
