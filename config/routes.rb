@@ -1,8 +1,26 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   devise_for :users
+
+  devise_scope :user do
+    authenticated :user do
+      root 'stand_ups#index', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
+
+  resources :work_groups
   resources :stand_ups
-  resources :blockers
-  resources :tasks
+  resources :blockers, only: [:show, :new, :create, :edit, :update, :destroy]
+  resources :tasks, only: [:show, :new, :create, :edit, :update, :destroy]
   root 'stand_ups#index'
+
+get 'home'    => 'static_pages#home'
+get 'help'    => 'static_pages#help'
+get 'about'   => 'static_pages#about'
+get 'contact' => 'static_pages#contact'
 end
