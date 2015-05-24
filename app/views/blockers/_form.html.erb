@@ -12,17 +12,28 @@
 </div>
 <% end %>
 
-  <p>
-    <%= form.label :title %><br/>
-    <%= form.text_field :title %>
-  </p>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="form-group">
+      <p>
+        <div class="text-center">
+        <%= form.label :title%><br/>
+      </div>
+        <%= form.text_field :title, class: "form-control text-center" %>
+      </p>
 
-  <p>
-    <%= form.label :description %><br/>
-    <%= form.text_area :description %>
-  </p>
-
-  <p>
-    <%= form.submit %>
-  </p>
+      <p>
+        <div class="text-center">
+        <%= form.label :description%><br/>
+      </div>
+        <%= form.text_area :description, class: "form-control text-center" %>
+      </p>
+      <div class="text-center">
+          <%= form.submit :class => "btn btn-lg btn-primary" %>
+          <%= link_to 'Back', (request.referrer || stand_ups_path),
+          class: "btn btn-lg btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>
 <% end %>

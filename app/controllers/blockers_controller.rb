@@ -37,7 +37,7 @@ class BlockersController < ApplicationController
     authorize @blocker
 		@blocker.destroy
 
-		redirect_to blockers_path
+		redirect_to stand_ups_path
   end
 private
 
