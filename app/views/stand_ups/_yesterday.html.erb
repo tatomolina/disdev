@@ -8,9 +8,15 @@
 
     <div class="panel-body">
       <ul class="nav nav-pills nav-stacked text-center">
-        <% @standUp.tasks.each do |task| %>
-          <% if task.created_at == Date.yesterday %>
-          <li><%= link_to task.title, task_path(task) %></li>
+        <% if @standUps.size > 1 #Do this to check if it is the first standUp %>
+          <% if @standUp.created_at == nil #check if i am on new%>
+            <% @standUps.first.tasks.each do |task| %>
+              <li><%= link_to task.title, task_path(task) %></li>
+            <% end %>
+          <% else %>
+            <% @standUps.second.tasks.each do |task| %>
+              <li><%= link_to task.title, task_path(task) %></li>
+            <% end %>
           <% end %>
         <% end %>
       </ul>
@@ -24,9 +30,15 @@
 
     <div class="panel-body">
       <ul class="nav nav-pills nav-stacked text-center">
-        <% @standUp.blockers.each do |blocker| %>
-          <% if blocker.created_at == Date.yesterday %>
-          <li><%= link_to blocker.title, blocker_path(blocker) %></li>
+        <% if @standUps.size > 1 #Do this to check if it is the first standUp %>
+          <% if @standUp.created_at == nil #check if i am on new%>
+            <% @standUps.first.blockers.each do |blocker| %>
+              <li><%= link_to blocker.title, blocker_path(blocker) %></li>
+            <% end %>
+          <% else %>
+            <% @standUps.second.blockers.each do |blocker| %>
+              <li><%= link_to blocker.title, blocker_path(blocker) %></li>
+            <% end %>
           <% end %>
         <% end %>
       </ul>

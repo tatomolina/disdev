@@ -21,6 +21,7 @@ gem 'rails_admin', '~> 0.6.7'
 #
 group :development, :test do
   gem 'rails_layout', '~> 1.0.25'
+  gem 'better_errors'
   gem 'sqlite3'
   gem 'minitest'
   gem 'thor'
