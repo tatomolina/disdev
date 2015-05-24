@@ -34,6 +34,9 @@
     </div>
   </div>
 </div>
-
-<%= form.submit %>
-<% end %>
+<div class="text-center">
+  <%= form.submit :class => 'btn btn-primary btn-lg'%>
+  <%= link_to 'Back', (request.referrer || stand_ups_path),
+   class: "btn btn-primary btn-lg" %>
+  <% end %>
+</div>

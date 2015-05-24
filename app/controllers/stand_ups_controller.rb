@@ -1,5 +1,6 @@
 class StandUpsController < ApplicationController
   def index
+    authorize StandUp
     @standUps = StandUp
     .all
     .limit(10)
@@ -8,10 +9,12 @@ class StandUpsController < ApplicationController
 
   def show
     @standUp = StandUp.find(params[:id])
+    authorize @standUp
     @standUps = looking_yesterday(@standUp.created_at)
   end
 
   def new
+    authorize StandUp
     @standUp = StandUp.new
     @standUps = looking_yesterday(DateTime.current)
     @standUp.tasks.build
@@ -21,6 +24,7 @@ class StandUpsController < ApplicationController
   def create
     @standUp = StandUp.new(stand_up_params)
     @standUp.user = current_user
+    authorize @standUp
     if @standUp.save!
       redirect_to @standUp
     else
@@ -37,6 +41,7 @@ class StandUpsController < ApplicationController
 
   def update
     @standUp = StandUp.find(params[:id])
+    authorize @standUp
 
     if @standUp.update(stand_up_params)
       redirect_to @standUp
@@ -47,6 +52,7 @@ class StandUpsController < ApplicationController
 
   def destroy
 		@standUp = StandUp.find(params[:id])
+    authorize @standUp
 		@standUp.destroy
 
 		redirect_to stand_ups_path

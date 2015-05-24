@@ -1,7 +1,7 @@
 class StandUpPolicy < ApplicationPolicy
 
   def index?
-    record.user == user
+    true
   end
 
   def create?
