@@ -13,7 +13,7 @@
         </tr>
         <% @workGroup.users.each do |user| %>
           <tr>
-            <td><%= user.email %></td>
+            <td><%= link_to user.email, user_path(user) %></td>
             <% if user.stand_ups.present? %>
               <td><%= link_to user.stand_ups.last.created_at.to_formatted_s(:long),
               stand_up_path(user.stand_ups.last) %></td>

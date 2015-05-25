@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users
   resources :work_groups
   resources :stand_ups
   resources :blockers, only: [:show, :new, :create, :edit, :update, :destroy]

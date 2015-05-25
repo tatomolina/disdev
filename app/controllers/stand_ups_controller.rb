@@ -10,13 +10,13 @@ class StandUpsController < ApplicationController
   def show
     @standUp = StandUp.find(params[:id])
     authorize @standUp
-    @standUps = looking_yesterday(@standUp.created_at)
+    @standUps = looking_yesterday(@standUp.created_at, @standUp.user)
   end
 
   def new
     authorize StandUp
     @standUp = StandUp.new
-    @standUps = looking_yesterday(DateTime.current)
+    @standUps = looking_yesterday(DateTime.current, current_user)
     @standUp.tasks.build
     @standUp.blockers.build
   end
@@ -28,7 +28,7 @@ class StandUpsController < ApplicationController
     if @standUp.save!
       redirect_to @standUp
     else
-      @standUps = looking_yesterday(DateTime.current)
+      @standUps = looking_yesterday(DateTime.current, current_user)
       render 'new'
     end
   end
@@ -36,7 +36,7 @@ class StandUpsController < ApplicationController
   def edit
     @standUp = StandUp.find(params[:id])
     authorize @standUp
-    @standUps = looking_yesterday(@standUp.created_at)
+    @standUps = looking_yesterday(@standUp.created_at, @standUp.user)
   end
 
   def update
@@ -60,9 +60,9 @@ class StandUpsController < ApplicationController
 
   private
 
-  def looking_yesterday(date)
+  def looking_yesterday(date, user)
     StandUp.where("user_id = :user AND created_at <= :stand_date",
-    {user: @standUp.user, stand_date: date})
+    {user: user, stand_date: date})
     .order(created_at: :desc)
     .limit(2)
   end

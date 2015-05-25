@@ -1,0 +1,30 @@
+<h1 class="text-center"><%= @user.email %></h1>
+
+<h1 class="text-center">StandUps</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel">
+      <table class="table table-hover text-center">
+        <tr>
+          <th class="text-center">StandUp</th>
+        </tr>
+        <% if @user.stand_ups.present? %>
+          <% @user.stand_ups.each do |standUp| %>
+            <tr>
+              <td><%= link_to standUp.created_at.to_formatted_s(:long), stand_up_path(standUp) %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td>Hasn't created a standUp yet</td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="text-center">
+  <% if @user == current_user %>
+    <%= link_to 'New', new_stand_up_path, class: "btn btn-primary btn-lg" %>
+  <% end %>
+</div>
