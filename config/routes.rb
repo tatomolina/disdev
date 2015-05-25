@@ -5,11 +5,11 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root 'stand_ups#index', as: :authenticated_root
+      root 'work_groups#show', as: :authenticated_root
     end
 
     unauthenticated do
-      root 'devise/sessions#new', as: :unauthenticated_root
+      root 'static_pages#home', as: :unauthenticated_root
     end
   end
 
@@ -23,4 +23,5 @@ get 'home'    => 'static_pages#home'
 get 'help'    => 'static_pages#help'
 get 'about'   => 'static_pages#about'
 get 'contact' => 'static_pages#contact'
+get 'new_user' => 'static_pages#new_user'
 end

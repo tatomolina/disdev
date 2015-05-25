@@ -7,11 +7,17 @@
           <th class="text-center">User</th>
           <th class="text-center">StandUp</th>
         </tr>
-
-        <% @standUps.each do |standUp| %>
+        <% if @standUps.present? %>
+          <% @standUps.each do |standUp| %>
+            <tr>
+              <td><%= link_to current_user.email %></td>
+              <td><%= link_to standUp.created_at.to_formatted_s(:long), stand_up_path(standUp) %></td>
+            </tr>
+          <% end %>
+        <% else %>
           <tr>
             <td><%= link_to current_user.email %></td>
-            <td><%= link_to standUp.created_at.to_formatted_s(:long), stand_up_path(standUp) %></td>
+            <td>Hasn't created a standUp yet</td>
           </tr>
         <% end %>
       </table>
