@@ -62,7 +62,7 @@ class StandUpsController < ApplicationController
 
   def looking_yesterday(date)
     StandUp.where("user_id = :user AND created_at <= :stand_date",
-    {user: current_user, stand_date: date})
+    {user: @standUp.user, stand_date: date})
     .order(created_at: :desc)
     .limit(2)
   end
