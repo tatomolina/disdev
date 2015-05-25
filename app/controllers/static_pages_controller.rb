@@ -14,4 +14,8 @@ skip_before_action :authenticate_user!, :only => [:home, :about, :help]
 
   def new_user
   end
+
+  def user
+  end
+
 end

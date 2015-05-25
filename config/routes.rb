@@ -23,5 +23,6 @@ get 'home'    => 'static_pages#home'
 get 'help'    => 'static_pages#help'
 get 'about'   => 'static_pages#about'
 get 'contact' => 'static_pages#contact'
-get 'new_user' => 'static_pages#new_user'
+get 'new_user'=> 'static_pages#new_user'
+get 'user'    => 'static_pages#user'
 end
