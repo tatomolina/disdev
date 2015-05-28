@@ -13,11 +13,13 @@ class WorkGroupPolicy < ApplicationPolicy
   end
 
   def update?
-    user.has_role? :admin
+    #only the admin can modify the workGroup
+    user.present? && (user.has_role? :admin)
   end
 
   def destroy?
-    user.has_role? :admin
+    #only the admin can delete the workGroup
+    user.present? && (user.has_role? :admin)
   end
 
 end

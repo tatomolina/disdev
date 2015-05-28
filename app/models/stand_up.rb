@@ -1,4 +1,6 @@
 class StandUp < ActiveRecord::Base
+  #A standUp represent the colection of tasks a user will do during the day
+  #developing and the colection of blockers than he can have 
   belongs_to :user
   has_many :blockers, foreign_key: "stand_up_id", :dependent => :destroy
   has_many :tasks, foreign_key: "stand_up_id", :dependent => :destroy

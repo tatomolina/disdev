@@ -11,9 +11,11 @@
           <th class="text-center">User</th>
           <th class="text-center">StandUp</th>
         </tr>
+        <%#Show in a table the user email and the last standUp he made%>>
         <% @workGroup.users.each do |user| %>
           <tr>
             <td><%= link_to user.email, user_path(user) %></td>
+            <%#If the user has not ctreated yet a standUp i should show a msg%>
             <% if user.stand_ups.present? %>
               <td><%= link_to user.stand_ups.last.created_at.to_formatted_s(:long),
               stand_up_path(user.stand_ups.last) %></td>

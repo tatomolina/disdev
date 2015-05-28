@@ -1,12 +1,15 @@
 <h1 class="text-center">StandUp</h1>
 <div class = "row">
+  <%# I first Render the view of the last standUp%>
   <%= render 'yesterday' %>
 
+  <%# Then I render the view of the new standUp%>
   <%= render 'today' %>
 </div>
 <div class="text-center">
   <div class="btn-group ">
     <%= link_to 'New', new_stand_up_path, class: "btn btn-primary btn-lg" %>
+    <%#I ask the policy if the user can edit and delete%>
     <% if policy(@standUp).edit? %>
       <%= link_to 'Edit', edit_stand_up_path(@standUp),
        class: "btn btn-primary btn-lg"  %>

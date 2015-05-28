@@ -1,5 +1,8 @@
 class TasksController < ApplicationController
 
+#Tasks are the principal issues the users are going to acomplish in their StandUps
+#In this controller is defined a base CRUD
+
   def show
     @task = Task.find(params[:id])
     authorize @task

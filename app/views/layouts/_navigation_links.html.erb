@@ -2,7 +2,11 @@
 
 <li><%= link_to "Home", root_path %></li>
 <li><%= link_to "Help", help_path %></li>
+<%# If the user is loged i show the options workGroup and StandUp's%>
 <% if current_user.present? %>
-  <li><%= link_to "WorkGroup", work_group_path(current_user.work_group.id) %></li>
+  <%# If the user is in a workGroup i show the link to my WorkGroup%>
+  <% if current_user.work_group.present? %>
+    <li><%= link_to "WorkGroup", work_group_path(current_user.work_group.id) %></li>
+  <% end %>
   <li><%= link_to "My StandUp's", user_path(current_user) %></li>
 <% end %>

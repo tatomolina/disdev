@@ -1,6 +1,8 @@
 class WorkGroupsController < ApplicationController
 
   def show
+    #Ask this to know if i recive a request to the root-path or y should show
+    #some users page
     if current_user.work_group.present?
       @workGroup = WorkGroup.find(current_user.work_group.id)
       authorize @workGroup
@@ -19,8 +21,11 @@ class WorkGroupsController < ApplicationController
     authorize @workGroup
     @workGroup.save!
     current_user.work_group = @workGroup
-    current_user.save!
-    redirect_to @workGroup
+    if current_user.save
+      redirect_to @workGroup
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -35,6 +40,7 @@ class WorkGroupsController < ApplicationController
 		if @workGroup.update(work_group_params)
 			redirect_to @workGroup
 		else
+      #If i cant update, i render again the edit view
 			render 'edit'
 		end
   end
@@ -50,6 +56,7 @@ class WorkGroupsController < ApplicationController
   private
 
   	def work_group_params
+      #Permit the name attribute
   		params.require(:work_group).permit(:name)
   	end
 

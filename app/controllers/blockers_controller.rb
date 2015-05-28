@@ -1,4 +1,7 @@
 class BlockersController < ApplicationController
+  #Blockers are the problems that the user may encounter developing their apps
+  # and they will describe them in here
+  #In this controller is defined a base CRUD
   def show
     @blocker = Blocker.find(params[:id])
     authorize @blocker

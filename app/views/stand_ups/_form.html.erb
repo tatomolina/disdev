@@ -8,6 +8,7 @@
     </div>
 
     <div class="panel-body">
+      <%# Creates a fields_for to request for attributes of task%>
       <%= form.fields_for :tasks do |task| %>
         <div class="form-group">
           <%= task.label :title %>
@@ -25,6 +26,7 @@
     </div>
 
     <div class="panel-body">
+      <%# Creates a fields_for to request for attributes of blockers%>
       <%= form.fields_for :blockers do |blocker| %>
         <%= blocker.label :title %>
         <%= blocker.text_field :title, class: "form-control" %><br/>

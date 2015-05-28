@@ -1,4 +1,5 @@
 <h1 class="text-center">
+  <%# Shows the title task%>
   <%= @task.title %>
 </h1>
 <div class="row">
@@ -8,6 +9,7 @@
         <h3 class="text-center panel-title">Description: </h3>
       </div>
       <div class="text-center panel-body">
+        <%# Shows the title task%>
         <p><%= @task.description %></p>
       </div>
     </div>
@@ -16,9 +18,10 @@
 
 <div class="text-center">
   <div class="btn-group">
+
+    <%#Ask to the policy if i should show the edit and delete button %>
     <% if policy(@task).edit? %>
-      <%= link_to 'Edit', edit_task_path(@task),
-       class: "btn btn-primary btn-lg"  %>
+      <%= link_to 'Edit', edit_task_path(@task), class: "btn btn-primary btn-lg"  %>
     <% end %>
     <% if policy(@task).destroy? %>
       <%= link_to 'Delete', task_path(@task), method: :delete,

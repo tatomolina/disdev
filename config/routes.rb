@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users, only: [:show] # I only permit show route
   resources :work_groups
   resources :stand_ups
   resources :blockers, only: [:show, :new, :create, :edit, :update, :destroy]
