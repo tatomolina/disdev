@@ -41,7 +41,7 @@ class TasksController < ApplicationController
     authorize @task
 		@task.destroy
 
-		redirect_to tasks_path
+		redirect_to stand_ups_path
   end
 private
 

@@ -11,7 +11,7 @@
           <th class="text-center">User</th>
           <th class="text-center">StandUp</th>
         </tr>
-        <%#Show in a table the user email and the last standUp he made%>>
+        <%#Show in a table the user email and the last standUp he made%>
         <% @workGroup.users.each do |user| %>
           <tr>
             <td><%= link_to user.email, user_path(user) %></td>
