@@ -5,11 +5,11 @@ class StandUpPolicy < ApplicationPolicy
   end
 
   def create?
-    record.user == user
+    (record.user == user) && (user.work_group.present?)
   end
 
   def new?
-    user.present?
+    (user.present?) && (user.work_group.present?)
   end
 
   def update?

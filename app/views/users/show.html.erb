@@ -24,7 +24,7 @@
   </div>
 </div>
 <div class="text-center">
-  <% if @user == current_user %>
+  <% if policy(StandUp).new? %>
     <%= link_to 'New', new_stand_up_path, class: "btn btn-primary btn-lg" %>
   <% end %>
 </div>

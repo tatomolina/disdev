@@ -12,18 +12,17 @@ Rails.application.routes.draw do
       root 'static_pages#home', as: :unauthenticated_root
     end
   end
+  root 'static_pages#home'
 
   resources :users, only: [:show] # I only permit show route
   resources :work_groups
   resources :stand_ups
   resources :blockers, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :tasks, only: [:show, :new, :create, :edit, :update, :destroy]
-  root 'stand_ups#index'
 
 get 'home'    => 'static_pages#home'
 get 'help'    => 'static_pages#help'
 get 'about'   => 'static_pages#about'
 get 'contact' => 'static_pages#contact'
 get 'new_user'=> 'static_pages#new_user'
-get 'user'    => 'static_pages#user'
 end

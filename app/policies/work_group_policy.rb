@@ -5,7 +5,7 @@ class WorkGroupPolicy < ApplicationPolicy
   end
 
   def create?
-    record.user == user
+    user.work_group.present? == false 
   end
 
   def new?
