@@ -18,7 +18,7 @@
       <%= link_to 'Delete', stand_up_path(@standUp), method: :delete,
        class: "btn btn-primary btn-lg" %>
     <% end %>
-    <%= link_to 'Back', (request.referrer || stand_ups_path),
+    <%= link_to 'Back', (user_path(@standUp.user)),
      class: "btn btn-primary btn-lg" %>
   </div>
 </div>
