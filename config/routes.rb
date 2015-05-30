@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root 'work_groups#show', as: :authenticated_root
+      root 'root_assignment#assign_root', as: :authenticated_root
     end
 
     unauthenticated do
@@ -20,9 +20,10 @@ Rails.application.routes.draw do
   resources :blockers, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :tasks, only: [:show, :new, :create, :edit, :update, :destroy]
 
-get 'home'    => 'static_pages#home'
-get 'help'    => 'static_pages#help'
-get 'about'   => 'static_pages#about'
-get 'contact' => 'static_pages#contact'
-get 'new_user'=> 'static_pages#new_user'
+  get 'root_assgin' => 'root_assignment#root_assign'
+  get 'home'        => 'static_pages#home'
+  get 'help'        => 'static_pages#help'
+  get 'about'       => 'static_pages#about'
+  get 'contact'     => 'static_pages#contact'
+  get 'new_user'    => 'static_pages#new_user'
 end

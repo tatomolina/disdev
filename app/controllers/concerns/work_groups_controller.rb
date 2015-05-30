@@ -1,15 +1,9 @@
 class WorkGroupsController < ApplicationController
-  skip_after_action :verify_authorized, :only => [:show]
 
 
   def show
-    #Ask this to know if i recive a request to the root-path or y should show
-    #some users page
-    if current_user.work_group.present?
-      @workGroup = WorkGroup.find(current_user.work_group.id)
-    else
-      redirect_to new_user_path
-    end
+    @workGroup = WorkGroup.find(current_user.work_group.id)
+    authorize @workGroup  
   end
 
   def new
