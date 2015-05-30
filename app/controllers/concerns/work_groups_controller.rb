@@ -1,9 +1,13 @@
 class WorkGroupsController < ApplicationController
 
+  def index
+    authorize WorkGroup
+    @workGroups = WorkGroup.search(params[:search])
+  end
 
   def show
     @workGroup = WorkGroup.find(current_user.work_group.id)
-    authorize @workGroup  
+    authorize @workGroup
   end
 
   def new

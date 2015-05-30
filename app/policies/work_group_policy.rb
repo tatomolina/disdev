@@ -4,8 +4,12 @@ class WorkGroupPolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    (user.present?) && (record == user.work_group)
+  end
+
   def create?
-    user.work_group.present? == false 
+    user.work_group.present? == false
   end
 
   def new?
