@@ -26,4 +26,16 @@ class WorkGroupPolicy < ApplicationPolicy
     user.present? && (user.has_role? :admin)
   end
 
+  def manage?
+    (user.present?) && ((user.has_role? :admin) || (user.has_role? :manager))
+  end
+
+  def add_user?
+    (user.present?) && ((user.has_role? :admin) || (user.has_role? :manager))
+  end
+
+  def remove_user?
+    (user.present?) && ((user.has_role? :admin) || (user.has_role? :manager))
+  end
+
 end

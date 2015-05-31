@@ -21,6 +21,11 @@ Rails.application.routes.draw do
   resources :tasks, only: [:show, :new, :create, :edit, :update, :destroy]
 
   get 'root_assgin' => 'root_assignment#root_assign'
+
+  get 'manage'      => 'work_groups#manage'
+  post'add_user'    => 'work_groups#add_user'
+  post'remove_user' => 'work_groups#remove_user'
+
   get 'home'        => 'static_pages#home'
   get 'help'        => 'static_pages#help'
   get 'about'       => 'static_pages#about'

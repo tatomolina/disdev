@@ -2,9 +2,17 @@
 <br/>
 <h1 class="text-center"><%= @workGroup.name %> StandUps:</h1>
 <br/>
+<br/>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    <% if policy(@workGroup).manage? %>
+    <div class="text-center">
+      <%= link_to 'Manage Group', manage_path, class: "btn btn-primary btn-lg" %>
+    </div>
+    <% end %>
+    <br/>
+    <br/>
     <div class="panel">
       <table class="table table-hover text-center">
         <tr>

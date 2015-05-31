@@ -30,6 +30,7 @@ class StandUpsController < ApplicationController
     @standUp = StandUp.new(stand_up_params)
     #Assign the current user to the recent created standUp
     @standUp.user = current_user
+    @standUp.work_group = current_user.work_group
     authorize @standUp
     if @standUp.save
       #redirect to the show view of the recent creates standUp
