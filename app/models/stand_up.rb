@@ -3,8 +3,8 @@ class StandUp < ActiveRecord::Base
   #developing and the colection of blockers than he can have
   belongs_to :user
   belongs_to :work_group
-  has_many :blockers, foreign_key: "stand_up_id", :dependent => :destroy
-  has_many :tasks, foreign_key: "stand_up_id", :dependent => :destroy
+  has_many :blockers, :dependent => :delete_all
+  has_many :tasks, :dependent => :delete_all
 
   accepts_nested_attributes_for :tasks
   accepts_nested_attributes_for :blockers,
