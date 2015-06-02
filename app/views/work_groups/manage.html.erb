@@ -38,7 +38,7 @@
     </div>
     <div class="text-center">
       <% if policy(@workGroup).destroy? %>
-        <%= link_to 'Delete group', task_path(@workGroup), method: :delete,
+        <%= link_to 'Delete group', work_group_path(@workGroup), method: :delete,
          class: "btn btn-primary btn-lg" %>
       <% end %>
     </div>

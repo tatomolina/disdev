@@ -48,9 +48,9 @@ class WorkGroupsController < ApplicationController
   def destroy
 		@workGroup = WorkGroup.find(params[:id])
     authorize @workGroup
-		@workGroup.delete_all
+		@workGroup.destroy
 
-		redirect_to tasks_path
+		redirect_to work_groups_path
   end
 
   def manage
