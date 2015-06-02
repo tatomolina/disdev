@@ -1,7 +1,7 @@
 class WorkGroup < ActiveRecord::Base
   #A work_group is a class that represent group of development with all his members
   has_many :users, :dependent => :nullify
-  has_many :stand_ups, :dependent => :delete_all
+  has_many :stand_ups, :dependent => :destroy
   validates :name, uniqueness: true
 
   # It returns the articles whose titles contain one or more words that form the query

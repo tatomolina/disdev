@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   get 'root_assgin' => 'root_assignment#root_assign'
 
-  get 'manage'      => 'work_groups#manage'
+  get '/work_group/:id/manage', to: 'work_groups#manage', as: 'manage'
   post'add_user'    => 'work_groups#add_user'
   post'remove_user' => 'work_groups#remove_user'
 
