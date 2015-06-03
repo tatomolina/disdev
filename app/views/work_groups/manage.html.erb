@@ -12,17 +12,18 @@
         </tr>
         <%#Show in a table the users%>
         <% @workGroup.users.each do |user| %>
-          <% unless user.has_role? :manager %>
-            <tr>
-              <td><%= link_to user.email, user_path(user) %></td>
-              <td>
+          <tr>
+            <td><%= link_to user.email, user_path(user) %></td>
+            <td>
+              <%# If the user is the manager i cant delete him%>
+              <% unless user.has_role? :manager %>
                 <%= form_tag remove_user_path do %>
                   <%= hidden_field_tag "id", user.id %>
                   <%= submit_tag "Remove" %>
                 <% end %>
-              </td>
-            </tr>
-          <% end %>
+              <% end %>
+            </td>
+          </tr>
         <% end %>
       </table>
     </div>

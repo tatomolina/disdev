@@ -59,23 +59,26 @@ class WorkGroupsController < ApplicationController
   end
 
   def add_user
+    #Looks for a user by the email passed by params
     @user = User.find_by email: params[:email]
+    #if find it, add it to the work group if not flash msg
     if @user.present?
       @user.work_group = WorkGroup.find(params[:workGroup])
       @user.save!
     else
-      flash[:alert] = "nonexistent user"
+      flash[:alert] = "Nonexistent user"
     end
     authorize WorkGroup
-    redirect_to manage_path
+    redirect_to manage_path(params[:id])
   end
 
   def remove_user
+    #Look for the user passed by params and add nil to his workGroup
     @user = User.find(params[:id])
+    authorize WorkGroup
     @user.work_group = nil
     @user.save!
-    authorize WorkGroup
-    redirect_to manage_path
+    redirect_to manage_path(params[:id])
   end
 
   private

@@ -32,5 +32,12 @@
       <br/>Thank You for the inconvenients.
       </p>
     </div>
+    <div class="text-center">
+      <p>
+        <% if policy(WorkGroup).new? %>
+          <%= link_to 'New WorkGroup', new_work_group_path, class: "btn btn-primary" %>
+        <% end %>
+      </p>
+    </div>
   </div>
 </div>

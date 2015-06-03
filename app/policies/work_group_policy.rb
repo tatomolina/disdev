@@ -13,7 +13,7 @@ class WorkGroupPolicy < ApplicationPolicy
   end
 
   def new?
-    user.present?
+    (user.present?) && (user.work_group == nil)
   end
 
   def update?
