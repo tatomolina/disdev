@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531215708) do
+ActiveRecord::Schema.define(version: 20150606152716) do
 
   create_table "blockers", force: true do |t|
     t.string   "title"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20150531215708) do
   end
 
   add_index "blockers", ["stand_up_id"], name: "index_blockers_on_stand_up_id"
+
+  create_table "memberships", id: false, force: true do |t|
+    t.integer  "user_id"
+    t.integer  "work_group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memberships", ["user_id", "work_group_id"], name: "index_memberships_on_user_id_and_work_group_id", unique: true
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id"
+  add_index "memberships", ["work_group_id"], name: "index_memberships_on_work_group_id"
 
   create_table "roles", force: true do |t|
     t.string   "name"

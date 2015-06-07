@@ -5,7 +5,7 @@ class WorkGroupPolicy < ApplicationPolicy
   end
 
   def show?
-    (user.present?) && (record == user.work_group)
+    (user.present?) && (user.member? record)
   end
 
   def create?
@@ -13,7 +13,7 @@ class WorkGroupPolicy < ApplicationPolicy
   end
 
   def new?
-    (user.present?) && (user.work_group == nil)
+    user.present?
   end
 
   def update?

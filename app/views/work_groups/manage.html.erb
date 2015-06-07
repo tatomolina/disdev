@@ -18,7 +18,7 @@
               <%# If the user is the manager i cant delete him%>
               <% unless user.has_role? :manager %>
                 <%= form_tag remove_user_path do %>
-                  <%= hidden_field_tag "id", user.id %>
+                  <%= hidden_field_tag "user_id", user.id %>
                   <%= submit_tag "Remove" %>
                 <% end %>
               <% end %>
@@ -31,7 +31,6 @@
       <p>
         <%# Form for adding users %>
         <%= form_tag add_user_path do %>
-          <%= hidden_field_tag "workGroup", current_user.work_group.id %>
           <%= text_field_tag :email %>
           <%= submit_tag "Add" %>
         <% end %>

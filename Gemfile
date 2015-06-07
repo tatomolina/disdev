@@ -7,6 +7,7 @@ gem 'rails', '4.1.4'
 # Fix the conflict with the system 'rake':
 gem 'rake', '~> 0.9.6'
 
+gem 'composite_primary_keys', '= 7.0.10'
 gem 'pundit', '~> 1.0.0'
 gem 'rolify', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 3.3.4'

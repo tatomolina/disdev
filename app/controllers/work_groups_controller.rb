@@ -6,7 +6,7 @@ class WorkGroupsController < ApplicationController
   end
 
   def show
-    @workGroup = WorkGroup.find(current_user.work_group.id)
+    @workGroup = WorkGroup.find(params[:id])
     authorize @workGroup
   end
 
@@ -19,7 +19,7 @@ class WorkGroupsController < ApplicationController
     @workGroup = WorkGroup.new(work_group_params)
     authorize @workGroup
     if@workGroup.save
-      current_user.work_group = @workGroup
+      current_user.join! @workGroup
       current_user.add_role :manager
       current_user.save
       redirect_to @workGroup
@@ -54,7 +54,7 @@ class WorkGroupsController < ApplicationController
   end
 
   def manage
-    @workGroup = WorkGroup.find(current_user.work_group.id)
+    @workGroup = WorkGroup.find(params[:id])
     authorize @workGroup
   end
 
@@ -63,7 +63,7 @@ class WorkGroupsController < ApplicationController
     @user = User.find_by email: params[:email]
     #if find it, add it to the work group if not flash msg
     if @user.present?
-      @user.work_group = WorkGroup.find(params[:workGroup])
+      @user.join! WorkGroup.find(params[:id])
       @user.save!
     else
       flash[:alert] = "Nonexistent user"
@@ -73,10 +73,10 @@ class WorkGroupsController < ApplicationController
   end
 
   def remove_user
-    #Look for the user passed by params and add nil to his workGroup
-    @user = User.find(params[:id])
+    #Look for the user passed by params and remve it from the group
+    @user = User.find(params[:user_id])
     authorize WorkGroup
-    @user.work_group = nil
+    @user.leave! WorkGroup.find(params[:id])
     @user.save!
     redirect_to manage_path(params[:id])
   end
