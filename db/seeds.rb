@@ -7,8 +7,7 @@ tatoUser = User.new(
 )
 
 tatoUser.add_role :admin
-tatoUser.add_role :manager
-tatoUser.work_group = group
+tatoUser.join! group
 tatoUser.save!
 
 
