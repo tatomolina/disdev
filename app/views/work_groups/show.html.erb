@@ -23,13 +23,15 @@
         <% @workGroup.users.each do |user| %>
           <tr>
             <td><%= link_to user.email, user_path(user) %></td>
-            <%#If the user has not ctreated yet a standUp i should show a msg%>
-            <% if user.stand_ups.present? %>
-              <td><%= link_to user.stand_ups.last.created_at.to_formatted_s(:long),
-              stand_up_path(user.stand_ups.last) %></td>
-            <% else %>
-              <td><p>Hasn't created a standUp yet</p></td>
-            <% end %>
+            <td>
+              <%# Ask if there is a stand up to link, if not show a msg%>
+              <% last_stand_up = user.last_stand_up(@workGroup) %>
+              <% if last_stand_up.present? %>
+                <%= link_to last_stand_up.created_at.to_s(:long), stand_up_path(last_stand_up)%>
+              <% else %>
+                No StandUp Created Yet
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </table>

@@ -20,8 +20,7 @@ class WorkGroupsController < ApplicationController
     authorize @workGroup
     if@workGroup.save
       current_user.join! @workGroup
-      current_user.add_role :manager
-      current_user.save
+      current_user.save!
       redirect_to @workGroup
     else
       render 'new'

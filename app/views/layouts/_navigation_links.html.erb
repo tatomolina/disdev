@@ -11,7 +11,6 @@
       <%# If the user is in a workGroup i show the link to my WorkGroup%>
       <% if current_user.work_groups.present? %>
         <li><%= link_to "WorkGroup", work_groups_path %></li>
-        <li><%= link_to "My StandUp's", user_path(current_user) %></li>
       <% end %>
     </ul>
   </li>

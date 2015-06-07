@@ -1,7 +1,7 @@
 class WorkGroup < ActiveRecord::Base
   #A work_group is a class that represent group of development with all his members
   #has_many :users, :dependent => :nullify
-  has_many :memberships
+  has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
 
 

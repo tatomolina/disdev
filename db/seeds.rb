@@ -7,8 +7,8 @@ tatoUser = User.new(
 )
 
 tatoUser.add_role :admin
-tatoUser.join! group
 tatoUser.save!
+tatoUser.join! group
 
 
 for i in 1..5

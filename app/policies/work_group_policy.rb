@@ -9,7 +9,7 @@ class WorkGroupPolicy < ApplicationPolicy
   end
 
   def create?
-    user.work_group.present? == false
+    user.present?
   end
 
   def new?
