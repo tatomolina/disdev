@@ -20,6 +20,7 @@ class WorkGroupsController < ApplicationController
     authorize @workGroup
     if@workGroup.save
       current_user.join! @workGroup
+      current_user.add_role :owner, @workGroup
       current_user.save!
       redirect_to @workGroup
     else
