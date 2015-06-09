@@ -8,9 +8,13 @@ class User < ActiveRecord::Base
 
   has_many :stand_ups, foreign_key: "user_id"
 
-  # Multiple association with groups
+  # Multiple association with work_groups
   has_many :memberships
   has_many :work_groups, :through => :memberships
+
+  # Multiple association with projects
+  has_many :project_memberships
+  has_many :projects, :through => :project_memberships
 
   def member?(group)
     # Ask if i'm in a especific group
@@ -27,10 +31,10 @@ class User < ActiveRecord::Base
     memberships.find_by("work_group_id = #{group.id}").destroy
   end
 
-  def last_stand_up(group)
+  def last_stand_up(project)
     # Return the last standUp from an user in an especific group
     StandUp.all
-    .where("user_id = #{self.id} AND work_group_id = #{group.id}")
+    .where("user_id = #{self.id} AND work_group_id = #{project.id}")
     .order(:created_at)
     .last
   end

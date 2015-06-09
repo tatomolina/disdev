@@ -18,4 +18,19 @@ class WorkGroup < ActiveRecord::Base
     end
   end
 
+  def member?(user)
+    # Ask if i'm in a especific group
+    memberships.find_by("user_id = #{user.id}").present?
+  end
+
+  def add!(user)
+    # Method to join to an especific group
+    memberships.create!(user: user)
+  end
+
+  def remove!(user)
+    # Method to leave an especific group
+    memberships.find_by("user_id = #{user.id}").destroy
+  end
+
 end

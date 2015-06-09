@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] # I only permit show route
   resources :work_groups
+  resources :projects
   resources :stand_ups, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :blockers, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :tasks, only: [:show, :new, :create, :edit, :update, :destroy]
