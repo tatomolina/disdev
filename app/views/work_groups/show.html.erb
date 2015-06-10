@@ -19,17 +19,17 @@
           <th class="text-center">User</th>
           <th class="text-center">StandUp</th>
         </tr>
-        <%#Show in a table the user email and the last standUp he made%>
-        <% @workGroup.users.each do |user| %>
+        <%#Show in a table the projects avaible and a button to join or leave%>
+        <% @workGroup.projects.each do |project| %>
           <tr>
-            <td><%= link_to user.email, user_path(user) %></td>
             <td>
-              <%# Ask if there is a stand up to link, if not show a msg%>
-              <% last_stand_up = user.last_stand_up(@workGroup) %>
-              <% if last_stand_up.present? %>
-                <%= link_to last_stand_up.created_at.to_s(:long), stand_up_path(last_stand_up)%>
+              <%= link_to project.name, project_path(project) %>
+            </td>
+            <td>
+              <% if project.member? current_user %>
+                <%= link_to "Leave", leave_path(project), :method => :post, class: "btn btn-deafult" %>
               <% else %>
-                No StandUp Created Yet
+                <%= link_to "Join", join_path(project), :method => :post, class: "btn btn-deafult" %>
               <% end %>
             </td>
           </tr>

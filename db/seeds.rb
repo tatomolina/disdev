@@ -10,9 +10,11 @@ tatoUser.add_role :admin
 tatoUser.save!
 tatoUser.join! group
 
+project = Project.create!(name: "Project Example", work_group: group)
+project.add! tatoUser
 
 for i in 1..5
-  stand = StandUp.create!(user: tatoUser, work_group: group);
+  stand = StandUp.create!(user: tatoUser, project: project);
   if i == 5
     i = i + 1;
   end

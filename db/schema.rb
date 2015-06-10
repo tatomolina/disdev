@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609190505) do
+ActiveRecord::Schema.define(version: 20150610011408) do
 
   create_table "blockers", force: true do |t|
     t.string   "title"
@@ -68,11 +68,11 @@ ActiveRecord::Schema.define(version: 20150609190505) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "work_group_id"
+    t.integer  "project_id"
   end
 
+  add_index "stand_ups", ["project_id"], name: "index_stand_ups_on_project_id"
   add_index "stand_ups", ["user_id"], name: "index_stand_ups_on_user_id"
-  add_index "stand_ups", ["work_group_id"], name: "index_stand_ups_on_work_group_id"
 
   create_table "tasks", force: true do |t|
     t.string   "title"

@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
   belongs_to :work_group
-  #has_many :stand_ups, :dependent => :destroy
+  has_many :stand_ups, :dependent => :destroy
   has_many :project_memberships, :dependent => :destroy
   has_many :users, :through => :project_memberships
 

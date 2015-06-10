@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     authorize @project
     @project.remove! current_user
-    redirect_to root_path
+    redirect_to work_group_path(@project.work_group)
   end
 
   private

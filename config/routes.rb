@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   get '/work_groups/:id/stand_ups', to: 'stand_ups#index', as: 'stand_ups_index'
   post '/work_groups/:id/add_user', to: 'work_groups#add_user', as: 'add_user'
   post '/work_groups/:id/remove_user', to: 'work_groups#remove_user', as: 'remove_user'
+  
+  post '/projects/:id/join', to: 'projects#join', as: 'join'
+  post '/projects/:id/leave', to: 'projects#leave', as: 'leave'
 
   get 'home'        => 'static_pages#home'
   get 'help'        => 'static_pages#help'

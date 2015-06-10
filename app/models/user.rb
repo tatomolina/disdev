@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   def last_stand_up(project)
     # Return the last standUp from an user in an especific group
     StandUp.all
-    .where("user_id = #{self.id} AND work_group_id = #{project.id}")
+    .where("user_id = #{self.id} AND project_id = #{project.id}")
     .order(:created_at)
     .last
   end
