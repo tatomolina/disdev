@@ -19,6 +19,7 @@ class StandUpsController < ApplicationController
   def new
     authorize StandUp
     @standUp = StandUp.new
+    @project = Project.find(params[:project_id])
     #Need to show the last stanUp
     @standUps = looking_yesterday(DateTime.current, current_user)
     #I do this so i can show the text fields inside the fields_for
@@ -30,12 +31,20 @@ class StandUpsController < ApplicationController
     @standUp = StandUp.new(stand_up_params)
     #Assign the current user to the recent created standUp
     @standUp.user = current_user
-    @standUp.project = project
+    @project = Project.find(params[:project_id])
+    @standUp.project = @project
     authorize @standUp
     if @standUp.save
       #redirect to the show view of the recent creates standUp
       redirect_to @standUp
     else
+      if @standUp.errors.any?
+        flash[:alert] = "#{@standUp.errors.count} error prohibited this StandUp from being saved: "
+        @standUp.errors.full_messages.each do |msg|
+          flash[:alert] << "#{msg} "
+        end
+      end
+
       #If something go wrongs i need to search for the last standUp to render new
       @standUps = looking_yesterday(DateTime.current, current_user)
       render 'new'
