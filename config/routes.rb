@@ -9,10 +9,10 @@ Rails.application.routes.draw do
     end
 
     unauthenticated do
-      root 'static_pages#home', as: :unauthenticated_root
+      root 'static_pages#unauthenticated', as: :unauthenticated_root
     end
   end
-  root 'static_pages#home'
+  root 'static_pages#unauthenticated'
 
   get 'root_assgin' => 'root_assignment#root_assign'
 
