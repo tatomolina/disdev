@@ -1,6 +1,5 @@
 class StandUp < ActiveRecord::Base
   include PublicActivity::Common
-  #tracked owner: -> (controller, model) { controller && controller.current_user }
 
   #A standUp represent the colection of tasks a user will do during the day
   #developing and the colection of blockers than he can have

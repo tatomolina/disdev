@@ -13,11 +13,13 @@ class ProjectsController < ApplicationController
   def new
     authorize Project
     @project = Project.new
+    @workGroup = WorkGroup.find(params[:work_group])
   end
 
   def create
     @project = Project.new(project_params)
     authorize @project
+    @project.work_group = WorkGroup.find(params[:work_group_id])
     if @project.save
       @project.add! current_user
       current_user.add_role :manager, @project
@@ -70,7 +72,7 @@ class ProjectsController < ApplicationController
 
   	def project_params
       #Permit the name attribute
-  		params.require(:project).permit(:name)
+  		params.require(:project).permit(:name, :work_group_id)
   	end
 
 end
