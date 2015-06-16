@@ -9,7 +9,19 @@
         Last Activities
       </div>
       <div class="panel-body">
-
+        <% @activities.each do |activity| %>
+          <table class="table">
+            <td>
+              <% if(current_user.projects.inject(false) {|result, project| result or project.member? activity.owner })%>
+                <%= link_to activity.owner.username, activity.owner if activity.owner %>
+                <%= render_activity activity %>
+              <% else %>
+                There are no Notifications
+              <% end %>
+            </td>
+          </table>
+        <% end %>
+        <%= will_paginate @activities, renderer: BootstrapPagination::Rails %>
       </div>
     </div>
   </div>
@@ -19,11 +31,13 @@
         Your Projects
       </div>
       <div class="panel-body">
-        <table class="table table-striped">
-          <% current_user.projects.each do |project| %>
-            <%= link_to project.name, project_path(project) %>
-          <% end %>
-        </table>
+        <% current_user.projects.each do |project| %>
+          <table class="table">
+            <td>
+              <%= link_to project.name, project_path(project) %>
+            </td>
+          </table>
+        <% end %>
       </div>
     </div>
   </div>

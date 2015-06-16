@@ -36,21 +36,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def member?(group)
-    # Ask if i'm in a especific group
-    memberships.find_by("work_group_id = #{group.id}").present?
-  end
-
-  def join!(group)
-    # Method to join to an especific group
-    memberships.create!(work_group: group)
-  end
-
-  def leave!(group)
-    # Method to leave an especific group
-    memberships.find_by("work_group_id = #{group.id}").destroy
-  end
-
   def last_stand_up(project)
     # Return the last standUp from an user in an especific group
     StandUp.all

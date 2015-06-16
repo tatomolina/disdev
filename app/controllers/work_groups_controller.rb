@@ -19,7 +19,7 @@ class WorkGroupsController < ApplicationController
     @workGroup = WorkGroup.new(work_group_params)
     authorize @workGroup
     if@workGroup.save
-      current_user.join! @workGroup
+      @workGroup.add! current_user
       current_user.add_role :owner, @workGroup
       current_user.save!
       redirect_to @workGroup
@@ -63,8 +63,7 @@ class WorkGroupsController < ApplicationController
     @user = User.find_by email: params[:email]
     #if find it, add it to the work group if not flash msg
     if @user.present?
-      @user.join! WorkGroup.find(params[:id])
-      @user.save!
+      WorkGroup.find(params[:id]).add! @user
     else
       flash[:alert] = "Nonexistent user"
     end

@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     authorize @project
-    if@project.save
+    if @project.save
       @project.add! current_user
       current_user.add_role :manager, @project
       redirect_to @project

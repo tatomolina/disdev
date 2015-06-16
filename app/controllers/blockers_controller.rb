@@ -16,6 +16,7 @@ class BlockersController < ApplicationController
 		@blocker = Blocker.new(blocker_params)
     authorize @blocker
 		@blocker.save!
+    @blocker.create_activity :create, owner: current_user
 		redirect_to @blocker
   end
 
@@ -29,6 +30,7 @@ class BlockersController < ApplicationController
     authorize @blocker
 
 		if @blocker.update(blocker_params)
+    @blocker.create_activity :update, owner: current_user
 			redirect_to @blocker
 		else
 			render 'edit'
@@ -39,6 +41,7 @@ class BlockersController < ApplicationController
 		@blocker = Blocker.find(params[:id])
     authorize @blocker
 		@blocker.destroy
+    @blocker.create_activity :destroy, owner: current_user
 
 		redirect_to stand_ups_path
   end

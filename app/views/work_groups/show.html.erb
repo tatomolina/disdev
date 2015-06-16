@@ -1,6 +1,6 @@
 <% provide(:title, "WorkGroup") %>
 <br/>
-<h1 class="text-center"><%= @workGroup.name %> StandUps:</h1>
+<h1 class="text-center"><%= @workGroup.name %></h1>
 <br/>
 <br/>
 
@@ -16,8 +16,8 @@
     <div class="panel">
       <table class="table table-hover text-center">
         <tr>
-          <th class="text-center">User</th>
-          <th class="text-center">StandUp</th>
+          <th class="text-center">Projects</th>
+          <th class="text-center">Options</th>
         </tr>
         <%#Show in a table the projects avaible and a button to join or leave%>
         <% @workGroup.projects.each do |project| %>
@@ -27,14 +27,17 @@
             </td>
             <td>
               <% if project.member? current_user %>
-                <%= link_to "Leave", leave_path(project), :method => :post, class: "btn btn-deafult" %>
+                <%= link_to "Leave", leave_path(project), :method => :post, class: "btn btn-primary" %>
               <% else %>
-                <%= link_to "Join", join_path(project), :method => :post, class: "btn btn-deafult" %>
+                <%= link_to "Join", join_path(project), :method => :post, class: "btn btn-primary" %>
               <% end %>
             </td>
           </tr>
         <% end %>
       </table>
+    </div>
+    <div class="text-center">
+      <%= link_to 'New Project', new_project_path, class: "btn btn-primary"%>
     </div>
   </div>
 </div>

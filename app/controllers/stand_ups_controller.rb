@@ -35,6 +35,7 @@ class StandUpsController < ApplicationController
     @standUp.project = @project
     authorize @standUp
     if @standUp.save
+      @standUp.create_activity :create, owner: current_user
       #redirect to the show view of the recent creates standUp
       redirect_to @standUp
     else
@@ -63,6 +64,7 @@ class StandUpsController < ApplicationController
     authorize @standUp
 
     if @standUp.update(stand_up_params)
+      @standUp.create_activity :update, owner: current_user
       redirect_to @standUp
     else
       #If something go wrongs i need to search for the last standUp to render edit
@@ -75,6 +77,7 @@ class StandUpsController < ApplicationController
 		@standUp = StandUp.find(params[:id])
     authorize @standUp
 		@standUp.destroy
+    @standUp.create_activity :destroy, owner: current_user
 
 		redirect_to stand_ups_path
   end
