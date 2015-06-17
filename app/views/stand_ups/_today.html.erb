@@ -7,14 +7,21 @@
   </div>
 
   <div class="panel-body">
-    <ul class="nav nav-pills nav-stacked text-center">
-      <% @standUp.tasks.each do |task| %>
-        <li><%= link_to task.title, task_path(task) %></li>
-      <% end %>
-    </ul>
+      <table class="table table-hover">
+        <% @standUp.tasks.each do |task| %>
+          <tr>
+            <td>
+              <div class="text-center">
+                <%= task.description %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
   </div>
 </div>
 
+<% if @standUp.blockers.any? %>
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="text-center panel-title">Blockers</h3>
@@ -28,3 +35,4 @@
     </ul>
   </div>
 </div>
+<% end %>

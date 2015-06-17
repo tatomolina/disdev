@@ -13,7 +13,7 @@ class StandUpsController < ApplicationController
     @standUp = StandUp.find(params[:id])
     authorize @standUp
     #Look for the last two standUp's
-    @standUps = looking_yesterday(@standUp.created_at, @standUp.user)
+    @standUps = looking_yesterday(@standUp.created_at, @standUp.user, @standUp.project)
   end
 
   def new
@@ -21,7 +21,7 @@ class StandUpsController < ApplicationController
     @standUp = StandUp.new
     @project = Project.find(params[:project_id])
     #Need to show the last stanUp
-    @standUps = looking_yesterday(DateTime.current, current_user)
+    @standUps = looking_yesterday(DateTime.current, current_user, @project)
     #I do this so i can show the text fields inside the fields_for
     @standUp.tasks.build
     @standUp.blockers.build
@@ -47,7 +47,7 @@ class StandUpsController < ApplicationController
       end
 
       #If something go wrongs i need to search for the last standUp to render new
-      @standUps = looking_yesterday(DateTime.current, current_user)
+      @standUps = looking_yesterday(DateTime.current, current_user, @standUp.project)
       render 'new'
     end
   end
@@ -56,7 +56,7 @@ class StandUpsController < ApplicationController
     @standUp = StandUp.find(params[:id])
     authorize @standUp
     #Look for the last two standUp's
-    @standUps = looking_yesterday(@standUp.created_at, @standUp.user)
+    @standUps = looking_yesterday(@standUp.created_at, @standUp.user, @standUp.project)
   end
 
   def update
@@ -68,7 +68,7 @@ class StandUpsController < ApplicationController
       redirect_to @standUp
     else
       #If something go wrongs i need to search for the last standUp to render edit
-      @standUps = looking_yesterday(@standUp.created_at, @standUp.user)
+      @standUps = looking_yesterday(@standUp.created_at, @standUp.user, @standUp.project)
       render 'edit'
     end
   end
@@ -84,17 +84,17 @@ class StandUpsController < ApplicationController
 
   private
 
-  def looking_yesterday(date, user)
+  def looking_yesterday(date, user, project)
     #Search for the last two standUp's
-    StandUp.where("user_id = :user AND created_at <= :stand_date",
-    {user: user, stand_date: date})
+    StandUp.where("user_id = :user AND created_at <= :stand_date AND project_id = :project",
+    {user: user, stand_date: date, project: project})
     .order(created_at: :desc)
     .limit(2)
   end
 
   def stand_up_params
     #Permit the tasks and blockers attributes that came inside the fields_for
-    params.require(:stand_up).permit(tasks_attributes: [:title, :description, :id],
+    params.require(:stand_up).permit(tasks_attributes: [:description, :id],
     blockers_attributes: [:title, :description, :id])
   end
 end

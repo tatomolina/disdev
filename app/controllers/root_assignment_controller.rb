@@ -5,7 +5,7 @@ class RootAssignmentController < ApplicationController
     #Ask this to know if i recive a request to the root-path or y should show
     #some users page
     if current_user.work_groups.present?
-      redirect_to user_path(current_user)
+      redirect_to home_path
     else
       redirect_to new_user_path
     end

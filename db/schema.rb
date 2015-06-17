@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614151722) do
+ActiveRecord::Schema.define(version: 20150617134810) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -92,8 +92,7 @@ ActiveRecord::Schema.define(version: 20150614151722) do
   add_index "stand_ups", ["user_id"], name: "index_stand_ups_on_user_id"
 
   create_table "tasks", force: true do |t|
-    t.string   "title"
-    t.text     "description"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "stand_up_id"

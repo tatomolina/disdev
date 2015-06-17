@@ -18,7 +18,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] # I only permit show route
   resources :blockers, except: [:index] # Dont want an index route
-  resources :tasks, except: [:index] # Dont want an index route
   resources :work_groups
 
   get '/work_groups/:id/manage', to: 'work_groups#manage', as: 'manage'

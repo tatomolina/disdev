@@ -9,3 +9,10 @@
     </ul>
   </li>
 <% end %>
+<% if current_user.present? %>
+  <% if current_user.has_role? :admin %>
+    <li>
+      <%= link_to 'Admin', "/admin" %>
+    </li>
+  <% end %>
+<% end %>

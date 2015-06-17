@@ -5,6 +5,9 @@ skip_after_action :verify_authorized
     @activities = PublicActivity::Activity
     .paginate(:page => params[:page], :per_page => 5)
     .order("created_at desc")
+    @projects = current_user.projects
+    .paginate(:page => params[:page], :per_page => 4)
+    .order("created_at desc")
   end
 
   def help

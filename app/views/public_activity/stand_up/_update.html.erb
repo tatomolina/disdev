@@ -1,6 +1,8 @@
 updated stanUp
 <% if activity.trackable %>
   <%= link_to activity.trackable.created_at.to_s(:long), activity.trackable %>
+  in the project
+  <%= link_to activity.trackable.project.name, activity.trackable.project %>
 <% else %>
   <%= wich has since been remove %>
 <% end %>

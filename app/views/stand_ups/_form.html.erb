@@ -11,10 +11,8 @@
       <%# Creates a fields_for to request for attributes of task%>
       <%= form.fields_for :tasks do |task| %>
         <div class="form-group">
-          <%= task.label :title %>
-          <%= task.text_field :title, class: "form-control" %><br/>
           <%= task.label :description %>
-          <%= task.text_area :description, class: "form-control" %>
+          <%= task.text_field :description, class: "form-control" %>
         </div>
       <% end %>
     </div>

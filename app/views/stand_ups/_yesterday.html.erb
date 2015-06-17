@@ -7,42 +7,68 @@
     </div>
 
     <div class="panel-body">
-      <ul class="nav nav-pills nav-stacked text-center">
+      <table class="table table-hover">
         <% if @standUps.size > 1 #Do this to check if it is the first standUp %>
-          <% if @standUp.created_at == nil #check if i am on new%>
+          <% if @standUp.created_at == nil #check if I am on new%>
             <% @standUps.first.tasks.each do |task| %>
-              <li><%= link_to task.title, task_path(task) %></li>
+              <tr>
+                <td>
+                  <div class="text-center">
+                    <%= task.description %>
+                  </div>
+                </td>
+              </tr>
             <% end %>
           <% else %>
             <% @standUps.second.tasks.each do |task| %>
-              <li><%= link_to task.title, task_path(task) %></li>
+              <tr>
+                <td>
+                  <div class="text-center">
+                    <%= task.description %>
+                  </div>
+                </td>
+              </tr>
             <% end %>
           <% end %>
         <% end %>
-      </ul>
+      </table>
     </div>
   </div>
 
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="text-center panel-title">Blockers</h3>
-    </div>
+  <% if @standUps.size > 1 #Do this to check if it is the first standUp %>
+    <% if @standUp.created_at == nil #check if I am on new%>
+      <% if @standUps.first.blockers.any? #check if there is any blocker present%>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="text-center panel-title">Blockers</h3>
+          </div>
 
-    <div class="panel-body">
-      <ul class="nav nav-pills nav-stacked text-center">
-        <% if @standUps.size > 1 #Do this to check if it is the first standUp %>
-          <% if @standUp.created_at == nil #check if i am on new%>
-            <% @standUps.first.blockers.each do |blocker| %>
-              <li><%= link_to blocker.title, blocker_path(blocker) %></li>
-            <% end %>
-          <% else %>
+          <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked text-center">
+              <% @standUps.first.blockers.each do |blocker| %>
+                <li><%= link_to blocker.title, blocker_path(blocker) %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+    <% if @standUps.second.blockers.any? #check if there is any blocker present%>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="text-center panel-title">Blockers</h3>
+        </div>
+
+        <div class="panel-body">
+          <ul class="nav nav-pills nav-stacked text-center">
             <% @standUps.second.blockers.each do |blocker| %>
               <li><%= link_to blocker.title, blocker_path(blocker) %></li>
             <% end %>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
-  </div>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+    <% end %>
+  <% end %>
 
 </div>
