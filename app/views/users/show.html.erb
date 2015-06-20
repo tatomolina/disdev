@@ -1,8 +1,30 @@
 <div class="row">
+  <br>
   <div class="col-md-2">
-    <h1><%= @user.username %></h1>
-    <h2><%= @user.email %></h2>
+    <%= image_tag avatar_url(@user) %>
+    <% if @user.profile.first_name.present? and @user.profile.last_name.present? %>
+      <h3><%= @user.profile.first_name + " " + @user.profile.last_name %>
+      <small>(<%= @user.username %>)</small>
+      </h3>
+      <h4><%= @user.email %></h4>
+    <% else %>
+      <h3><%= @user.username %></h3>
+      <h4><%= @user.email %></h4>
+    <% end %>
+    <p>Member Since <%= @user.created_at.to_date.to_s(:long) %></p>
+    <p>
+      <% if @user == current_user or current_user.has_role? :admin %>
+        <%= link_to 'Edit Registration', edit_user_registration_path(@user) %>
+      <% end %>
+    </p>
+    <p>
+      <% if policy(@user.profile).update? %>
+        <%= link_to 'Edit Profile', edit_profile_path(@user.profile) %>
+      <% end %>
+    </p>
+
   </div>
+
   <div class="col-md-10">
 
 

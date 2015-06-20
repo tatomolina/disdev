@@ -82,6 +82,7 @@ class WorkGroupsController < ApplicationController
   def request_for_join
     work_group = WorkGroup.find(params[:work_group_id])
     owners = User.with_role :owner, work_group
+    authorize work_group
 
     subject = "Request for Join"
     body = "The user #{current_user.email} is asking to join him to the #{work_group.name} WorkGroup"

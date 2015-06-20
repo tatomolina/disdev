@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   end
   root 'static_pages#unauthenticated'
 
+  get '/profile/edit', to: 'profiles#edit', as: 'edit_profile'
+  patch '/profile',    to: 'profiles#update'
+
   get 'root_assgin' => 'root_assignment#root_assign'
 
   resources :users, only: [:show] # I only permit show route

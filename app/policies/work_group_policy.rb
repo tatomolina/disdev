@@ -38,4 +38,8 @@ class WorkGroupPolicy < ApplicationPolicy
     (user.present?) && ((user.has_role? :admin) || (user.has_role? :manager))
   end
 
+  def request_for_join?
+    (user.present?) && ((user.has_role? :admin) || (not record.member? user))
+  end
+
 end

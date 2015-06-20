@@ -18,9 +18,11 @@
                 <%= workGroup.name %>
               </td>
               <td>
-                <%= form_tag request_for_join_path do %>
-                  <%= hidden_field_tag :work_group_id, workGroup.id %>
-                  <%= submit_tag "Request for Join", class: "btn btn-primary" %>
+                <% if policy(workGroup).request_for_join? %>
+                  <%= form_tag request_for_join_path do %>
+                    <%= hidden_field_tag :work_group_id, workGroup.id %>
+                    <%= submit_tag "Request for Join", class: "btn btn-primary" %>
+                  <% end %>
                 <% end %>
               </td>
             </tr>
@@ -32,14 +34,7 @@
         <% end %>
       </table>
     </div>
-    <div class="text-center">
-      <p><br/>
-      <br/>
-      <br/>
-      We are working on a request for join button
-      <br/>Thank You for the inconvenients.
-      </p>
-    </div>
+
     <div class="text-center">
       <p>
         <% if policy(WorkGroup).new? %>
