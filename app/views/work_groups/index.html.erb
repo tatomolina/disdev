@@ -14,7 +14,15 @@
         <% if @workGroups.present? %>
           <% @workGroups.each do |workGroup| %>
             <tr>
-              <td><%= workGroup.name %></td>
+              <td>
+                <%= workGroup.name %>
+              </td>
+              <td>
+                <%= form_tag request_for_join_path do %>
+                  <%= hidden_field_tag :work_group_id, workGroup.id %>
+                  <%= submit_tag "Request for Join", class: "btn btn-primary" %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         <% else %>

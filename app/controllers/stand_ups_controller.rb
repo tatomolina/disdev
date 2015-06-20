@@ -35,8 +35,9 @@ class StandUpsController < ApplicationController
     @standUp.project = @project
     authorize @standUp
     if @standUp.save
+      # Creates an activity to then show as a notification
       @standUp.create_activity :create, owner: current_user
-      #redirect to the show view of the recent creates standUp
+      # redirect to the show view of the recent creates standUp
       redirect_to @standUp
     else
       if @standUp.errors.any?
@@ -63,7 +64,8 @@ class StandUpsController < ApplicationController
     @standUp = StandUp.find(params[:id])
     authorize @standUp
 
-    if @standUp.update(stand_up_params)
+    if @standUp.update(stand_up_params)  
+      # Creates an activity to then show as a notification
       @standUp.create_activity :update, owner: current_user
       redirect_to @standUp
     else

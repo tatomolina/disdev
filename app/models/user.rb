@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  acts_as_messageable
+
   validates :username,
   :presence => true,
   :uniqueness => {
@@ -42,6 +44,18 @@ class User < ActiveRecord::Base
     .where("user_id = #{self.id} AND project_id = #{project.id}")
     .order(:created_at)
     .last
+  end
+
+  def name
+    self.username
+  end
+
+  def mailboxer_email(object)
+    if object.class == Mailboxer::Notification
+      nil
+    else
+      self.email
+    end
   end
 
 end

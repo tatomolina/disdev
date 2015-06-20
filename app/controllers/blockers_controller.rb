@@ -16,6 +16,7 @@ class BlockersController < ApplicationController
 		@blocker = Blocker.new(blocker_params)
     authorize @blocker
 		@blocker.save!
+    # Creates an activity to then show as a notification
     @blocker.create_activity :create, owner: current_user
 		redirect_to @blocker
   end
@@ -30,7 +31,8 @@ class BlockersController < ApplicationController
     authorize @blocker
 
 		if @blocker.update(blocker_params)
-    @blocker.create_activity :update, owner: current_user
+      # Creates an activity to then show as a notification
+      @blocker.create_activity :update, owner: current_user
 			redirect_to @blocker
 		else
 			render 'edit'

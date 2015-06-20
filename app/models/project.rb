@@ -1,4 +1,7 @@
 class Project < ActiveRecord::Base
+
+  resourcify
+
   belongs_to :work_group
   has_many :stand_ups, :dependent => :destroy
   has_many :project_memberships, :dependent => :destroy

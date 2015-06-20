@@ -75,9 +75,21 @@ class WorkGroupsController < ApplicationController
     #Look for the user passed by params and remve it from the group
     @user = User.find(params[:user_id])
     authorize WorkGroup
-    @user.leave! WorkGroup.find(params[:id])
-    @user.save!
+    WorkGroup.find(params[:id]).remove! @user
     redirect_to manage_path(params[:id])
+  end
+
+  def request_for_join
+    work_group = WorkGroup.find(params[:work_group_id])
+    owners = User.with_role :owner, work_group
+
+    subject = "Request for Join"
+    body = "The user #{current_user.email} is asking to join him to the #{work_group.name} WorkGroup"
+    owners.each do |owner|
+      owner.notify(subject, body, current_user)
+    end
+
+    redirect_to work_groups_path
   end
 
   private

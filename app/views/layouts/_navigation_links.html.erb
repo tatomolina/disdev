@@ -1,15 +1,38 @@
-<%# add navigation links to this file %>
-
 <% if current_user.present? %>
+
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">WorkGroup <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
       <li><%= link_to "Search", work_groups_path %></li>
-
+      <li role="separator" class="divider"></li>
+      <% current_user.work_groups.order(created_at: :desc).limit(3).each do |group| %>
+        <li>
+          <%= link_to group.name, group %>
+        </li>
+      <% end %>
+      <li role="separator" class="divider"></li>
+      <li>
+        <%= link_to 'Create WorkGroup', new_work_group_path %>
+      </li>
     </ul>
   </li>
-<% end %>
-<% if current_user.present? %>
+
+  
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+      <% current_user.projects.order(created_at: :desc).limit(3).each do |project| %>
+        <li>
+          <%= link_to "#{project.work_group.name}/#{project.name}", project %>
+        </li>
+      <% end %>
+      <li role="separator" class="divider"></li>
+      <li>
+        <%= link_to 'Create Project', new_project_path %>
+      </li>
+    </ul>
+  </li>
+
   <% if current_user.has_role? :admin %>
     <li>
       <%= link_to 'Admin', "/admin" %>

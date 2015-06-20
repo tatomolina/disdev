@@ -34,6 +34,27 @@
     </div>
     <div class="text-center">
       <%= link_to 'New WorkGroup', new_work_group_path, class: "btn btn-primary" %>
+  <br/>
+  <br/>
+    </div>
+  </div>
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Messages
+      </div>
+      <div class="panel-body">
+      <table class="table">
+      <% @user.mailbox.notifications.each do |notification| %>
+        <tr>
+        <td>
+          <%= notification.subject %><br>
+          <%= notification.body %>
+        </td>
+        </tr>
+      <% end %>
+      </table>
+      </div>
     </div>
   </div>
 </div>

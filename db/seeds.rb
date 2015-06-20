@@ -1,17 +1,17 @@
 group = WorkGroup.create!(:name => "Example")
 
-tatoUser = User.new(
-  :username              => "tato",
+tatoUser = User.create!(
+  :username              => "Tato",
   :email                 => "tato@example.com",
   :password              => "12345678",
   :password_confirmation => "12345678"
 )
 
+tatoUser.add_role :owner, group
 tatoUser.add_role :admin
-tatoUser.save!
 group.add! tatoUser
 
-project = Project.create!(name: "Project Example", work_group: group)
+project = Project.create!(name: "Example", work_group: group)
 project.add! tatoUser
 
 for i in 1..5
@@ -24,8 +24,8 @@ for i in 1..5
 
   Blocker.create!(title: 'First Blocker ' + i.to_s,   description: 'First Super Block! ' + i.to_s,   stand_up: stand);
   Blocker.create!(title: 'Second Blocker ' + i.to_s,  description: 'Second Super Block! ' + i.to_s,  stand_up: stand);
-  Task.create!(title: 'First Task ' + i.to_s,  description: 'First Super Task! ' + i.to_s,  stand_up: stand);
-  Task.create!(title: 'Second Task ' + i.to_s, description: 'Second Super Task! ' + i.to_s, stand_up: stand);
+  Task.create!(description: 'First Super Task! ' + i.to_s,  stand_up: stand);
+  Task.create!(description: 'Second Super Task! ' + i.to_s, stand_up: stand);
 end
 
 activities = PublicActivity::Activity.all
