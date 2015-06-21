@@ -10,6 +10,21 @@ class WorkGroupsController < ApplicationController
     authorize @workGroup
   end
 
+  def show_projects
+    @workGroup = WorkGroup.find(params[:id])
+    authorize @workGroup
+  end
+
+  def show_chat
+    @workGroup = WorkGroup.find(params[:id])
+    authorize @workGroup
+  end
+
+  def show_manage
+    @workGroup = WorkGroup.find(params[:id])
+    authorize @workGroup
+  end
+
   def new
     authorize WorkGroup
     @workGroup = WorkGroup.new
@@ -53,11 +68,6 @@ class WorkGroupsController < ApplicationController
 		redirect_to work_groups_path
   end
 
-  def manage
-    @workGroup = WorkGroup.find(params[:id])
-    authorize @workGroup
-  end
-
   def add_user
     #Looks for a user by the email passed by params
     @user = User.find_by email: params[:email]
@@ -68,7 +78,7 @@ class WorkGroupsController < ApplicationController
       flash[:alert] = "Nonexistent user"
     end
     authorize WorkGroup
-    redirect_to manage_path(params[:id])
+    redirect_to work_group_manage_path(params[:id])
   end
 
   def remove_user
@@ -76,7 +86,7 @@ class WorkGroupsController < ApplicationController
     @user = User.find(params[:user_id])
     authorize WorkGroup
     WorkGroup.find(params[:id]).remove! @user
-    redirect_to manage_path(params[:id])
+    redirect_to work_group_manage_path(params[:id])
   end
 
   def request_for_join
@@ -86,12 +96,18 @@ class WorkGroupsController < ApplicationController
 
     subject = "Request for Join"
     body = "The user #{current_user.email} is asking to join him to the #{work_group.name} WorkGroup"
+    receipts = []
     owners.each do |owner|
-      owner.notify(subject, body, current_user)
+      receipts << owner.notify(subject, body, current_user)
     end
-
+    if Mailboxer::Notification.successful_delivery?(receipts)
+      flash[:notice] = "Request sent to the owners group"
+    else
+      flash[:alert] = "An error ocurred, try again later"
+    end
     redirect_to work_groups_path
   end
+
 
   private
 

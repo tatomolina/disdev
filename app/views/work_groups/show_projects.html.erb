@@ -1,0 +1,67 @@
+<% provide(:title, "WorkGroup") %>
+
+<div class="row">
+  <br>
+  <div class="col-md-2">
+    <%= render 'work_group_profile' %>
+  </div>
+  <div class="col-md-10">
+    <%= render 'work_group_navbar' %>
+    <br>
+    <br>
+    <table class="table table-hover">
+      <tr>
+        <th>Project</th>
+        <th>Manager</th>
+        <th>Product Owner</th>
+        <th>Scrum Master</th>
+        <th></th>
+      </tr>
+      <% @workGroup.projects.each do |project| %>
+      <tr>
+        <td>
+          <%= link_to project.name, project_path(project) %>
+        </td>
+        <td>
+          <% if (User.with_role :manager, project).any? %>
+            <% (User.with_role :manager, project).each do |user| %>
+              <%= link_to user.username, user_path(user)%>
+            <% end %>
+          <% else %>
+            <p>
+              No Manager assigned
+            </p>
+          <% end %>
+        </td>
+        <td>
+          <% if (User.with_role :product_owner, project).any? %>
+            <% (User.with_role :product_owner, project).each do |user| %>
+              <%= link_to user.username, user_path(user)%>
+            <% end %>
+          <% else %>
+            <p>
+              No Product Owner assigned
+            </p>
+          <% end %>
+        </td>
+        <td>
+          <% if (User.with_role :scrum_master, project).any? %>
+            <% (User.with_role :scrum_master, project).each do |user| %>
+              <%= link_to user.username, user_path(user)%>
+            <% end %>
+          <% else %>
+            <p>
+              No Product Owner assigned
+            </p>
+          <% end %>
+        </td>
+        <td>
+          <% if policy(project).destroy? %>
+            <%= link_to 'Delete', project_path(project), method: :delete %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
