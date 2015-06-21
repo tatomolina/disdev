@@ -1,5 +1,6 @@
 class Blocker < ActiveRecord::Base
-  include PublicActivity::Common
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller && controller.current_user }
 
   #Blockers are the problems that the user may encounter developing their apps
   # and they will describe them in here

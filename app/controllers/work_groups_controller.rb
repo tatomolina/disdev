@@ -7,6 +7,9 @@ class WorkGroupsController < ApplicationController
 
   def show
     @workGroup = WorkGroup.find(params[:id])
+    @activities = PublicActivity::Activity
+    .paginate(:page => params[:page], :per_page => 5)
+    .order("created_at desc")
     authorize @workGroup
   end
 

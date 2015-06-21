@@ -4,26 +4,28 @@
 
 <div class="row">
   <div class="col-md-7 col-md-offset-1">
-    <% @activities.each do |activity| %>
-      <table class="table">
-        <% if(current_user.projects.inject(false) {|result, project| result or project.member? activity.owner }) %>
-          <td>
-            <div class="row">
-              <div class="col-md-1">
-                <%= image_tag avatar_url(activity.owner) %>
+    <table class="table">
+      <% @activities.each do |activity| %>
+        <tr>
+          <% if(current_user.projects.inject(false) {|result, project| result or project.member? activity.owner }) %>
+            <td>
+              <div class="row">
+                <div class="col-md-1">
+                  <%= image_tag avatar_url(activity.owner) %>
+                </div>
+                <%= distance_of_time_in_words( activity.created_at, DateTime.current) %> ago.<br/>
+                <%= link_to activity.owner.username, activity.owner if activity.owner %>
+                <%= render_activity activity %>
               </div>
-              <%= distance_of_time_in_words( activity.created_at, DateTime.current) %> ago.<br/>
-              <%= link_to activity.owner.username, activity.owner if activity.owner %>
-              <%= render_activity activity %>
-            </div>
-          </td>
-        <% end %>
-      </table>
-    <% end %>
+            </td>
+          <% end %>
+      </tr>
+      <% end %>
+    </table>
     <%= will_paginate @activities, renderer: BootstrapPagination::Rails %>
   </div>
   <div class="col-md-3">
-    <div class="panel panel-primary">
+    <div class="panel panel-default">
       <div class="panel-heading">
         Your Projects
       </div>

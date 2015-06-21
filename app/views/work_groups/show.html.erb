@@ -7,32 +7,34 @@
   </div>
   <div class="col-md-10">
     <%= render 'work_group_navbar' %>
-
-    <div class="panel">
-      <table class="table table-hover text-center">
-        <tr>
-          <th class="text-center">Projects</th>
-          <th class="text-center">Options</th>
-        </tr>
-        <%#Show in a table the projects avaible and a button to join or leave%>
-        <% @workGroup.projects.each do |project| %>
+    <% @group_activities = [] %>
+    <% @activities.each do |activity| %>
+        <% if activity.trackable.try(:project).try(:work_group) == @workGroup || activity.trackable.try(:stand_up).try(:project).try(:work_group) == @workGroup %>
+          <% @group_activities << activity %>
+        <% end %>
+    <% end %>
+    <% if @group_activities.any? %>
+      <table class="table">
+        <% @group_activities.each do |group_activity| %>
           <tr>
             <td>
-              <%= link_to project.name, project_path(project) %>
-            </td>
-            <td>
-              <% if project.member? current_user %>
-                <%= link_to "Leave", leave_path(project), :method => :post, class: "btn btn-primary" %>
-              <% else %>
-                <%= link_to "Join", join_path(project), :method => :post, class: "btn btn-primary" %>
-              <% end %>
+              <div class="row">
+                <div class="col-md-1">
+                  <%= image_tag avatar_url(group_activity.owner) %>
+                </div>
+                <%= distance_of_time_in_words( group_activity.created_at, DateTime.current) %> ago.<br/>
+                <%= link_to group_activity.owner.username, group_activity.owner if group_activity.owner %>
+                <%= render_activity group_activity %>
+              </div>
             </td>
           </tr>
         <% end %>
       </table>
-    </div>
-    <div class="text-center">
-      <%= link_to 'New Project', new_project_path(:work_group => @workGroup.id), class: "btn btn-primary"%>
-    </div>
+      <%= will_paginate @activities, renderer: BootstrapPagination::Rails %>
+    <% else %>
+      <h3>
+        There's nothing new
+      </h3>
+    <% end %>
   </div>
 </div>
