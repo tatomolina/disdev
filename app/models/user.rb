@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   end
 
   def mailboxer_name
-    self.username
+    self.name
   end
 
   def mailboxer_email(object)

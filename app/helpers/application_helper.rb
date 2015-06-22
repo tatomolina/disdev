@@ -23,4 +23,8 @@ module ApplicationHelper
     "http://gravatar.com/avatar/#{gravatar_id}.png?d=#{CGI.escape(default_url)}"
   end
 
+  def active_page(active_page)
+    @active == active_page ? "active" : ""
+  end
+
 end
