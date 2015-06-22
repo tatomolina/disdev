@@ -40,8 +40,14 @@ class WorkGroupsController < ApplicationController
       @workGroup.add! current_user
       current_user.add_role :owner, @workGroup
       current_user.save!
+      flash[:notice] = "WorkGroup succesfully edited"
       redirect_to @workGroup
     else
+      flash[:alert] = "#{@workGroup.errors.count} errors prohibited this workGroup from being saved: "
+      @workGroup.errors.full_messages.each do |msg|
+        flash[:alert] << "#{msg}"
+        flash[:alert] << ", " unless @workGroup.errors.full_messages.last == msg
+      end
       render 'new'
     end
   end
@@ -56,9 +62,18 @@ class WorkGroupsController < ApplicationController
     authorize @workGroup
 
 		if @workGroup.update(work_group_params)
-			redirect_to @workGroup
+      # Show a msg and then redirect to manage again
+      flash[:notice] = "WorkGroup succesfully edited"
+			redirect_to work_group_manage_path(@workGroup)
 		else
-      #If i cant update, i render again the edit view
+      # If I cant update, I show a msg and render again the edit view
+      if @workGroup.errors.any?
+        flash[:alert] = "#{@workGroup.errors.count} errors prohibited this workGroup from being saved: "
+        @workGroup.errors.full_messages.each do |msg|
+          flash[:alert] << "#{msg}"
+          flash[:alert] << ", " unless @workGroup.errors.full_messages.last == msg
+        end
+      end
 			render 'edit'
 		end
   end

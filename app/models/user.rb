@@ -52,16 +52,12 @@ class User < ActiveRecord::Base
     .last
   end
 
-  def name
+  def mailboxer_name
     self.username
   end
 
   def mailboxer_email(object)
-    if object.class == Mailboxer::Notification
-      nil
-    else
-      self.email
-    end
+    self.email
   end
 
   def create_profile

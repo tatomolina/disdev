@@ -8,7 +8,14 @@ class WorkGroup < ActiveRecord::Base
   has_many :projects, :dependent => :destroy
 
   has_many :stand_ups, :dependent => :destroy
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true,
+    length: {
+      minimum: 1,
+      maximum: 20,
+      tokenizer: lambda { |str| str.scan(/\w+/) },
+      too_short: "Must have at least %{count} words",
+      too_long: "Must have at most %{count} words"
+    }
 
   # It returns the articles whose titles contain one or more words that form the query
   def self.search(search)

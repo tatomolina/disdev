@@ -19,11 +19,6 @@
           <tr>
             <td>
               <div class="row">
-                <div class="col-md-1">
-                  <%= image_tag avatar_url(group_activity.owner) %>
-                </div>
-                <%= distance_of_time_in_words( group_activity.created_at, DateTime.current) %> ago.<br/>
-                <%= link_to group_activity.owner.username, group_activity.owner if group_activity.owner %>
                 <%= render_activity group_activity %>
               </div>
             </td>

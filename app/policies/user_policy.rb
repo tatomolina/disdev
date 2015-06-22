@@ -8,7 +8,4 @@ class UserPolicy < ApplicationPolicy
     user.present?
   end
 
-  def show_messages?
-    user.present? && record == user
-  end
 end

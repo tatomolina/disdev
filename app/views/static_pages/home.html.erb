@@ -4,17 +4,14 @@
 
 <div class="row">
   <div class="col-md-7 col-md-offset-1">
+    <%# Notifications %>
     <table class="table">
       <% @activities.each do |activity| %>
         <tr>
+          <%# Filtrate only the notifications thath the current user can see %>
           <% if(current_user.projects.inject(false) {|result, project| result or project.member? activity.owner }) %>
             <td>
               <div class="row">
-                <div class="col-md-1">
-                  <%= image_tag avatar_url(activity.owner) %>
-                </div>
-                <%= distance_of_time_in_words( activity.created_at, DateTime.current) %> ago.<br/>
-                <%= link_to activity.owner.username, activity.owner if activity.owner %>
                 <%= render_activity activity %>
               </div>
             </td>
@@ -30,13 +27,15 @@
         Your Projects
       </div>
       <div class="panel-body">
-        <% @projects.each do |project| %>
-          <table class="table">
-            <td>
-              <%= link_to project.name, project_path(project) %>
-            </td>
-          </table>
-        <% end %>
+        <table class="table">
+          <% @projects.each do |project| %>
+            <tr>
+              <td>
+                <%= link_to project.name, project_path(project) %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
         <%= will_paginate @projects, :page_links => false, renderer: BootstrapPagination::Rails %>
       </div>
     </div>
