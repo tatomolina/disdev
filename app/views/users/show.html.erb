@@ -34,25 +34,5 @@
       <% end %>
     </table>
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        Messages
-      </div>
-      <div class="panel-body">
-        <table class="table">
-          <% @user.mailbox.notifications.each do |notification| %>
-            <tr>
-              <td>
-                <h4><%= notification.subject %></h4>
-                <p>
-                  <small><%= distance_of_time_in_words( notification.created_at, DateTime.current) %> ago.</small><br/>
-                  <%= notification.body %>
-                </p>
-              </td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-    </div>
   </div>
 </div>

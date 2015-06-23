@@ -3,7 +3,7 @@
 <div class="row">
   <br>
   <div class="col-md-2">
-    <%= render 'work_group_profile' %>
+    <%= render partial: 'work_group_profile', locals: { work_group: @workGroup } %>
   </div>
   <div class="col-md-10">
     <%= render 'work_group_navbar' %>

@@ -46,7 +46,6 @@ Rails.application.routes.draw do
   resources :work_groups
 
   get '/work_groups/:id/projects',      to: 'work_groups#show_projects',          as: 'work_group_projects'
-  get '/work_groups/:id/chat',          to: 'work_groups#show_chat',              as: 'work_group_chat'
   get '/work_groups/:id/manage',        to: 'work_groups#show_manage',            as: 'work_group_manage'
   post '/work_groups/:id/add_user',     to: 'work_groups#add_user',               as: 'add_user'
   post '/work_groups/:id/remove_user',  to: 'work_groups#remove_user',            as: 'remove_user'

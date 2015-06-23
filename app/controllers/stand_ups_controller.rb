@@ -100,7 +100,7 @@ class StandUpsController < ApplicationController
 
   def stand_up_params
     #Permit the tasks and blockers attributes that came inside the fields_for
-    params.require(:stand_up).permit(tasks_attributes: [:description, :id],
-    blockers_attributes: [:title, :description, :id])
+    params.require(:stand_up).permit(tasks_attributes: [:description, :id, :_destroy],
+    blockers_attributes: [:title, :description, :id, :_destroy])
   end
 end

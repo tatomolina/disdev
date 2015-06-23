@@ -31,4 +31,12 @@ module ApplicationHelper
     @active_user == active_page ? "active" : ""
   end
 
+  def group_active_page(active_page)
+    @active_group == active_page ? "active" : ""
+  end
+
+  def project_active_page(active_page)
+    @active_project == active_page ? "active" : ""
+  end
+
 end

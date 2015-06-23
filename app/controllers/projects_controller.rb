@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @active_project = :show
     authorize @project
   end
 

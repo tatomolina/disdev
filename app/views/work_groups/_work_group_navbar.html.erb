@@ -1,15 +1,12 @@
 <ul class="nav nav-tabs">
-  <li role="presentation" class="<%= 'active' if current_page?(work_group_path) %>">
+  <li role="presentation" class="<%= group_active_page(:show) %>">
     <%= link_to 'Last Activities', work_group_path %>
   </li>
-  <li role="presentation" class="<%= 'active' if current_page?(work_group_projects_path) %>">
+  <li role="presentation" class="<%= group_active_page(:show_projects) %>">
     <%= link_to 'Projects', work_group_projects_path %>
   </li>
-  <li role="presentation" class="<%= 'active' if current_page?(work_group_chat_path) %>">
-    <%= link_to 'Chat', work_group_chat_path %>
-  </li>
   <% if policy(@workGroup).show_manage? %>
-    <li role="presentation" class="<%= 'active' if current_page?(work_group_manage_path) %>">
+    <li role="presentation" class="<%= group_active_page(:show_manage) %>">
       <%= link_to 'Manage', work_group_manage_path %>
     </li>
   <% end %>

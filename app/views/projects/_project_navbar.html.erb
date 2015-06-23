@@ -1,0 +1,13 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" class="<%= project_active_page(:show) %>">
+    <%= link_to 'Last StandUps' %>
+  </li>
+  <li role="presentation" class="<%= project_active_page(:show_projects) %>">
+    <%= link_to 'Last Activities' %>
+  </li>
+  <%# if policy(@project).show_manage? %>
+    <li role="presentation" class="<%= project_active_page(:show_manage) %>">
+      <%= link_to 'Blockers' %>
+    </li>
+  <%# end %>
+</ul>

@@ -10,21 +10,19 @@ class WorkGroupsController < ApplicationController
     @activities = PublicActivity::Activity
     .paginate(:page => params[:page], :per_page => 5)
     .order("created_at desc")
+    @active_group = :show
     authorize @workGroup
   end
 
   def show_projects
     @workGroup = WorkGroup.find(params[:id])
-    authorize @workGroup
-  end
-
-  def show_chat
-    @workGroup = WorkGroup.find(params[:id])
+    @active_group = :show_projects
     authorize @workGroup
   end
 
   def show_manage
     @workGroup = WorkGroup.find(params[:id])
+    @active_group = :show_manage
     authorize @workGroup
   end
 
@@ -109,20 +107,14 @@ class WorkGroupsController < ApplicationController
 
   def request_for_join
     work_group = WorkGroup.find(params[:work_group_id])
-    owners = User.with_role :owner, work_group
+    recipients = User.with_role :owner, work_group
     authorize work_group
 
     subject = "Request for Join"
-    body = "The user #{current_user.email} is asking to join him to the #{work_group.name} WorkGroup"
-    receipts = []
-    owners.each do |owner|
-      receipts << owner.notify(subject, body, current_user)
-    end
-    if Mailboxer::Notification.successful_delivery?(receipts)
-      flash[:notice] = "Request sent to the owners group"
-    else
-      flash[:alert] = "An error ocurred, try again later"
-    end
+    body = "The user #{current_user.email}
+     is asking to join him to the #{work_group.name} WorkGroup"
+    current_user.send_message(recipients, body, subject)
+    flash[:notice] = "Your message was successfully sent!"
     redirect_to work_groups_path
   end
 
