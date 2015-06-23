@@ -17,7 +17,7 @@ class WorkGroupPolicy < ApplicationPolicy
   end
 
   def show_manage?
-    (user.present?) && ((user.has_role? :admin) || (user.has_role? :manager))
+    (user.present?) && ((user.has_role? :admin) || (user.has_role? :owner, record))
   end
 
   def create?

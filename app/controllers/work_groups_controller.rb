@@ -89,7 +89,13 @@ class WorkGroupsController < ApplicationController
     @user = User.find_by email: params[:email]
     #if find it, add it to the work group if not flash msg
     if @user.present?
-      WorkGroup.find(params[:id]).add! @user
+      group = WorkGroup.find(params[:id])
+      group.add! @user
+      subject = "Joined to WorkGroup"
+      body = "Congrats you just had been added to the workGroup #{group.name}.
+      Now Join some project you want to work in and start creating standUps to
+      comunicate your friends what are you doing"
+      current_user.send_message(@user, body, subject)
     else
       flash[:alert] = "Nonexistent user"
     end
