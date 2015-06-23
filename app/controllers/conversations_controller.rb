@@ -1,12 +1,13 @@
 class ConversationsController < ApplicationController
 
   def new
+    @active_user = :messages
   end
 
   def create
     recipients = User.where(id: conversation_params[:recipients])
     conversation = current_user.send_message(recipients, conversation_params[:body], conversation_params[:subject]).conversation
-    flash[:success] = "Your message was successfully sent!"
+    flash[:notice] = "Your message was successfully sent!"
     redirect_to conversation_path(conversation)
   end
 
@@ -14,6 +15,7 @@ class ConversationsController < ApplicationController
     @receipts = conversation.receipts_for(current_user)
     # mark conversation as read
     conversation.mark_as_read(current_user)
+    @active_user = :messages
   end
 
   def reply

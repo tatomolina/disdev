@@ -1,7 +1,7 @@
 <%= image_tag avatar_url(user) %>
 <% if user.profile.first_name.present? and user.profile.last_name.present? %>
   <h3><%= user.profile.first_name + " " + user.profile.last_name %>
-  <small>(<%= user.username %>)</small>
+    <small>(<%= user.username %>)</small>
   </h3>
   <h4><%= user.email %></h4>
 <% else %>

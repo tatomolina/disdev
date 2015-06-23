@@ -1,12 +1,11 @@
 <ul class="nav nav-tabs">
-  <li role="presentation" class="<%= 'active' if current_page?(user_path(user)) %>">
+  <li role="presentation" class="<%= user_active_page(:show) %>">
     <%= link_to 'WorkGroups', user_path(user) %>
   </li>
-  <li role="presentation" class="<%= 'active' if current_page?(user_projects_path(user)) %>">
+  <li role="presentation" class="<%= user_active_page(:show_projects) %>">
     <%= link_to 'Projects', user_projects_path(user) %>
   </li>
-  <li role="presentation" class="<%= 'active' if
-  (current_page?(mailbox_inbox_path(user)) || current_page?(mailbox_sent_path(user)) || current_page?(mailbox_trash_path(user)) || current_page?(new_conversation_path) || current_page?(conversation_path) ) %>">
+  <li role="presentation" class="<%= user_active_page(:messages) %>">
     <%= link_to 'Messages', mailbox_inbox_path(user) %>
   </li>
 </ul>

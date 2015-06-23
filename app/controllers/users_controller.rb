@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     else
       @user = User.find(current_user)
     end
+    @active_user = :show
       authorize @user
   end
 
@@ -15,6 +16,7 @@ class UsersController < ApplicationController
     else
       @user = User.find(current_user)
     end
+    @active_user = :show_projects
       authorize @user
   end
 

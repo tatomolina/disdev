@@ -27,4 +27,8 @@ module ApplicationHelper
     @active == active_page ? "active" : ""
   end
 
+  def user_active_page(active_page)
+    @active_user == active_page ? "active" : ""
+  end
+
 end
