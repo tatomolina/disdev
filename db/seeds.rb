@@ -7,12 +7,14 @@ tatoUser = User.create!(
   :password_confirmation => "12345678"
 )
 
+project = Project.create!(name: "Example", work_group: group)
+
+tatoUser.add_role :manager, project
 tatoUser.add_role :owner, group
 tatoUser.add_role :admin
 group.add! tatoUser
-
-project = Project.create!(name: "Example", work_group: group)
 project.add! tatoUser
+
 
 for i in 1..5
   stand = StandUp.create!(user: tatoUser, project: project);
