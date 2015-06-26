@@ -2,7 +2,7 @@
 <br>
 <div class="row">
   <div class="col-md-2">
-    <%= render partial: 'work_groups/work_group_profile', locals: { work_group: @project.work_group } %>
+    <%= render partial: 'project_profile' %>
   </div>
   <div class="col-md-10">
     <%= render partial: 'project_navbar' %>
@@ -11,6 +11,7 @@
       <tr>
         <th class="text-center">User</th>
         <th class="text-center">StandUp</th>
+        <th class="text-center">Roles</th>
       </tr>
       <%#Show in a table the user email and the last standUp he made%>
       <% @project.users.each do |user| %>
@@ -24,6 +25,9 @@
             <% else %>
               No StandUp Created Yet
             <% end %>
+          </td>
+          <td>
+
           </td>
         </tr>
       <% end %>

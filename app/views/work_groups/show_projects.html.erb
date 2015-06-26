@@ -14,6 +14,7 @@
         <th>Product Owner</th>
         <th>Scrum Master</th>
         <th></th>
+        <th></th>
       </tr>
       <% @workGroup.projects.each do |project| %>
       <tr>
@@ -49,8 +50,15 @@
             <% end %>
           <% else %>
             <p>
-              No Product Owner assigned
+              No Scrum Master assigned
             </p>
+          <% end %>
+        </td>
+        <td>
+          <% if project.member? current_user %>
+            <%= link_to 'Leave', project_leave_path(:project_id=> project.id), :method => :post, class: "btn btn-default" %>
+          <% else %>
+            <%= link_to 'Join', project_join_path(:project_id => project.id), :method => :post, class: "btn btn-default" %>
           <% end %>
         </td>
         <td>

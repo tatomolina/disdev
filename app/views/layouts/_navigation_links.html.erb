@@ -6,9 +6,16 @@
       <li><%= link_to "Search", work_groups_path %></li>
       <li role="separator" class="divider"></li>
       <% if current_user.work_groups.present? %>
+        <% count = 0 %>
         <% current_user.work_groups.order(created_at: :desc).limit(3).each do |group| %>
           <li>
             <%= link_to group.name, group %>
+          </li>
+          <% count += 1 %>
+        <% end %>
+        <% if count == 3 %>
+          <li>
+            <%= link_to 'More', user_path(current_user) %>
           </li>
         <% end %>
       <% else %>
@@ -29,12 +36,18 @@
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects <span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
+        <% count = 0 %>
         <% current_user.projects.order(updated_at: :desc).limit(3).each do |project| %>
           <li>
             <%= link_to "#{project.work_group.name} / #{project.name}", project %>
           </li>
+          <% count += 1 %>
         <% end %>
-
+        <% if count == 3 %>
+          <li>
+            <%= link_to 'More', user_path(current_user) %>
+          </li>
+        <% end %>
       </ul>
     </li>
   <% end %>

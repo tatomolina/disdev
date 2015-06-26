@@ -12,10 +12,6 @@ class WorkGroupPolicy < ApplicationPolicy
     (user.present?) && (record.member? user)
   end
 
-  def show_chat?
-    (user.present?) && (record.member? user)
-  end
-
   def show_manage?
     (user.present?) && ((user.has_role? :admin) || (user.has_role? :owner, record))
   end

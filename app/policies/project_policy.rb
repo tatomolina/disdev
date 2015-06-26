@@ -8,6 +8,18 @@ class ProjectPolicy < ApplicationPolicy
     (user.present?) && (record.member? user)
   end
 
+  def show_activities?
+    (user.present?) && (record.member? user)
+  end
+
+  def show_blockers?
+    (user.present?) && (record.member? user) && (user.has_role? :scrum_master, record)
+  end
+
+  def show_manage?
+    (user.present?) && (record.member? user) && (user.has_role? :manager, record)
+  end
+
   def create?
     user.present?
   end

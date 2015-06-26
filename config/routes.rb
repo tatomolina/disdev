@@ -47,6 +47,7 @@ Rails.application.routes.draw do
 
   get '/work_groups/:id/projects',      to: 'work_groups#show_projects',          as: 'work_group_projects'
   get '/work_groups/:id/manage',        to: 'work_groups#show_manage',            as: 'work_group_manage'
+  post '/work_groups/:id/assign_roles', to: 'work_groups#assign_roles',           as: 'work_group_assign_roles'
   post '/work_groups/:id/add_user',     to: 'work_groups#add_user',               as: 'add_user'
   post '/work_groups/:id/remove_user',  to: 'work_groups#remove_user',            as: 'remove_user'
   post '/work_groups/request_for_join', to: 'work_groups#request_for_join',       as: 'request_for_join'
@@ -56,8 +57,11 @@ Rails.application.routes.draw do
     resources :stand_ups, except: [:index], shallow: true
   end
 
-  post '/projects/:id/join',            to: 'projects#join',                      as: 'join'
-  post '/projects/:id/leave',           to: 'projects#leave',                     as: 'leave'
+  get  '/projects/:id/show_activities', to: 'projects#show_activities',           as: 'project_activities'
+  get  '/projects/:id/show_manage',     to: 'projects#show_manage',               as: 'project_manage'
+  post '/projects/:id/assign_roles',    to: 'projects#assign_roles',              as: 'project_assign_roles'
+  post '/projects/:id/join',            to: 'projects#join',                      as: 'project_join'
+  post '/projects/:id/leave',           to: 'projects#leave',                     as: 'project_leave'
 
 
   #Static Pages

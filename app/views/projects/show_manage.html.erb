@@ -1,0 +1,45 @@
+<% provide(:title, "Project") %>
+<br>
+<div class="row">
+  <div class="col-md-2">
+    <%= render partial: 'project_profile' %>
+  </div>
+  <div class="col-md-10">
+    <%= render partial: 'project_navbar' %>
+    <div class="row">
+      <div class="col-md-6">
+
+        <%= form_tag project_assign_roles_path do %>
+          <div class="form-group">
+            <%= label_tag :members %>
+            <%#= select_tag(:members, User.all.collect {|p| [ p.username, p.id ] },
+             { multiple: true , class: "chosen-select form-control" })%>
+            <%= select_tag :members, options_from_collection_for_select(@project.users, "id", "username"),
+             multiple: true , class: "chosen-select form-control" %>
+            <ul class="list-inline">
+              <li>
+                <%= label_tag :manager %>
+                <%= check_box_tag "roles[]", :manager %>
+              </li>
+              <li>
+                <%= label_tag :scrum_master %>
+                <%= check_box_tag "roles[]", :scrum_master %>
+              </li>
+              <li>
+                <%= label_tag :developer %>
+                <%= check_box_tag "roles[]", :developer %>
+              </li>
+              <li>
+                <%= label_tag :product_owner %>
+                <%= check_box_tag "roles[]", :product_owner %>
+              </li>
+            </ul>
+
+
+          </div>
+          <%= submit_tag "Apply roles", class: "btn btn-default" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

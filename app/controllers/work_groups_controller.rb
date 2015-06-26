@@ -124,6 +124,11 @@ class WorkGroupsController < ApplicationController
     redirect_to work_groups_path
   end
 
+  def assign_roles
+    # TODO assign roles
+    redirect_to work_group_manage_path
+  end
+
 
   private
 

@@ -61,4 +61,45 @@
       <%= link_to 'Delete group', work_group_path(@workGroup), method: :delete,
        class: "btn btn-default" %>
     <% end %>
+<br><br>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%= form_tag work_group_assign_roles_path, method: :post do %>
+      <table class="table">
+        <tr>
+          <th>
+            Member
+          </th>
+          <th>
+            Owner
+          </th>
+          <th>
+            Project Lider
+          </th>
+          <th>
+            Developer
+          </th>
+        </tr>
+        <tr>
+          <% @workGroup.users.each do |user| %>
+            <td>
+              <%= user.username %>
+            </td>
+            <td>
+              <%= check_box_tag "roles[]", :owner %>
+            </td>
+            <td>
+              <%= check_box_tag "roles[]", :project_ider %>
+            </td>
+            <td>
+              <%= check_box_tag "roles[]", :developer %>
+            </td>
+          <% end %>
+        </tr>
+      </table>
+      <%= submit_tag "Apply roles" %>
+    <% end %>
+  </div>
 </div>
