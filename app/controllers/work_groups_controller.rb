@@ -106,9 +106,14 @@ class WorkGroupsController < ApplicationController
   def remove_user
     #Look for the user passed by params and remve it from the group
     @user = User.find(params[:user_id])
-    authorize WorkGroup
-    WorkGroup.find(params[:id]).remove! @user
-    redirect_to work_group_manage_path(params[:id])
+    @work_group = WorkGroup.find(params[:id])
+    authorize @workGroup
+    @work_group.remove! @user
+    if @user.has_role? :owner, @work_group
+      @work_group.assign_owner
+    end
+    @work_group.remove_roles @user
+    redirect_to work_group_manage_path(@work_group)
   end
 
   def request_for_join
@@ -125,7 +130,14 @@ class WorkGroupsController < ApplicationController
   end
 
   def assign_roles
-    # TODO assign roles
+    @work_group = WorkGroup.find(params[:id])
+    @users = User.find(params[:members])
+    @users.each do |user|
+      params[:roles].each do |role|
+        user.add_role role, @work_group
+      end
+    end
+    flash[:notice] = "Roles correctly assigned"
     redirect_to work_group_manage_path
   end
 

@@ -2,6 +2,7 @@ class ConversationsController < ApplicationController
 
   def new
     @active_user = :messages
+    @user = current_user
   end
 
   def create
@@ -13,6 +14,7 @@ class ConversationsController < ApplicationController
 
   def show
     @receipts = conversation.receipts_for(current_user)
+    @user = current_user
     # mark conversation as read
     conversation.mark_as_read(current_user)
     @active_user = :messages

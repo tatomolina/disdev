@@ -42,4 +42,40 @@ class WorkGroup < ActiveRecord::Base
     memberships.find_by("user_id = #{user.id}").destroy
   end
 
+  def remove_roles(user)
+
+    if user.has_role? :owner, self
+      user.remove_role :owner, self
+    end
+
+    if user.has_role? :general, self
+      user.remove_role :general, self
+    end
+
+    if user.has_role? :rookie, self
+      user.remove_role :rookie, self
+    end
+
+    if user.has_role? :n00b, self
+      user.remove_role :n00b, self
+    end
+
+  end
+
+  def assign_owner
+    # If there is a general I assign the owner to the first I encounter
+    if User.with_role(:general, self).any?
+      users = User.with_role(:general, self)
+      users.first.add_role :owner, self
+    elsif User.with_role(:rookie, self).any?
+      # If ther isnt a general I assign it to the first rookie I found
+      users = User.with_role(:rookie, self)
+      users.first.add_role :owner
+    elsif User.with_role(:n00b, self).any?
+      # If ther isnt a rookie I assign it to the first n00b I found
+      users = User.with_role(:n00b, self)
+      users.first.add_role :owner
+    end
+  end
+
 end

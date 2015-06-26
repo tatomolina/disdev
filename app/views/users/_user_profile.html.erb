@@ -1,4 +1,4 @@
-<%= image_tag avatar_url(user) %>
+<%= image_tag user.gravatar_url %>
 <% if user.profile.first_name.present? and user.profile.last_name.present? %>
   <h3><%= user.profile.first_name + " " + user.profile.last_name %>
     <small>(<%= user.username %>)</small>

@@ -1,4 +1,5 @@
-<%= image_tag group_avatar_url(@project.work_group) %>
+<%= image_tag "work_group.png" %>
+
 <h2><%= link_to @project.work_group.name, work_group_path(@project.work_group) %></h2>
 <p>Group Since <%= @project.work_group.created_at.to_date.to_s(:long) %></p>
 <h3><%= @project.name %></h3>
