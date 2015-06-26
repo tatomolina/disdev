@@ -1,0 +1,17 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" class="<%= user_active_page(:show) %>">
+    <%= link_to 'WorkGroups', user_path(user) %>
+  </li>
+  <li role="presentation" class="<%= user_active_page(:show_projects) %>">
+    <%= link_to 'Projects', user_projects_path(user) %>
+  </li>
+  <li role="presentation" class="<%= user_active_page(:messages) %>">
+    <%= link_to mailbox_inbox_path do  %>
+      <% if unread_messages_count > 0 %>
+        <span class="label label-danger pull-right"> <%= unread_messages_count %></span>
+        <em class="fa fa-inbox fa-lg"></em>
+      <% end %>
+        <span>Messages</span> 
+    <% end %>
+  </li>
+</ul>

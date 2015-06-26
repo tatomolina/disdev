@@ -1,0 +1,45 @@
+<div class="row">
+  <br>
+  <div class="col-md-2">
+    <%= render 'user_profile', :user => @user %>
+  </div>
+
+  <div class="col-md-10">
+    <%= render 'user_navbar', :user => @user %>
+    <table class="table table-hover text-center">
+      <tr>
+        <th class="text-center">Projects</th>
+        <th class="text-center">Work Group</th>
+        <th class="text-center">Managers</th>
+        <th class="text-center">Last StandUp</th>
+      </tr>
+      <% if @user.projects.present? %>
+        <% @user.projects.each do |project| %>
+          <tr>
+            <td><%= link_to project.name, project_path(project) %></td>
+            <td>
+              <%= link_to project.work_group.name, work_group_path(project.work_group) %>
+            </td>
+            <td>
+              <% (User.with_role :manager, project).each do |user| %>
+                <%= link_to user.username, user %>
+              <% end %>
+            </td>
+            <td>
+              <% if @user.last_stand_up(project).present? %>
+                <%= link_to @user.last_stand_up(project).created_at.to_s(:long), stand_up_path(@user.last_stand_up(project)) %>
+              <% else %>
+                <p>No StandUp Created Yet</p>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td>You are not in any project</td>
+          <td>You are not in any project</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

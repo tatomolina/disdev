@@ -1,0 +1,19 @@
+
+<div class="col-md-11">
+  <div class="col-md-12">
+    <%= distance_of_time_in_words( activity.created_at, DateTime.current) %> ago.<br/>
+  </div>
+  <div class="col-md-1">
+    <%= image_tag avatar_url(activity.owner) %>
+  </div>
+  <%= link_to activity.owner.username, activity.owner if activity.owner %>
+  created blocker
+  <% if activity.trackable %>
+    <%= link_to activity.trackable.title, activity.trackable %>
+    on the Stand Up
+    <%= link_to activity.trackable.stand_up.created_at.to_s(:long), activity.trackable.stand_up %>
+
+  <% else %>
+    <%= wich has since been remove %>
+  <% end %>
+</div>

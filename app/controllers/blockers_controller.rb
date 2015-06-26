@@ -7,18 +7,6 @@ class BlockersController < ApplicationController
     authorize @blocker
   end
 
-  def new
-    @blocker = Blocker.new
-    authorize Blocker
-  end
-
-  def create
-		@blocker = Blocker.new(blocker_params)
-    authorize @blocker
-		@blocker.save!
-		redirect_to @blocker
-  end
-
   def edit
     @blocker = Blocker.find(params[:id])
     authorize @blocker

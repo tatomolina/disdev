@@ -1,0 +1,105 @@
+<% provide(:title, "WorkGroup") %>
+
+<div class="row">
+  <br>
+  <div class="col-md-2">
+    <%= render partial: 'work_group_profile', locals: { work_group: @workGroup } %>
+  </div>
+  <div class="col-md-10">
+    <%= render 'work_group_navbar' %>
+
+    <table class="table table-hover">
+      <tr>
+        <th>Username</th>
+        <th>email</th>
+        <th>Projects with in</th>
+        <th>Remove</th>
+      </tr>
+        <% @workGroup.users.each do |user| %>
+        <tr>
+          <td><%= link_to user.username, user_path(user) %></td>
+          <td><%= link_to user.email, user_path(user) %></td>
+          <td>
+            <% user.projects.each do |project| %>
+              <% if @workGroup == project.work_group %>
+                <%= link_to project.name, project_path(project) %>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <% if policy(@workGroup).show_manage? %>
+              <%= form_tag remove_user_path do %>
+                <%= hidden_field_tag "user_id", user.id %>
+                <%= submit_tag "Remove", :class => "btn btn-default" %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+    </table>
+
+    <div class="row">
+      <h3>Add new member</h3>
+      <%# Form for adding users %>
+      <br>
+      <%= form_tag add_user_path do %>
+        <div class="col-md-3 ">
+          <%= text_field_tag :email, nil, class: "form-control" %>
+        </div>
+        <div class="col-md-1">
+          <%= submit_tag "Add", :class => "btn btn-default" %>
+        </div>
+      <% end %>
+    </div>
+    <br>
+    <br>
+    <% if policy(@workGroup).update? %>
+      <%= link_to 'Edit Registration', edit_work_group_path(@workGroup),
+       class: "btn btn-default" %>
+    <% end %>
+    <% if policy(@workGroup).destroy? %>
+      <%= link_to 'Delete group', work_group_path(@workGroup), method: :delete,
+       class: "btn btn-default" %>
+    <% end %>
+<br><br>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%= form_tag work_group_assign_roles_path, method: :post do %>
+      <table class="table">
+        <tr>
+          <th>
+            Member
+          </th>
+          <th>
+            Owner
+          </th>
+          <th>
+            Project Lider
+          </th>
+          <th>
+            Developer
+          </th>
+        </tr>
+        <tr>
+          <% @workGroup.users.each do |user| %>
+            <td>
+              <%= user.username %>
+            </td>
+            <td>
+              <%= check_box_tag "roles[]", :owner %>
+            </td>
+            <td>
+              <%= check_box_tag "roles[]", :project_ider %>
+            </td>
+            <td>
+              <%= check_box_tag "roles[]", :developer %>
+            </td>
+          <% end %>
+        </tr>
+      </table>
+      <%= submit_tag "Apply roles" %>
+    <% end %>
+  </div>
+</div>

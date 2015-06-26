@@ -1,4 +1,4 @@
-<h1 class="text-center">StandUp</h1>
+<h1 class="text-center">StandUp for <%= @standUp.project.name %></h1>
 <div class = "row">
   <%# I first Render the view of the last standUp%>
   <%= render 'yesterday' %>
@@ -8,7 +8,7 @@
 </div>
 <div class="text-center">
   <div class="btn-group ">
-    <%= link_to 'New', new_stand_up_path, class: "btn btn-primary btn-lg" %>
+    <%= link_to 'New', new_project_stand_up_path(@standUp.project), class: "btn btn-primary btn-lg" %>
     <%#I ask the policy if the user can edit and delete%>
     <% if policy(@standUp).edit? %>
       <%= link_to 'Edit', edit_stand_up_path(@standUp),

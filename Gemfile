@@ -7,6 +7,12 @@ gem 'rails', '4.1.4'
 # Fix the conflict with the system 'rake':
 gem 'rake', '~> 0.9.6'
 
+gem 'chosen-rails'
+gem 'mailboxer', '~> 0.12.5'
+gem 'will_paginate-bootstrap', '~> 1.0.1'
+gem 'will_paginate', '~> 3.0.7'
+gem 'public_activity'
+gem 'composite_primary_keys', '= 7.0.10'
 gem 'pundit', '~> 1.0.0'
 gem 'rolify', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 3.3.4'

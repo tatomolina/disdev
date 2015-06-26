@@ -4,4 +4,8 @@ class UserPolicy < ApplicationPolicy
     super
   end
 
+  def show_projects?
+    user.present?
+  end
+
 end

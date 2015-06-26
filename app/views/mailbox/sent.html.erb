@@ -1,0 +1,12 @@
+<div class="row">
+  <br>
+  <div class="col-md-2">
+    <%= render partial: 'users/user_profile', locals: { user: current_user } %>
+  </div>
+
+  <div class="col-md-10">
+    <%= render partial: 'users/user_navbar', locals: { user: current_user } %>
+
+    <%= render partial: 'mailbox/folder_view', locals: { is_conversation: false, messages: @sent } %>
+  </div>
+</div>

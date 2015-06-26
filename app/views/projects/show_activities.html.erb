@@ -1,0 +1,40 @@
+<% provide(:title, "Project") %>
+<br>
+<div class="row">
+  <div class="col-md-2">
+    <%= render partial: 'project_profile' %>
+  </div>
+  <div class="col-md-10">
+    <%= render partial: 'project_navbar' %>
+
+    <% @group_activities = [] %>
+
+    <% @activities.each do |activity| %>
+        <% if activity.trackable.try(:project) == @project || activity.trackable.try(:stand_up).try(:project) == @project %>
+          <% @group_activities << activity %>
+        <% end %>
+    <% end %>
+
+    <% if @group_activities.any? %>
+      <table class="table">
+        <% @group_activities.each do |group_activity| %>
+          <tr>
+            <td>
+              <div class="row">
+                <%= render_activity group_activity %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      <%= will_paginate @activities, renderer: BootstrapPagination::Rails %>
+    <% else %>
+      <h3>
+        There's nothing new
+      </h3>
+    <% end %>
+  </div>
+    <div class="text-center">
+      <%= link_to 'New StandUp', new_project_stand_up_path(@project), class: "btn btn-default" %>
+    </div>
+</div>
