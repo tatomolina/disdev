@@ -81,6 +81,7 @@ GEM
     foreigner (1.7.4)
       activerecord (>= 3.0.0)
     fssm (0.2.10)
+    gravtastic (3.2.6)
     haml (4.0.6)
       tilt
     hike (1.2.3)
@@ -215,6 +216,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   composite_primary_keys (= 7.0.10)
   devise (~> 3.4.1)
+  gravtastic
   jbuilder (~> 2.0)
   jquery-rails
   mailboxer (~> 0.12.5)

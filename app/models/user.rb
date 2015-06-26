@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
 
   acts_as_messageable
+  include Gravtastic
+  gravtastic :size => 190,
+            :default => "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
 
   validates :username,
   :presence => true,

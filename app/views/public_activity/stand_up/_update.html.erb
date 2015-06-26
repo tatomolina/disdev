@@ -4,7 +4,7 @@
   </div>
 
   <div class="col-md-1">
-    <%= image_tag avatar_url(activity.owner) %>
+    <%= image_tag activity.owner.gravatar_url %>
   </div>
   <%= link_to activity.owner.username, activity.owner if activity.owner %>
   updated stanUp

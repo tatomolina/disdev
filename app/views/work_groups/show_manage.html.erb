@@ -51,6 +51,41 @@
         </div>
       <% end %>
     </div>
+
+    <div class="row">
+      <h3>Assign Roles</h3>
+      <div class="col-md-4">
+
+        <%= form_tag work_group_assign_roles_path do %>
+          <div class="form-group">
+            <%= label_tag :members %>
+            <%= select_tag :members, options_from_collection_for_select(@workGroup.users, "id", "username"),
+             multiple: true , class: "chosen-select form-control" %>
+            <ul class="list-inline">
+              <li>
+                <%= label_tag :owner %>
+                <%= check_box_tag "roles[]", :owner %>
+              </li>
+              <li>
+                <%= label_tag :general %>
+                <%= check_box_tag "roles[]", :general %>
+              </li>
+              <li>
+                <%= label_tag :rookie %>
+                <%= check_box_tag "roles[]", :rookie %>
+              </li>
+              <li>
+                <%= label_tag :n00b %>
+                <%= check_box_tag "roles[]", :n00b %>
+              </li>
+            </ul>
+
+
+          </div>
+          <%= submit_tag "Apply roles", class: "btn btn-default" %>
+        <% end %>
+      </div>
+    </div>
     <br>
     <br>
     <% if policy(@workGroup).update? %>
@@ -62,44 +97,4 @@
        class: "btn btn-default" %>
     <% end %>
 <br><br>
-</div>
-
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <%= form_tag work_group_assign_roles_path, method: :post do %>
-      <table class="table">
-        <tr>
-          <th>
-            Member
-          </th>
-          <th>
-            Owner
-          </th>
-          <th>
-            Project Lider
-          </th>
-          <th>
-            Developer
-          </th>
-        </tr>
-        <tr>
-          <% @workGroup.users.each do |user| %>
-            <td>
-              <%= user.username %>
-            </td>
-            <td>
-              <%= check_box_tag "roles[]", :owner %>
-            </td>
-            <td>
-              <%= check_box_tag "roles[]", :project_ider %>
-            </td>
-            <td>
-              <%= check_box_tag "roles[]", :developer %>
-            </td>
-          <% end %>
-        </tr>
-      </table>
-      <%= submit_tag "Apply roles" %>
-    <% end %>
-  </div>
 </div>

@@ -26,9 +26,9 @@ Rails.application.routes.draw do
   get '/users/:id/projects',            to: 'users#show_projects',                as: 'user_projects'
   get '/users/:id/messages',            to: 'users#show_messages',                as: 'user_messages'
 
-  get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
-  get "mailbox/sent" => "mailbox#sent", as: :mailbox_sent
-  get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
+  get "/users/:id/inbox" => "mailbox#inbox", as: :mailbox_inbox
+  get "/users/:id/sent" => "mailbox#sent", as: :mailbox_sent
+  get "/users/:id/trash" => "mailbox#trash", as: :mailbox_trash
 
   # Conversations
   resources :conversations do
