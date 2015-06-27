@@ -13,7 +13,7 @@ class ProfilesController < ApplicationController
       redirect_to user_path(current_user)
     else
       if @profile.errors.any?
-        flash[:alert] = "#{@profile.errors.count} error prohibited this StandUp from being saved: "
+        flash[:alert] = "#{@profile.errors.count} error prohibited this Profile from being saved: "
         @profile.errors.full_messages.each do |msg|
           flash[:alert] << "#{msg} "
         end
