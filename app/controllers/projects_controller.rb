@@ -9,6 +9,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @active_project = :show
     authorize @project
+    add_breadcrumb @project.name, project_path(@project)
   end
 
   def show_activities

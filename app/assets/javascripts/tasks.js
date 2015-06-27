@@ -1,6 +1,6 @@
 function removeTask(linkNode){
   var link = $(linkNode);
-  var myFormGroup = link.parent();
+  var myFormGroup = link.parent().parent();
   myFormGroup.find("input[type=hidden]").val("true");
   myFormGroup.parent().hide();
 }

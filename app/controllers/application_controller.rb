@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+
+  add_breadcrumb "Home", :root_path
+
+
   include PublicActivity::StoreController
 
   # Prevent CSRF attacks by raising an exception.

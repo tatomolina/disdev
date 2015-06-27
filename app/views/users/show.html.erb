@@ -6,33 +6,96 @@
 
   <div class="col-md-10">
     <%= render 'user_navbar', :user => @user %>
-    <table class="table table-hover text-center">
-      <tr>
-        <th class="text-center">Work Groups</th>
-        <th class="text-center">Owner</th>
-        <th class="text-center">Amount of Projects</th>
-      </tr>
-      <% if @user.work_groups.present? %>
-        <% @user.work_groups.each do |group| %>
+
+    <div class="panel panel-default">
+
+      <br>
+      <div class="row overview">
+        <h3 class="col-md-4">Basic Information</h3>
+        <table class="table">
           <tr>
-            <td><%= link_to group.name, work_group_path(group) %></td>
+            <th>
+              Username
+            </th>
             <td>
-              <% (User.with_role :owner, group).each do |user| %>
-                <%= link_to user.username, user %>
-              <% end %>
-            </td>
-            <td>
-              <%= group.projects.count %>
+              <%= @user.username %>
             </td>
           </tr>
-        <% end %>
-      <% else %>
-        <tr>
-          <td>You are not in any group</td>
-          <td>You are not in any group</td>
-        </tr>
-      <% end %>
-    </table>
+          <tr>
+            <th>
+              Email
+            </th>
+            <td>
+              <%= @user.email %>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              First name
+            </th>
+            <td>
+              <% if @user.profile.first_name %>
+                <%= @user.profile.first_name %>
+              <% else %>
+                Name not specified
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Last name
+            </th>
+            <td>
+              <% if @user.profile.last_name %>
+                <%= @user.profile.last_name %>
+              <% else %>
+                Last name not specified
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Age
+            </th>
+            <td>
+              <% if @user.profile.date_of_birth %>
+                <%= ((Date.current - @user.profile.date_of_birth).to_i / 365) %>
+              <% else %>
+                Age not specified
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Languages
+            </th>
+            <td>
+              <% if @user.profile.languages.any? %>
+                <% languages = [] %>
+                <% @user.profile.languages.each do |language| %>
+                  <% languages << language.language %>
+                <% end %>
+                <%= languages.join(", ") %>
+              <% else %>
+                Languages not specified
+              <% end %>
+            </td>
+          </tr>
+        </table>
 
+
+          <div class="col-md-11 col-md-offset-1">
+            <br>
+            <% if @user == current_user or current_user.has_role? :admin %>
+              <%= link_to 'Edit Registration', edit_user_registration_path(@user), class: "btn btn-default" %>
+            <% end %>
+
+            <% if policy(@user.profile).update? %>
+              <%= link_to 'Edit Profile', edit_profile_path(@user.profile), class: "btn btn-default" %>
+            <% end %>
+          </div>
+
+      </div>
+    </div>
   </div>
 </div>

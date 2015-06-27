@@ -2,10 +2,10 @@
 <br>
 <div class="row">
   <div class="col-md-2">
-    <%= render partial: 'project_profile' %>
+    <%= render partial: 'project_profile', locals: {project: @project, user: nil} %>
   </div>
   <div class="col-md-10">
-    <%= render partial: 'project_navbar' %>
+    <%= render partial: 'project_navbar', locals: {project: @project, user: nil} %>
     <div class="row">
       <div class="col-md-6">
 

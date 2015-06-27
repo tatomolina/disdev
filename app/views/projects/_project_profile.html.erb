@@ -1,6 +1,9 @@
 <%= image_tag "work_group.png" %>
 
-<h2><%= link_to @project.work_group.name, work_group_path(@project.work_group) %></h2>
-<p>Group Since <%= @project.work_group.created_at.to_date.to_s(:long) %></p>
-<h3><%= @project.name %></h3>
-<p>Project Since <%= @project.created_at.to_date.to_s(:long) %></p>
+<h2><%= link_to project.work_group.name, work_group_path(project.work_group) %></h2>
+<p>Group Since <%= project.work_group.created_at.to_date.to_s(:long) %></p>
+<h3><%= link_to project.name, project_path(project) %></h3>
+<p>Project Since <%= project.created_at.to_date.to_s(:long) %></p>
+<% if user.present? %>
+  <h3><%= link_to user.username, user_path(user) %></h3>
+<% end %>

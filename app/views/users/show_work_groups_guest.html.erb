@@ -1,0 +1,40 @@
+<div class="row">
+  <br>
+  <div class="col-md-2">
+    <%= render 'user_profile', :user => @user %>
+  </div>
+
+  <div class="col-md-10">
+    <%= render 'user_navbar', :user => @user %>
+
+    <div class="panel panel-default overview">
+
+      <div class="row overview">
+        <% @user.work_groups.each do |group| %>
+          <div class="col-md-4 panel panel-default overview">
+            <div class="col-md-4">
+              <%= image_tag "work_group.png" %>
+            </div>
+            <div class="col-md-4">
+              <strong>
+                <%= group.name %><br>
+              </strong>
+              <%= group.users.count %> members <br>
+              <%= group.projects.count %> projects
+            </div>
+            <div class="col-md-4">
+              <br>
+              <% if policy(group).request_for_join? %>
+                <%= form_tag request_for_join_path do %>
+                  <%= hidden_field_tag :work_group_id, group.id %>
+                  <%= submit_tag "Request Join", class: "btn btn-default" %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

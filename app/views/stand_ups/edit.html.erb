@@ -1,7 +1,20 @@
-<h1 class="text-center">Edit StandUp for <%= @standUp.project.name %></h1>
-
+<% provide(:title, "Project") %>
+<br>
 <div class="row">
-  <%= render 'yesterday' %>
+  <div class="col-md-2">
+    <%= render partial: 'projects/project_profile', locals: {project: @standUp.project, user: @standUp.user} %>
+  </div>
+  <div class="col-md-10">
+    <%= render partial: 'projects/project_navbar', locals: {project: @standUp.project, user: @standUp.user} %>
 
-  <%= render 'form' %>
+    <ol class="breadcrumb">
+      <%= render_breadcrumbs :tag => :li, :separator => "" %>
+    </ol>
+
+    <div class="row">
+      <%= render 'yesterday' %>
+
+      <%= render 'form' %>
+    </div>
+  </div>
 </div>

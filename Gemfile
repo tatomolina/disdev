@@ -7,6 +7,7 @@ gem 'rails', '4.1.4'
 # Fix the conflict with the system 'rake':
 gem 'rake', '~> 0.9.6'
 
+gem "breadcrumbs_on_rails"
 gem 'gravtastic'
 gem 'chosen-rails'
 gem 'mailboxer', '~> 0.12.5'

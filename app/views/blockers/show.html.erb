@@ -21,13 +21,13 @@
     <%#Ask to the policy if i should show the edit and delete button %>
     <% if policy(@blocker).edit? %>
       <%= link_to 'Edit', edit_blocker_path(@blocker),
-       class: "btn btn-primary btn-lg"  %>
+       class: "btn btn-default"  %>
     <% end %>
     <% if policy(@blocker).destroy? %>
       <%= link_to 'Delete', blocker_path(@blocker), method: :delete,
-       class: "btn btn-primary btn-lg" %>
+       class: "btn btn-default" %>
     <% end %>
     <%= link_to 'Back', (request.referrer || stand_ups_path),
-     class: "btn btn-primary btn-lg" %>
+     class: "btn btn-default" %>
   </div>
 </div>

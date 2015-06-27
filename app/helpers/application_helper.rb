@@ -25,4 +25,8 @@ module ApplicationHelper
     @active_project == active_page ? "active" : ""
   end
 
+  def stand_up_active_page(active_page)
+    @active_stand_up == active_page ? "active" : ""
+  end
+
 end

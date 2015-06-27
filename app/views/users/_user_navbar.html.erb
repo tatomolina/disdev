@@ -1,10 +1,27 @@
 <ul class="nav nav-tabs">
+
   <li role="presentation" class="<%= user_active_page(:show) %>">
-    <%= link_to 'WorkGroups', user_path(@user) %>
+    <%= link_to 'Overview', user_path(@user) %>
   </li>
-  <li role="presentation" class="<%= user_active_page(:show_projects) %>">
-    <%= link_to 'Projects', user_projects_path(@user) %>
+
+  <% if policy(@user).show_work_groups?%>
+  <li role="presentation" class="<%= user_active_page(:show_work_groups) %>">
+    <%= link_to 'WorkGroups', user_work_groups_path(@user) %>
   </li>
+  <% end %>
+
+  <% if policy(@user).show_work_groups_guest?%>
+  <li role="presentation" class="<%= user_active_page(:show_work_groups) %>">
+    <%= link_to 'WorkGroups', user_work_groups_guest_path(@user) %>
+  </li>
+  <% end %>
+
+  <% if policy(@user).show_projects?%>
+    <li role="presentation" class="<%= user_active_page(:show_projects) %>">
+      <%= link_to 'Projects', user_projects_path(@user) %>
+    </li>
+  <% end %>
+
   <% if policy(@user).inbox? %>
   <li role="presentation" class="<%= user_active_page(:messages) %>">
     <%= link_to mailbox_inbox_path(@user) do  %>
@@ -16,4 +33,5 @@
     <% end %>
   </li>
   <% end %>
+
 </ul>

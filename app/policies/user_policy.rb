@@ -5,19 +5,27 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show_projects?
-    user.present?
+    (user.present?) && ((user == record) || (user.has_role? :admin))
+  end
+
+  def show_work_groups?
+    (user.present?) && ((user == record) || (user.has_role? :admin))
+  end
+
+  def show_work_groups_guest?
+    (user.present?) && ((user != record) || (user.has_role? :admin))
   end
 
   def inbox?
-    (user == record) || (user.has_role? :admin)
+    (user.present?) && ((user == record) || (user.has_role? :admin))
   end
 
   def sent?
-    (user == record) || (user.has_role? :admin)
+    (user.present?) && ((user == record) || (user.has_role? :admin))
   end
 
   def trash?
-    (user == record) || (user.has_role? :admin)
+    (user.present?) && ((user == record) || (user.has_role? :admin))
   end
 
 

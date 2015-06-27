@@ -24,11 +24,13 @@ Rails.application.routes.draw do
   # User
   resources :users, only: [:show] # I only permit show route
   get '/users/:id/projects',            to: 'users#show_projects',                as: 'user_projects'
+  get '/users/:id/work_groups',         to: 'users#show_work_groups',             as: 'user_work_groups'
+  get '/users/:id/work_groups_guest',   to: 'users#show_work_groups_guest',       as: 'user_work_groups_guest'
   get '/users/:id/messages',            to: 'users#show_messages',                as: 'user_messages'
 
-  get "/users/:id/inbox" => "mailbox#inbox", as: :mailbox_inbox
-  get "/users/:id/sent" => "mailbox#sent", as: :mailbox_sent
-  get "/users/:id/trash" => "mailbox#trash", as: :mailbox_trash
+  get "/users/:id/inbox",               to: "mailbox#inbox",                      as: 'mailbox_inbox'
+  get "/users/:id/sent",                to: "mailbox#sent",                       as: 'mailbox_sent'
+  get "/users/:id/trash",               to: "mailbox#trash",                      as: 'mailbox_trash'
 
   # Conversations
   resources :conversations do
@@ -40,7 +42,7 @@ Rails.application.routes.draw do
     end
 
   # Blocker
-  resources :blockers, except: [:index] # Dont want an index route
+  resources :blockers, except: [:index, :new] # Dont want an index route
 
   # WorkGroup
   resources :work_groups
