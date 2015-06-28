@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   end
 
   get  '/projects/:id/show_activities', to: 'projects#show_activities',           as: 'project_activities'
+  get  '/projects/:id/show_blockers',   to: 'projects#show_blockers',             as: 'project_blockers'
   get  '/projects/:id/show_manage',     to: 'projects#show_manage',               as: 'project_manage'
   post '/projects/:id/assign_roles',    to: 'projects#assign_roles',              as: 'project_assign_roles'
   post '/projects/:id/join',            to: 'projects#join',                      as: 'project_join'

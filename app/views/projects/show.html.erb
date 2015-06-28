@@ -7,38 +7,34 @@
   <div class="col-md-10">
     <%= render partial: 'project_navbar', locals: {project: @project, user: nil} %>
 
-    <ol class="breadcrumb">
-      <%= render_breadcrumbs :tag => :li, :separator => "" %>
-    </ol>
+    <div class="panel panel-default overview">
+      <div class="row overview">
 
-
-    <table class="table table-hover text-center">
-      <tr>
-        <th class="text-center">User</th>
-        <th class="text-center">StandUp</th>
-        <th class="text-center">Roles</th>
-      </tr>
-      <%#Show in a table the user email and the last standUp he made%>
-      <% @project.users.each do |user| %>
-        <tr>
-          <td><%= link_to user.email, user_path(user) %></td>
-          <td>
-            <%# Ask if there is a stand up to link, if not show a msg%>
-            <% last_stand_up = user.last_stand_up(@project) %>
-            <% if last_stand_up.present? %>
-              <%= link_to last_stand_up.created_at.to_s(:long), stand_up_path(last_stand_up)%>
-            <% else %>
-              No StandUp Created Yet
-            <% end %>
-          </td>
-          <td>
-
-          </td>
-        </tr>
-      <% end %>
-    </table>
+        <table class="table table-hover text-center">
+          <tr>
+            <th class="text-center">User</th>
+            <th class="text-center">Last StandUp</th>
+          </tr>
+          <%#Show in a table the user email and the last standUp he made%>
+          <% @project.users.each do |user| %>
+            <tr>
+              <td><%= link_to user.email, user_path(user) %></td>
+              <td>
+                <%# Ask if there is a stand up to link, if not show a msg%>
+                <% last_stand_up = user.last_stand_up(@project) %>
+                <% if last_stand_up.present? %>
+                  <%= link_to last_stand_up.created_at.to_s(:long), stand_up_path(last_stand_up)%>
+                <% else %>
+                  No StandUp Created Yet
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="text-center">
+        <%= link_to 'New StandUp', new_project_stand_up_path(@project), class: "btn btn-default" %>
+      </div>
   </div>
-  <div class="text-center">
-    <%= link_to 'New StandUp', new_project_stand_up_path(@project), class: "btn btn-default" %>
-  </div>
+    </div>
 </div>

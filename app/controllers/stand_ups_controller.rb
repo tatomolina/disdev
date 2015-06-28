@@ -19,7 +19,6 @@ class StandUpsController < ApplicationController
     @next_standUp = next_stand_up(@standUp.created_at, @standUp.user, @standUp.project)
     @project = @standUp.project
     @active_project = :show
-    add_breadcrumb @standUp.created_at.to_s(:long), stand_up_path(@standUp)
   end
 
   def new
@@ -32,7 +31,6 @@ class StandUpsController < ApplicationController
     @standUp.tasks.build
     @standUp.blockers.build
     @active_project = :show
-    add_breadcrumb "new", new_project_stand_up_path(@project)
   end
 
   def create

@@ -13,7 +13,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show_blockers?
-    (user.present?) && (record.member? user) && (user.has_role? :scrum_master, record)
+    (user.present?) && ((record.member? user) && (user.has_role? :scrum_master, record)) || (user.has_role? :admin)
   end
 
   def show_manage?

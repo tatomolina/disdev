@@ -7,7 +7,7 @@
   </li>
   <% if policy(project).show_blockers? %>
     <li role="presentation" class="<%= project_active_page(:show_blockers) %>">
-      <%= link_to 'Blockers' %>
+      <%= link_to 'Blockers', project_blockers_path(project) %>
     </li>
   <% end %>
   <% if policy(project).show_manage? %>

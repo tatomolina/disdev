@@ -21,6 +21,15 @@ class ProjectsController < ApplicationController
     authorize @project
   end
 
+  def show_blockers
+    @project = Project.find(params[:id])
+    @active_project = :show_blockers
+    @activities = PublicActivity::Activity
+    .paginate(:page => params[:page], :per_page => 5)
+    .order("created_at desc")
+    authorize @project
+  end
+
   def show_manage
     @project = Project.find(params[:id])
     @active_project = :show_manage
