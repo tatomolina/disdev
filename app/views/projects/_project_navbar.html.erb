@@ -12,7 +12,7 @@
   <% end %>
   <% if policy(project).show_manage? %>
     <li role="presentation" class="<%= project_active_page(:show_manage) %>">
-      <%= link_to 'Manage', project_manage_path %>
+      <%= link_to 'Manage', project_manage_path(project) %>
     </li>
   <% end %>
 </ul>

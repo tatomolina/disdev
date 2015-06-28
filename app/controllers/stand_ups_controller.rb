@@ -16,6 +16,7 @@ class StandUpsController < ApplicationController
     authorize @standUp
     #Look for the last two standUp's
     @standUps = looking_yesterday(@standUp.created_at, @standUp.user, @standUp.project)
+    @next_standUp = next_stand_up(@standUp.created_at, @standUp.user, @standUp.project)
     @project = @standUp.project
     @active_project = :show
     add_breadcrumb @standUp.created_at.to_s(:long), stand_up_path(@standUp)
@@ -80,6 +81,12 @@ class StandUpsController < ApplicationController
       @standUp.create_activity :update, owner: current_user
       redirect_to @standUp
     else
+      if @standUp.errors.any?
+        flash[:alert] = "#{@standUp.errors.count} error prohibited this StandUp from being saved: "
+        @standUp.errors.full_messages.each do |msg|
+          flash[:alert] << "#{msg} "
+        end
+      end
       #If something go wrongs i need to search for the last standUp to render edit
       @standUps = looking_yesterday(@standUp.created_at, @standUp.user, @standUp.project)
       render 'edit'
@@ -103,6 +110,14 @@ class StandUpsController < ApplicationController
     {user: user, stand_date: date, project: project})
     .order(created_at: :desc)
     .limit(2)
+  end
+
+  def next_stand_up(date, user, project)
+    #Search for the next two standUp's
+    StandUp.where("user_id = :user AND created_at > :stand_date AND project_id = :project",
+    {user: user, stand_date: date, project: project})
+    .order(created_at: :asc)
+    .limit(1)
   end
 
   def stand_up_params

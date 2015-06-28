@@ -7,14 +7,29 @@
   <div class="col-md-10">
     <%= render partial: 'projects/project_navbar', locals: {project: @project, user: current_user} %>
 
-    <ol class="breadcrumb">
-      <%= render_breadcrumbs :tag => :li, :separator => "" %>
-    </ol>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-center">
+          <div class="btn-group">
+            <%# Previous button %>
+            <% if @standUps.size > 1 %>
+              <%= link_to 'Previous', stand_up_path(@standUps.first), class: "btn btn-default" %>
+            <% else %>
+              <%= link_to 'Previous', "#", class: "btn btn-default disabled" %>
+            <% end %>
+
+            <%# Next button %>
+            <%= link_to 'Next', "#", class: "btn btn-default disabled" %>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="row">
       <%= render 'yesterday' %>
 
       <%= render 'form' %>
     </div>
+
   </div>
 </div>
