@@ -29,6 +29,7 @@ gem 'rails_admin', '~> 0.6.7'
 # $ rhc env set BUNDLE_WITHOUT="development test postgresql"
 #
 group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
   gem 'rails_layout', '~> 1.0.25'
   gem 'better_errors'
   gem 'sqlite3'

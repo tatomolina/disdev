@@ -1,21 +1,18 @@
 <ul class="nav nav-tabs">
   <li role="presentation" class="<%= project_active_page(:show) %>">
-    <%= link_to 'Last StandUps', project_path(@project) %>
-  </li>
-  <li role="presentation" class="<%= project_active_page(:show_stand_ups) %>">
-    <%= link_to 'My StandUps', project_path(@project) %>
+    <%= link_to 'StandUps', project_path(project) %>
   </li>
   <li role="presentation" class="<%= project_active_page(:show_activities) %>">
-    <%= link_to 'Last Activities', project_activities_path(@project) %>
+    <%= link_to 'Last Activities', project_activities_path(project) %>
   </li>
-  <% if policy(@project).show_blockers? %>
+  <% if policy(project).show_blockers? %>
     <li role="presentation" class="<%= project_active_page(:show_blockers) %>">
-      <%= link_to 'Blockers' %>
+      <%= link_to 'Blockers', project_blockers_path(project) %>
     </li>
   <% end %>
-  <% if policy(@project).show_manage? %>
+  <% if policy(project).show_manage? %>
     <li role="presentation" class="<%= project_active_page(:show_manage) %>">
-      <%= link_to 'Manage', project_manage_path %>
+      <%= link_to 'Manage', project_manage_path(project) %>
     </li>
   <% end %>
 </ul>

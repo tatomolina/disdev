@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150620185813) do
+ActiveRecord::Schema.define(version: 20150627213952) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -39,6 +39,19 @@ ActiveRecord::Schema.define(version: 20150620185813) do
   end
 
   add_index "blockers", ["stand_up_id"], name: "index_blockers_on_stand_up_id"
+
+  create_table "languages", force: true do |t|
+    t.string   "language"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "languages_profiles", id: false, force: true do |t|
+    t.integer "language_id"
+    t.integer "profile_id"
+  end
+
+  add_index "languages_profiles", ["language_id", "profile_id"], name: "index_languages_profiles_on_language_id_and_profile_id"
 
   create_table "mailboxer_conversation_opt_outs", force: true do |t|
     t.integer "unsubscriber_id"

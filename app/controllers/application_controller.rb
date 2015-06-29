@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+
+
   include PublicActivity::StoreController
 
   # Prevent CSRF attacks by raising an exception.

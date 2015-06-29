@@ -56,6 +56,10 @@ class Project < ActiveRecord::Base
       # If ther isnt a scrum master I assign it to the first developer I found
       users = User.with_role(:developer, self)
       users.first.add_role :manager
+    elsif User.with_role(:product_owner, self).any?
+      # If ther isnt a scrum master I assign it to the first developer I found
+      users = User.with_role(:product_owner, self)
+      users.first.add_role :manager
     end
   end
 

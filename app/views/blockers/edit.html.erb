@@ -1,3 +1,17 @@
-<h1 class="text-center">Edit Blocker</h1>
+<% provide(:title, "Blocker") %>
+<br>
+<div class="row">
+  <div class="col-md-2">
+    <%= render partial: 'projects/project_profile', locals: {project: @blocker.stand_up.project, user: @blocker.stand_up.user} %>
+  </div>
+  <div class="col-md-10">
+    <%= render partial: 'projects/project_navbar', locals: {project: @blocker.stand_up.project, user: @blocker.stand_up.user} %>
 
-<%= render 'form' %>
+    <div class="panel panel-default overview">
+      <div class="row overview">
+
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+</div>

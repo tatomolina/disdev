@@ -7,21 +7,21 @@
   <div class="col-md-10">
     <%= render partial: 'project_navbar', locals: {project: @project, user: nil} %>
 
-    <% @group_activities = [] %>
+    <% blocker_activities = [] %>
 
     <% @activities.each do |activity| %>
-        <% if activity.trackable.try(:project) == @project || activity.trackable.try(:stand_up).try(:project) == @project %>
-          <% @group_activities << activity %>
+        <% if activity.trackable.try(:stand_up).try(:project) == @project %>
+          <% blocker_activities << activity %>
         <% end %>
     <% end %>
 
-    <% if @group_activities.any? %>
+    <% if blocker_activities.any? %>
       <table class="table">
-        <% @group_activities.each do |group_activity| %>
+        <% blocker_activities.each do |blocker_activity| %>
           <tr>
             <td>
               <div class="row">
-                <%= render_activity group_activity %>
+                <%= render_activity blocker_activity %>
               </div>
             </td>
           </tr>
@@ -34,7 +34,4 @@
       </h3>
     <% end %>
   </div>
-    <div class="text-center">
-      <%= link_to 'New StandUp', new_project_stand_up_path(@project), class: "btn btn-default" %>
-    </div>
 </div>

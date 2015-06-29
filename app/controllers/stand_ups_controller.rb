@@ -1,4 +1,6 @@
 class StandUpsController < ApplicationController
+
+
   def index
     #limit the search to 10 to show only the last 10 standUp's of the current user
     authorize StandUp
@@ -14,6 +16,9 @@ class StandUpsController < ApplicationController
     authorize @standUp
     #Look for the last two standUp's
     @standUps = looking_yesterday(@standUp.created_at, @standUp.user, @standUp.project)
+    @next_standUp = next_stand_up(@standUp.created_at, @standUp.user, @standUp.project)
+    @project = @standUp.project
+    @active_project = :show
   end
 
   def new
@@ -25,6 +30,7 @@ class StandUpsController < ApplicationController
     #I do this so i can show the text fields inside the fields_for
     @standUp.tasks.build
     @standUp.blockers.build
+    @active_project = :show
   end
 
   def create
@@ -36,7 +42,7 @@ class StandUpsController < ApplicationController
 
     authorize @standUp
     if @standUp.save
-      # Every time i create a standUp I'm updating the project
+      # Every time I create a standUp I'm updating the project
       @standUp.project.updated_at = DateTime.current
       @standUp.project.save!
       # Creates an activity to then show as a notification
@@ -73,6 +79,12 @@ class StandUpsController < ApplicationController
       @standUp.create_activity :update, owner: current_user
       redirect_to @standUp
     else
+      if @standUp.errors.any?
+        flash[:alert] = "#{@standUp.errors.count} error prohibited this StandUp from being saved: "
+        @standUp.errors.full_messages.each do |msg|
+          flash[:alert] << "#{msg} "
+        end
+      end
       #If something go wrongs i need to search for the last standUp to render edit
       @standUps = looking_yesterday(@standUp.created_at, @standUp.user, @standUp.project)
       render 'edit'
@@ -96,6 +108,14 @@ class StandUpsController < ApplicationController
     {user: user, stand_date: date, project: project})
     .order(created_at: :desc)
     .limit(2)
+  end
+
+  def next_stand_up(date, user, project)
+    #Search for the next two standUp's
+    StandUp.where("user_id = :user AND created_at > :stand_date AND project_id = :project",
+    {user: user, stand_date: date, project: project})
+    .order(created_at: :asc)
+    .limit(1)
   end
 
   def stand_up_params
