@@ -7,37 +7,35 @@
   <div class="col-md-10">
     <%= render partial: 'projects/project_navbar', locals: {project: @blocker.stand_up.project, user: @blocker.stand_up.user} %>
 
+    <div class="panel panel-default overview">
+      <div class="row overview">
 
-    <h3 class="text-center">
-      Title:
-    </h3>
-    <h3 class="text-center">
-      <%# Shows the title task%>
-      <%= @blocker.title %>
-    </h3>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="panel-heading">
-          <h3 class="text-center">Description: </h3>
-        </div>
+        <h3 class="text-center">
+          <%# Shows the title task%>
+          <%= @blocker.title %>
+        </h3>
+        <hr>
+
         <div class="text-center">
           <%# Shows the title task%>
           <p><%= @blocker.description %></p>
         </div>
-      </div>
-    </div>
+        <hr>
 
-    <div class="text-center">
-      <div class="btn-group">
-        <%#Ask to the policy if i should show the edit and delete button %>
-        <% if policy(@blocker).edit? %>
-          <%= link_to 'Edit', edit_blocker_path(@blocker),
-           class: "btn btn-default"  %>
-        <% end %>
-        <% if policy(@blocker).destroy? %>
-          <%= link_to 'Delete', blocker_path(@blocker), method: :delete,
-           class: "btn btn-default" %>
-        <% end %>
+        <div class="text-center">
+          <div class="btn-group">
+            <%#Ask to the policy if i should show the edit and delete button %>
+            <% if policy(@blocker).edit? %>
+              <%= link_to 'Edit', edit_blocker_path(@blocker),
+               class: "btn btn-default"  %>
+            <% end %>
+            <% if policy(@blocker).destroy? %>
+              <%= link_to 'Delete', blocker_path(@blocker), method: :delete,
+               class: "btn btn-default" %>
+            <% end %>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

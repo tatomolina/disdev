@@ -9,7 +9,6 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @active_project = :show
     authorize @project
-    add_breadcrumb @project.name, project_path(@project)
   end
 
   def show_activities
@@ -101,13 +100,23 @@ class ProjectsController < ApplicationController
 
   def assign_roles
     @project = Project.find(params[:id])
-    @users = User.find(params[:members])
+    user_ids = []
+    params[:roles].each do |role|
+      user_ids << role.last
+    end
+    user_ids = user_ids.to_set.to_a
+    @users = User.find(user_ids)
     @users.each do |user|
       params[:roles].each do |role|
-        user.add_role role, @project
+        role = role.split(" ")
+        if((user.id == role.last.to_i) && (role.first == "nil"))
+          user.remove_role role.second, @project
+        elsif((user.id == role.last.to_i) && (role.first != "nil"))
+          user.add_role role.first, @project
+        end
       end
     end
-    flash[:notice] = "Roles correctly assigned"
+    flash[:notice] = "Roles correctly apply"
     redirect_to project_manage_path
   end
 

@@ -7,34 +7,44 @@
   <div class="col-md-10">
     <%= render partial: 'project_navbar', locals: {project: @project, user: nil} %>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-8">
 
         <%= form_tag project_assign_roles_path do %>
           <div class="form-group">
-            <%= label_tag :members %>
-            <%#= select_tag(:members, User.all.collect {|p| [ p.username, p.id ] },
-             { multiple: true , class: "chosen-select form-control" })%>
-            <%= select_tag :members, options_from_collection_for_select(@project.users, "id", "username"),
-             multiple: true , class: "chosen-select form-control" %>
-            <ul class="list-inline">
-              <li>
-                <%= label_tag :manager %>
-                <%= check_box_tag "roles[]", :manager %>
-              </li>
-              <li>
-                <%= label_tag :scrum_master %>
-                <%= check_box_tag "roles[]", :scrum_master %>
-              </li>
-              <li>
-                <%= label_tag :developer %>
-                <%= check_box_tag "roles[]", :developer %>
-              </li>
-              <li>
-                <%= label_tag :product_owner %>
-                <%= check_box_tag "roles[]", :product_owner %>
-              </li>
-            </ul>
 
+            <table class="table">
+              <tr>
+                <th>Members</th>
+                <th>Manager</th>
+                <th>Scrum Master</th>
+                <th>Developer</th>
+                <th>Product Owner</th>
+              </tr>
+              <% @project.users.each do |user| %>
+                <%= hidden_field_tag "roles[]", ["nil", :manager, user.id] %>
+                <%= hidden_field_tag "roles[]", ["nil", :scrum_master, user.id] %>
+                <%= hidden_field_tag "roles[]", ["nil", :developer, user.id] %>
+                <%= hidden_field_tag "roles[]", ["nil", :product_owner, user.id] %>
+              <% end %>
+              <% @project.users.each do |user| %>
+                <tr>
+                  <td><%= user.username %></td>
+                  <td>
+                    <%= check_box_tag "roles[]", [:manager, user.id], user.has_role?(:manager, @project) %>
+                  </td>
+                  <td>
+                    <%= check_box_tag "roles[]", [:scrum_master, user.id], user.has_role?(:scrum_master, @project) %>
+                  </td>
+                  <td>
+                    <%= check_box_tag "roles[]", [:developer, user.id], user.has_role?(:developer, @project) %>
+                  </td>
+                  <td>
+                    <%= check_box_tag "roles[]", [:product_owner, user.id], user.has_role?(:product_owner, @project) %>
+                  </td>
+                </tr>
+              <% end %>
+
+            </table>
 
           </div>
           <%= submit_tag "Apply roles", class: "btn btn-default" %>

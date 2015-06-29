@@ -5,10 +5,12 @@ class BlockersController < ApplicationController
   def show
     @blocker = Blocker.find(params[:id])
     authorize @blocker
+    @active_project = :show
   end
 
   def edit
     @blocker = Blocker.find(params[:id])
+    @active_project = :show
     authorize @blocker
   end
 

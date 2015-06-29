@@ -8,11 +8,11 @@ RSpec.describe BlockersController, :type => :controller do
 
   before(:each) do
       sign_in user
-      @blocker = Blocker.create!(title: "super blocker", description: "I'm a super blocker")
     end
 
   describe 'GET show' do
     it "returns 200 (ok) response code" do
+      @blocker = Blocker.create!(title: "super blocker", description: "I'm a super blocker")
       get blocker_path(@blocker)
       expect(response).to have_http_status(:ok)
     end

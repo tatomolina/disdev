@@ -13,11 +13,11 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show_blockers?
-    (user.present?) && ((record.member? user) && (user.has_role? :scrum_master, record)) || (user.has_role? :admin)
+    (user.present?) && (((record.member? user) && (user.has_role? :scrum_master, record)) || (user.has_role? :admin))
   end
 
   def show_manage?
-    (user.present?) && (record.member? user) && (user.has_role? :manager, record)
+    (user.present?) && (((record.member? user) && (user.has_role? :manager, record)) || (user.has_role? :admin))
   end
 
   def create?
@@ -39,11 +39,11 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def join?
-    user.present?
+    user.present? && (record.work_group.member? user)
   end
 
   def leave?
-    user.present?
+    user.present? && (record.member? user)
   end
 
 end

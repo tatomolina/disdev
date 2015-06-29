@@ -8,7 +8,7 @@ class ProfilesController < ApplicationController
   def update
     @profile = current_user.profile
     authorize @profile
-    if @profile.update!(profile_params)
+    if @profile.update(profile_params)
       flash[:notice] = "Your profile has been updated."
       redirect_to user_path(current_user)
     else
@@ -25,7 +25,7 @@ class ProfilesController < ApplicationController
 private
 
  def profile_params
-   params.require(:profile).permit(:first_name, :last_name, :date_of_birth, :languages)
+   params.require(:profile).permit(:first_name, :last_name, :date_of_birth, :language_ids => [])
  end
 
 end
