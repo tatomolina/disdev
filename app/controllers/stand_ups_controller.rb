@@ -42,7 +42,7 @@ class StandUpsController < ApplicationController
 
     authorize @standUp
     if @standUp.save
-      # Every time i create a standUp I'm updating the project
+      # Every time I create a standUp I'm updating the project
       @standUp.project.updated_at = DateTime.current
       @standUp.project.save!
       # Creates an activity to then show as a notification

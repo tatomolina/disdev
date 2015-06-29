@@ -1,5 +1,9 @@
 class BlockerPolicy < ApplicationPolicy
 
+  def show
+    record.stand_up.project.member? user
+  end
+
   def create?
     record.user == user
   end
