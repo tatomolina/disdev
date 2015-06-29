@@ -126,7 +126,7 @@ class WorkGroupsController < ApplicationController
      is asking to join him to the #{work_group.name} WorkGroup"
     current_user.send_message(recipients, body, subject)
     flash[:notice] = "Your message was successfully sent!"
-    redirect_to work_groups_path
+    redirect_to request.referrer
   end
 
   def assign_roles
