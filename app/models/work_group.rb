@@ -1,13 +1,16 @@
 class WorkGroup < ActiveRecord::Base
+  # A work_group is a class that represent group of development with all his members
 
+  # Specify that group is scopped to rolify roles
   resourcify
-  #A work_group is a class that represent group of development with all his members
-  #has_many :users, :dependent => :nullify
+
+  # Specify N:M relationship with users
   has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
+
+  # A group can have many projects associated
   has_many :projects, :dependent => :destroy
 
-  has_many :stand_ups, :dependent => :destroy
   validates :name, uniqueness: true, presence: true,
     length: {
       minimum: 1,
@@ -35,6 +38,10 @@ class WorkGroup < ActiveRecord::Base
   def add!(user)
     # Method to join to an especific group
     memberships.create!(user: user)
+    if self.users.count == 1
+      user.add_role :owner, self
+    end
+    user.add_role :member, self
   end
 
   def remove!(user)
@@ -48,33 +55,17 @@ class WorkGroup < ActiveRecord::Base
       user.remove_role :owner, self
     end
 
-    if user.has_role? :general, self
-      user.remove_role :general, self
-    end
-
-    if user.has_role? :rookie, self
-      user.remove_role :rookie, self
-    end
-
-    if user.has_role? :n00b, self
-      user.remove_role :n00b, self
+    if user.has_role? :member, self
+      user.remove_role :member, self
     end
 
   end
 
   def assign_owner
     # If there is a general I assign the owner to the first I encounter
-    if User.with_role(:general, self).any?
-      users = User.with_role(:general, self)
+    if User.with_role(:member, self).any?
+      users = User.with_role(:member, self)
       users.first.add_role :owner, self
-    elsif User.with_role(:rookie, self).any?
-      # If ther isnt a general I assign it to the first rookie I found
-      users = User.with_role(:rookie, self)
-      users.first.add_role :owner
-    elsif User.with_role(:n00b, self).any?
-      # If ther isnt a rookie I assign it to the first n00b I found
-      users = User.with_role(:n00b, self)
-      users.first.add_role :owner
     end
   end
 

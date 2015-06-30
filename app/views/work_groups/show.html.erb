@@ -7,25 +7,30 @@
   </div>
   <div class="col-md-10">
     <%= render 'work_group_navbar' %>
-    <% @group_activities = [] %>
+
+    <% group_activities = [] %>
     <% @activities.each do |activity| %>
-        <% if activity.trackable.try(:project).try(:work_group) == @workGroup || activity.trackable.try(:stand_up).try(:project).try(:work_group) == @workGroup %>
-          <% @group_activities << activity %>
+        <% if((activity.trackable.try(:project)
+          .try(:work_group) == @workGroup) || (activity.trackable
+          .try(:stand_up).try(:project).try(:work_group) == @workGroup)) %>
+          <% group_activities << activity %>
         <% end %>
     <% end %>
-    <% if @group_activities.any? %>
+    <% if group_activities.any? %>
+      <% group_activities = group_activities.paginate(:per_page => 5, :page => params[:page]) %>
+
       <table class="table">
-        <% @group_activities.each do |group_activity| %>
+        <% group_activities.each do |activity| %>
           <tr>
             <td>
               <div class="row">
-                <%= render_activity group_activity %>
+                <%= render_activity activity %>
               </div>
             </td>
           </tr>
         <% end %>
       </table>
-      <%= will_paginate @activities, renderer: BootstrapPagination::Rails %>
+      <%= will_paginate group_activities, renderer: BootstrapPagination::Rails %>
     <% else %>
       <h3>
         There's nothing new

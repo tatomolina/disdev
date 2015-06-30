@@ -1,3 +1,16 @@
-<h1 class="text-center">Edit WorkGroup</h1>
+<% provide(:title, "WorkGroup") %>
 
-<%= render 'form' %>
+<div class="row">
+  <br>
+  <div class="col-md-2">
+    <%= render partial: 'work_group_profile', locals: { work_group: @workGroup } %>
+  </div>
+  <div class="col-md-10">
+    <%= render 'work_group_navbar' %>
+
+    <div class="panel panel-default overview">
+      <h1 class="text-center">Editing <%= @workGroup.name %></h1>
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

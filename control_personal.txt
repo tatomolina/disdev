@@ -72,40 +72,58 @@ StandUp with task and blocker nesteds
             destroy:  ok
       Views:
             index:    no hay
-            show:     ok
-            new:      ok Corregi para q los botones no salten
+            show:     ok  corregi el boton next para q si otro usuario esta mirando y llega a la ultima standp no lo lleve a su new
+            new:      ok  Corregi para q los botones no salten
             create:   ok
             edit:     ok
             update:   ok
             destroy:  ok
 
 Work Group
-      model:          
+                      PODRIA AGREGAR UNA BREVE DESCRIPCION DEL GRUPO EN UN OVERVIEW
+                      A los projectos podria agregar un concepto de projecto terminado o en proceso (active?)
+      model:          ok
       controller:
-            index:
-            show:
-            new:
-            create:
-            edit:
-            update:
-            destroy:
+            index:    ok
+            show:     ok
+   show_projects:     ok al dejar un projecto muestra el cartel de no esta autorizado (?)
+     show_manage:     ok
+            new:      ok
+            create:   ok
+            edit:     ok
+            update:   ok
+            destroy:  ok
+            add_user: ok
+        remove_user:  ok
+
       Policy
-            index:
-            show:
-            new:
-            create:
-            edit:
-            update:
-            destroy:
+            index:    ok
+            show:     ok
+   show_projects:     ok
+     show_manage:     ok
+            new:      ok
+            create:   ok
+            edit:     ok
+            update:   ok
+            destroy:  ok
+            add_user: ok
+        remove_user:  ok
+
       Views:
-            index:
-            show:
-            new:
-            create:
-            edit:
-            update:
-            destroy:
-Task  model:
+            index:    ok
+            show:     ok Agregar notificaciones de agregado de miembros
+   show_projects:     ok
+     show_manage:     ok Corregi la asignacion de roles y partes de vistas
+            new:      ok
+            create:   ok
+            edit:     ok Corregi la vista para que se acoplara al resto del diseño
+            update:   ok
+            destroy:  ok
+            add_user: ok
+        remove_user:  ok
+
+Project
+      model:
       controller:
             index:
             show:

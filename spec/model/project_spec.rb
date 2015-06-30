@@ -109,26 +109,34 @@ RSpec.describe Project, :type => :model do
   describe "::remove_roles(user)" do
 
     it "return false if the user has not the manager role" do
+      expect(manager.has_role? :manager, project).to be true
       project.remove_roles(manager)
       expect(manager.has_role? :manager, project).to be false
     end
 
     it "return false if the user has not the scrum_master role" do
+      expect(scrum_master.has_role? :scrum_master, project).to be true
       project.remove_roles(scrum_master)
-      expect(manager.has_role? :scrum_master, project).to be false
+      expect(scrum_master.has_role? :scrum_master, project).to be false
     end
 
     it "return false if the user has not the developer role" do
+      expect(developer.has_role? :developer, project).to be true
       project.remove_roles(developer)
-      expect(manager.has_role? :developer, project).to be false
+      expect(developer.has_role? :developer, project).to be false
     end
 
     it "return false if the user has not the product_owner role" do
+      expect(product_owner.has_role? :product_owner, project).to be true
       project.remove_roles(product_owner)
-      expect(manager.has_role? :product_owner, project).to be false
+      expect(product_owner.has_role? :product_owner, project).to be false
     end
 
     it "return false if the user has not any of the roles" do
+      expect(all_roles.has_role? :manager, project).to be true
+      expect(all_roles.has_role? :developer, project).to be true
+      expect(all_roles.has_role? :scrum_master, project).to be true
+      expect(all_roles.has_role? :product_owner, project).to be true
       project.remove_roles(all_roles)
       expect(all_roles.has_role? :manager, project).to be false
       expect(all_roles.has_role? :developer, project).to be false

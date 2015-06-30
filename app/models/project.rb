@@ -1,9 +1,11 @@
 class Project < ActiveRecord::Base
 
+  # Specify that group is scopped to rolify roles
   resourcify
 
   belongs_to :work_group
   has_many :stand_ups, :dependent => :destroy
+  #N:M association with users
   has_many :project_memberships, :dependent => :destroy
   has_many :users, :through => :project_memberships
 

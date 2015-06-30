@@ -40,7 +40,11 @@
                 <% if @next_standUp.any? #Do this to check if I am on the last stand up %>
                   <%= link_to 'Next', stand_up_path(@next_standUp.first), class: "btn btn-default" %>
                 <% else %>
-                  <%= link_to 'Next', new_project_stand_up_path(@standUp.project), class: "btn btn-default" %>
+                  <% if @standUp.user == current_user  %>
+                    <%= link_to 'Next', new_project_stand_up_path(@standUp.project), class: "btn btn-default" %>
+                  <% else %>
+                    <%= link_to 'Next', nil, class: "btn btn-default disabled" %>
+                  <% end %>
                 <% end %>
 
               </div>

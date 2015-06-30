@@ -88,8 +88,8 @@ class ProjectsController < ApplicationController
 
   def leave
     @project = Project.find(params[:project_id])
-    # If the manager is leaving I need to assign that role to other user
     @project.remove! current_user
+    # If the manager is leaving I need to assign that role to other user
     if current_user.has_role? :manager, @project
       @project.assign_manager
     end

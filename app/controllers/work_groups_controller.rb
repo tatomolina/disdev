@@ -3,25 +3,31 @@ class WorkGroupsController < ApplicationController
   def index
     authorize WorkGroup
     @workGroups = WorkGroup.search(params[:search])
+    .paginate(:page => params[:page], :per_page => 4)
+    .order("created_at desc")
   end
 
   def show
     @workGroup = WorkGroup.find(params[:id])
+    # Notifications
     @activities = PublicActivity::Activity
-    .paginate(:page => params[:page], :per_page => 5)
+    .all
     .order("created_at desc")
+    # Assign wich nav-bar link should be active
     @active_group = :show
     authorize @workGroup
   end
 
   def show_projects
     @workGroup = WorkGroup.find(params[:id])
+    # Assign wich nav-bar link should be active
     @active_group = :show_projects
     authorize @workGroup
   end
 
   def show_manage
     @workGroup = WorkGroup.find(params[:id])
+    # Assign wich nav-bar link should be active
     @active_group = :show_manage
     authorize @workGroup
   end
@@ -34,11 +40,9 @@ class WorkGroupsController < ApplicationController
   def create
     @workGroup = WorkGroup.new(work_group_params)
     authorize @workGroup
-    if@workGroup.save
+    if @workGroup.save
       @workGroup.add! current_user
-      current_user.add_role :owner, @workGroup
-      current_user.save!
-      flash[:notice] = "WorkGroup succesfully edited"
+      flash[:notice] = "WorkGroup succesfully created"
       redirect_to @workGroup
     else
       flash[:alert] = "#{@workGroup.errors.count} errors prohibited this workGroup from being saved: "
@@ -53,6 +57,7 @@ class WorkGroupsController < ApplicationController
   def edit
     @workGroup = WorkGroup.find(params[:id])
     authorize @workGroup
+    @active_group = :show_manage
   end
 
   def update
@@ -79,27 +84,39 @@ class WorkGroupsController < ApplicationController
   def destroy
 		@workGroup = WorkGroup.find(params[:id])
     authorize @workGroup
-		@workGroup.destroy
 
-		redirect_to work_groups_path
+    @workGroup.users each do |user|
+      @workGroup.remove_roles user
+    end
+		if @workGroup.destroy
+      flash[:notice] = "Work Group correctly deleted"
+      redirect_to user_path(current_user)
+    else
+      flash[:alert] = "Could not destroy Work Group"
+      current_user.add_role :owner, @workGroup
+		  redirect_to work_group_path(@workGroup)
+    end
+
   end
 
   def add_user
     #Looks for a user by the email passed by params
     @user = User.find_by email: params[:email]
     #if find it, add it to the work group if not flash msg
+    @workGroup = WorkGroup.find(params[:id])
+    authorize @workGroup
     if @user.present?
-      group = WorkGroup.find(params[:id])
-      group.add! @user
+      @workGroup.add! @user
+      # I send him an email to inform that he just being added to the group
       subject = "Joined to WorkGroup"
       body = "Congrats you just had been added to the workGroup #{group.name}.
       Now Join some project you want to work in and start creating standUps to
       comunicate your friends what are you doing"
       current_user.send_message(@user, body, subject)
+      flash[:notice] = "User added correctly"
     else
       flash[:alert] = "Nonexistent user"
     end
-    authorize WorkGroup
     redirect_to work_group_manage_path(params[:id])
   end
 
@@ -107,7 +124,7 @@ class WorkGroupsController < ApplicationController
     #Look for the user passed by params and remve it from the group
     @user = User.find(params[:user_id])
     @work_group = WorkGroup.find(params[:id])
-    authorize @workGroup
+    authorize @work_group
     @work_group.remove! @user
     if @user.has_role? :owner, @work_group
       @work_group.assign_owner
@@ -131,13 +148,24 @@ class WorkGroupsController < ApplicationController
 
   def assign_roles
     @work_group = WorkGroup.find(params[:id])
-    @users = User.find(params[:members])
+    authorize @work_group
+    user_ids = []
+    params[:roles].each do |role|
+      user_ids << role.last
+    end
+    user_ids = user_ids.to_set.to_a
+    @users = User.find(user_ids)
     @users.each do |user|
       params[:roles].each do |role|
-        user.add_role role, @work_group
+        role = role.split(" ")
+        if((user.id == role.last.to_i) && (role.first == "nil"))
+          user.remove_role role.second, @work_group
+        elsif((user.id == role.last.to_i) && (role.first != "nil"))
+          user.add_role role.first, @work_group
+        end
       end
     end
-    flash[:notice] = "Roles correctly assigned"
+    flash[:notice] = "Roles correctly apply"
     redirect_to work_group_manage_path
   end
 

@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   post '/work_groups/request_for_join', to: 'work_groups#request_for_join',       as: 'request_for_join'
 
   # Projet and nested StandUp
-  resources :projects do
+  resources :projects, except: [:index] do
     resources :stand_ups, except: [:index], shallow: true
   end
 
