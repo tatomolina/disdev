@@ -1,0 +1,257 @@
+Task  Nested to standUp
+      model:          ok
+      controller:
+            index:    no hay
+            show:     no hay
+            new:      no hay
+            create:   no hay
+            edit:     no hay
+            update:   no hay
+            destroy:  no hay
+      Policy
+            index:    no hay
+            show:     no hay
+            new:      no hay
+            create:   no hay
+            edit:     no hay
+            update:   no hay
+            destroy:  no hay
+      Views:
+            index:    no hay
+            show:     no hay
+            new:      no hay
+            create:   no hay
+            edit:     no hay
+            update:   no hay
+            destroy:  no hay
+
+Blocker Nested to standUp pero con posibilidad de editar por separado
+      model:          ok
+      controller:
+            index:    no hay
+            show:     ok
+            new:      no hay
+            create:   no hay
+            edit:     ok
+            update:   ok
+            destroy:  ok
+      Policy
+            index:    no hay
+            show:     ok
+            new:      no hay
+            create:   no hay
+            edit:     ok
+            update:   ok
+            destroy:  ok
+      Views:
+            index:    no hay
+            show:     ok      AGREGAR QUE OTROS MIEMBROS DEL MISMO PROJECTO PERMITAN COMENTAR EN LO POSIBLE
+            new:      no hay
+            create:   no hay
+            edit:     ok
+            update:   ok
+            destroy:  ok
+
+StandUp with task and blocker nesteds
+      model:          ok
+      controller:
+            index:    no hay podria agregar un indice q muestre las standUps de cada usuario
+            show:     ok
+            new:      ok
+            create:   ok
+            edit:     ok
+            update:   ok
+            destroy:  ok
+      Policy
+            index:    no hay
+            show:     ok
+            new:      NO SE COMO COMPROBAR SI ESTOY EN EL PROJECTO CORRESPONDIENTE
+            create:   ok
+            edit:     ok
+            update:   ok
+            destroy:  ok
+      Views:
+            index:    no hay
+            show:     ok
+            new:      ok Corregi para q los botones no salten
+            create:   ok
+            edit:     ok
+            update:   ok
+            destroy:  ok
+
+Work Group
+      model:          
+      controller:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Policy
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Views:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+Task  model:
+      controller:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Policy
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Views:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+Task  model:
+      controller:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Policy
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Views:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+Task  model:
+      controller:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Policy
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Views:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+Task  model:
+      controller:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Policy
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Views:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+Task  model:
+      controller:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Policy
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Views:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+Task  model:
+      controller:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Policy
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:
+      Views:
+            index:
+            show:
+            new:
+            create:
+            edit:
+            update:
+            destroy:

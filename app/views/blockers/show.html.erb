@@ -1,23 +1,25 @@
-<% provide(:title, "Blocker") %>
+<% provide(:title, "StandUp Blocker") %>
 <br>
 <div class="row">
   <div class="col-md-2">
+    <%# Render the project profile and pass parameters project and user to corretcly render it %>
     <%= render partial: 'projects/project_profile', locals: {project: @blocker.stand_up.project, user: @blocker.stand_up.user} %>
   </div>
   <div class="col-md-10">
+    <%# Render the project navbar and pass parameters project and user to corretcly render it %>
     <%= render partial: 'projects/project_navbar', locals: {project: @blocker.stand_up.project, user: @blocker.stand_up.user} %>
 
     <div class="panel panel-default overview">
       <div class="row overview">
 
         <h3 class="text-center">
-          <%# Shows the title task%>
+          <%# Shows the title %>
           <%= @blocker.title %>
         </h3>
         <hr>
 
         <div class="text-center">
-          <%# Shows the title task%>
+          <%# Shows the description%>
           <p><%= @blocker.description %></p>
         </div>
         <hr>

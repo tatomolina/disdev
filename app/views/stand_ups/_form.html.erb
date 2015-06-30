@@ -22,7 +22,7 @@
         end
         js = escape_javascript(fields)
         fn = html_escape("addTask($('#tasks'), \"#{js}\")")
-        concat(raw("<a href=\"#\" class=\"btn btn-primary\"
+        concat(raw("<a href=\"#/\" class=\"btn btn-primary\"
         onclick=\"#{fn}\"><span class=\"glyphicon glyphicon-plus\"></span></a>"))
       %>
     </div>
@@ -48,7 +48,7 @@
         end
         js = escape_javascript(fields)
         fn = html_escape("addBlocker($('#blockers'), \"#{js}\")")
-        concat(raw("<a href=\"#\" class=\"btn btn-primary\"
+        concat(raw("<a href=\"#/\" class=\"btn btn-primary\"
         onclick=\"#{fn}\"><span class=\"glyphicon glyphicon-plus\"></span></a>"))
       %>
     </div>

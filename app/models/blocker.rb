@@ -1,9 +1,11 @@
 class Blocker < ActiveRecord::Base
+  #Blockers are the problems that the user may encounter developing their apps
+  # and they will describe them in here
+  
+  # Do this to track blocker as an activity to show it as a notification.
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
-  #Blockers are the problems that the user may encounter developing their apps
-  # and they will describe them in here
   #Here I validates the contents of the instance variables
   #And set the realtionship Between standUp and Blockers
   validates :title, presence: true, length: {minimum: 5}

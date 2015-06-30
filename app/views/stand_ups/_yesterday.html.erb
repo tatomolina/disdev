@@ -42,33 +42,43 @@
           <div class="panel-heading">
             <h3 class="text-center panel-title">Blockers</h3>
           </div>
-
           <div class="panel-body">
-            <ul class="nav nav-pills nav-stacked text-center">
+            <table class="table table-hover">
+
               <% @standUps.first.blockers.each do |blocker| %>
-                <li><%= link_to blocker.title, blocker_path(blocker) %></li>
+                <tr>
+                  <td>
+                    <div class="text-center">
+                      <%= link_to blocker.title, blocker_path(blocker) %>
+                    </div>
+                  </td>
+                </tr>
               <% end %>
-            </ul>
+            </table>
           </div>
         </div>
       <% end %>
     <% else %>
-    <% if @standUps.second.blockers.any? #check if there is any blocker present%>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="text-center panel-title">Blockers</h3>
+      <% if @standUps.second.blockers.any? #check if there is any blocker present%>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="text-center panel-title">Blockers</h3>
+          </div>
+          <div class="panel-body">
+            <table class="table table-hover">
+              <% @standUps.second.blockers.each do |blocker| %>
+                <tr>
+                  <td>
+                    <div class="text-center">
+                      <%= link_to blocker.title, blocker_path(blocker) %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
         </div>
-
-        <div class="panel-body">
-          <ul class="nav nav-pills nav-stacked text-center">
-            <% @standUps.second.blockers.each do |blocker| %>
-              <li><%= link_to blocker.title, blocker_path(blocker) %></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
     <% end %>
   <% end %>
-
 </div>

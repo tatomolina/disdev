@@ -1,4 +1,5 @@
-function removeBlocker(linkNode){
+function removeBlocker(linkNode, event){
+  event.preventDefault();
   var link = $(linkNode);
   var myFormGroup = link.parent().parent();
   myFormGroup.find("input[type=hidden]").val("true");

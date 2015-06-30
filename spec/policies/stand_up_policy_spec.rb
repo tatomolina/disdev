@@ -63,6 +63,29 @@ RSpec.describe StandUpPolicy, :type => :model do
     user
   end
 
+  permissions :show? do
+    it "is denied to non-logged users" do
+      expect(subject).not_to permit(nil, stand_up)
+    end
+
+    it "is denied to logged in users" do
+      expect(subject).not_to permit(user, stand_up)
+    end
+
+    it "is denied to users members of group" do
+      expect(subject).not_to permit(user_in_work_group, stand_up)
+    end
+
+    it "is permited to users members of project" do
+      expect(subject).to permit(user_in_project, stand_up)
+    end
+
+    it "is permited to user with role admin" do
+      expect(subject).to permit(admin, stand_up)
+    end
+
+  end
+
   permissions :new? do
     it "is denied to non-logged users" do
       expect(subject).not_to permit(nil, StandUp)
@@ -100,6 +123,36 @@ RSpec.describe StandUpPolicy, :type => :model do
     end
 
     it "is permited to users members of project" do
+      expect(subject).to permit(user_in_project, stand_up)
+    end
+
+    it "is permited to user with role admin" do
+      expect(subject).to permit(admin, stand_up)
+    end
+  end
+
+  permissions :edit? do
+    it "is denied to non-logged users" do
+      expect(subject).not_to permit(nil, stand_up)
+    end
+
+    it "is denied to logged in users" do
+      expect(subject).not_to permit(user, stand_up)
+    end
+
+    it "is denied to users members of group" do
+      expect(subject).not_to permit(user_in_work_group, stand_up)
+    end
+
+    it "is denied to users members of project and but the user is not the author of the standUp" do
+      expect(subject).not_to permit(user_in_project_2, stand_up)
+    end
+
+    it "is denied to users members of project and standUp was created 24 hs or more" do
+      expect(subject).not_to permit(user_in_project, stand_up_2)
+    end
+
+    it "is permited to users members of project and standUp was created with in 24 hs from now" do
       expect(subject).to permit(user_in_project, stand_up)
     end
 

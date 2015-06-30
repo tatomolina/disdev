@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     end
 
   # Blocker
-  resources :blockers, except: [:index, :new] # Dont want an index route
+  resources :blockers, except: [:index, :new, :create] # Dont want an index route
 
   # WorkGroup
   resources :work_groups

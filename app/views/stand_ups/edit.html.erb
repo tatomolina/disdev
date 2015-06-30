@@ -7,14 +7,53 @@
   <div class="col-md-10">
     <%= render partial: 'projects/project_navbar', locals: {project: @standUp.project, user: @standUp.user} %>
 
-    <ol class="breadcrumb">
-      <%= render_breadcrumbs :tag => :li, :separator => "" %>
-    </ol>
+    <div class="panel panel-default overview">
+      <div class="row overview">
 
-    <div class="row">
-      <%= render 'yesterday' %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-center">
+              <%# Show the stand_up created_at date as a title%>
+              <h1><%= @standUp.created_at.to_s(:long) %></h1>
+            </div>
+          </div>
+        </div>
 
-      <%= render 'form' %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-center">
+              <div class="btn-group">
+                <%# Previous button %>
+                <% if @standUps.size > 1 #Do this to check if it is the first standUp %>
+                  <% if @standUp.created_at == nil #check if I am on new%>
+                    <%= link_to 'Previous', stand_up_path(@standUps.first), class: "btn btn-default" %>
+                  <% else %>
+                    <%= link_to 'Previous', stand_up_path(@standUps.second), class: "btn btn-default" %>
+                  <% end %>
+                <% else %>
+                  <%# if im on the first stand_up there arent previous stand_ups %>
+                  <%= link_to 'Previous', "#", class: "btn btn-default disabled" %>
+                <% end %>
+
+                <%# Next button %>
+                <% if @next_standUp.any? #Do this to check if I am on the last stand up %>
+                  <%= link_to 'Next', stand_up_path(@next_standUp.first), class: "btn btn-default" %>
+                <% else %>
+                  <%= link_to 'Next', new_project_stand_up_path(@standUp.project), class: "btn btn-default" %>
+                <% end %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <%= render 'yesterday' %>
+
+          <%= render 'form' %>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

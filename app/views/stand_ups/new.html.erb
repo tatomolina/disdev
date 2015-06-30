@@ -2,9 +2,11 @@
 <br>
 <div class="row">
   <div class="col-md-2">
+    <%# Render the project profile and pass parameters project and user to corretcly render it %>
     <%= render partial: 'projects/project_profile', locals: {project: @project, user: current_user} %>
   </div>
   <div class="col-md-10">
+    <%# Render the project profile and pass parameters project and user to corretcly render it %>
     <%= render partial: 'projects/project_navbar', locals: {project: @project, user: current_user} %>
 
     <div class="panel panel-default overview">
@@ -15,9 +17,10 @@
             <div class="text-center">
               <div class="btn-group">
                 <%# Previous button %>
-                <% if @standUps.size > 1 %>
+                <% if @standUps.size > 1 # I do this to check if I'm on the first stand_up %>
                   <%= link_to 'Previous', stand_up_path(@standUps.first), class: "btn btn-default" %>
                 <% else %>
+                  <%# if I'm on the first stand_up there arent previous stand_ups %>
                   <%= link_to 'Previous', "#", class: "btn btn-default disabled" %>
                 <% end %>
 

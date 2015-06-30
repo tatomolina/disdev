@@ -2,9 +2,11 @@
 <br>
 <div class="row">
   <div class="col-md-2">
+    <%# Render the project profile and pass parameters project and user to corretcly render it %>
     <%= render partial: 'projects/project_profile', locals: {project: @standUp.project, user: @standUp.user} %>
   </div>
   <div class="col-md-10">
+    <%# Render the project profile and pass parameters project and user to corretcly render it %>
     <%= render partial: 'projects/project_navbar', locals: {project: @standUp.project, user: @standUp.user} %>
 
     <div class="panel panel-default overview">
@@ -13,6 +15,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="text-center">
+              <%# Show the stand_up created_at date as a title%>
               <h1><%= @standUp.created_at.to_s(:long) %></h1>
             </div>
           </div>
@@ -29,6 +32,7 @@
                     <%= link_to 'Previous', stand_up_path(@standUps.second), class: "btn btn-default" %>
                   <% end %>
                 <% else %>
+                  <%# if im on the first stand_up there arent previous stand_ups %>
                   <%= link_to 'Previous', "#", class: "btn btn-default disabled" %>
                 <% end %>
 
