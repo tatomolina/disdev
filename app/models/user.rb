@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
     :case_sensitive => false
   }
 
+  # Asign an only profile to my user
+  has_one :profile, :dependent => :destroy
+  after_create :create_profile
+
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
@@ -21,10 +25,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  # Asign an only profile to my user
-  has_one :profile, :dependent => :destroy
-  after_create :create_profile
 
 
   # User can have many standUps

@@ -26,7 +26,7 @@ class WorkGroup < ActiveRecord::Base
     if search
       where("name LIKE ?", "%#{search}%")
     else
-      all.limit(10).order(created_at: :desc)
+      all.order(created_at: :desc)
     end
   end
 

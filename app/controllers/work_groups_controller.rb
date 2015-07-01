@@ -3,7 +3,7 @@ class WorkGroupsController < ApplicationController
   def index
     authorize WorkGroup
     @workGroups = WorkGroup.search(params[:search])
-    .paginate(:page => params[:page], :per_page => 4)
+    .paginate(:page => params[:page], :per_page => 6)
     .order("created_at desc")
   end
 

@@ -29,6 +29,10 @@ gem 'rails_admin', '~> 0.6.7'
 # $ rhc env set BUNDLE_WITHOUT="development test postgresql"
 #
 group :development, :test do
+  gem 'faker'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails', '~> 4.5.0'
   gem 'rspec-rails', '~> 3.0'
   gem 'rails_layout', '~> 1.0.25'
   gem 'better_errors'

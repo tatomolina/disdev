@@ -18,6 +18,8 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'pundit/rspec'
 require 'devise'
+require "capybara/rspec"
+require 'database_cleaner'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
