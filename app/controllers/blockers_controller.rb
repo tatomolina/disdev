@@ -5,6 +5,8 @@ class BlockersController < ApplicationController
   #In this controller is defined only the
   def show
     @blocker = Blocker.find(params[:id])
+    # To render answer partial
+    @answer = Answer.new
     authorize @blocker
     # With this im assigning wich nav link should be marked as active in the nav-bar
     @active_project = :show

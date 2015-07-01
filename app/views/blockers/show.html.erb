@@ -37,7 +37,40 @@
             <% end %>
           </div>
         </div>
+        <br><br>
+        <div class="col-md-8 col-md-offset-2">
+          <%= pluralize(@blocker.answers.count, 'Answer') %>
+          <table class="table">
+            <% @blocker.answers.each do |answer| %>
+              <tr>
+                <td>
+                  <% if policy(answer).destroy? %>
+                    <%= link_to 'Delete', answer_path(answer), method: :delete %>
+                  <% end %>
+                  <div class="text-center">
+                    <%= answer.answer %>
+                  </div>
 
+                  <div class="col-md-5 col-md-offset-7">
+                    <div class="col-md-12">
+                      answered
+                      <%= distance_of_time_in_words( answer.created_at, DateTime.current) %> ago.<br/>
+                    </div>
+                    <div class="col-md-3">
+                      <%= image_tag answer.user.gravatar_url %>
+                    </div>
+                    <%= link_to answer.user.username, answer.user %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+              <td>
+                <%= render partial: "answer/form"%>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>

@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # Users can have many answers
+  has_many :answers
 
   # User can have many standUps
   has_many :stand_ups, foreign_key: "user_id"

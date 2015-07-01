@@ -1,0 +1,15 @@
+<%= form_for @answer do |form| %>
+
+    <div class="form-group">
+      <p>
+        <div class="text-center">
+        <%= form.label  :your_answer%><br/>
+      </div>
+        <%= form.text_area :answer, class: "form-control text-center" %>
+      </p>
+      <%= hidden_field_tag "id_blocker", @blocker.id %>
+      <div class="text-right">
+        <%= form.submit 'Post Your Answer', :class => "btn btn-default" %>
+      </div>
+    </div>
+<% end %>
