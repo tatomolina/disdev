@@ -12,7 +12,9 @@
       <% group_activities = [] %>
 
       <% @activities.each do |activity| %>
-          <% if activity.trackable.try(:project) == @project || activity.trackable.try(:stand_up).try(:project) == @project %>
+          <% if (activity.trackable.try(:project) == @project) || (activity
+            .trackable.try(:stand_up).try(:project) == @project) || (activity
+            .trackable == @project) %>
             <% group_activities << activity %>
           <% end %>
       <% end %>

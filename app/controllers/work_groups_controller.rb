@@ -66,6 +66,9 @@ class WorkGroupsController < ApplicationController
 
 		if @workGroup.update(work_group_params)
       # Show a msg and then redirect to manage again
+
+      # Creates an activity to then show as a notification
+      @workGroup.create_activity :update, owner: current_user
       flash[:notice] = "WorkGroup succesfully edited"
 			redirect_to work_group_manage_path(@workGroup)
 		else
@@ -106,10 +109,12 @@ class WorkGroupsController < ApplicationController
     @workGroup = WorkGroup.find(params[:id])
     authorize @workGroup
     if @user.present?
+      # Creates an activity to then show as a notification
+      @workGroup.create_activity :add_user, owner: @user
       @workGroup.add! @user
       # I send him an email to inform that he just being added to the group
       subject = "Joined to WorkGroup"
-      body = "Congrats you just had been added to the workGroup #{group.name}.
+      body = "Congrats you just had been added to the workGroup #{@workGroup.name}.
       Now Join some project you want to work in and start creating standUps to
       comunicate your friends what are you doing"
       current_user.send_message(@user, body, subject)

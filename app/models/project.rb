@@ -1,5 +1,10 @@
 class Project < ActiveRecord::Base
 
+
+  # Adding this permit to keep track of the object as activitys on the controller
+  # to then be displayed as notifications
+  include PublicActivity::Common
+  
   # Specify that group is scopped to rolify roles
   resourcify
 

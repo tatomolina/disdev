@@ -49,6 +49,9 @@ class ProjectsController < ApplicationController
     @project.work_group = @workGroup
     if @project.save
       @project.add! current_user
+
+      # Creates an activity to then show as a notification
+      @project.create_activity :create, owner: current_user
       flash[:notice] = "Project succesfully created"
       redirect_to @project
     else
@@ -74,6 +77,8 @@ class ProjectsController < ApplicationController
     authorize @project
 
 		if @project.update(project_params)
+      # Creates an activity to then show as a notification
+      @project.create_activity :update, owner: current_user
       flash[:notice] = "Project succesfully updated"
 			redirect_to @project
 		else
@@ -90,21 +95,28 @@ class ProjectsController < ApplicationController
   def destroy
 		@project = Project.find(params[:id])
     authorize @project
+    @work_group = @project.work_group
+    # Creates an activity to then show as a notification
+    @work_group.create_activity :destroy_project, owner: current_user
 		@project.destroy
 
-		redirect_to projects_path
+		redirect_to work_group_path(@work_group)
   end
 
   def join
     @project = Project.find(params[:project_id])
     authorize @project
     @project.add! current_user
+    # Creates an activity to then show as a notification
+    @project.create_activity :join, owner: current_user
     redirect_to project_path @project
   end
 
   def leave
     @project = Project.find(params[:project_id])
     @project.remove! current_user
+    # Creates an activity to then show as a notification
+    @project.create_activity :leave, owner: current_user
     # If the manager is leaving I need to assign that role to other user
     if current_user.has_role? :manager, @project
       @project.assign_manager

@@ -1,0 +1,15 @@
+<div class="col-md-11">
+  <div class="col-md-12">
+    <%= distance_of_time_in_words( activity.created_at, DateTime.current) %> ago.<br/>
+  </div>
+  <div class="col-md-1">
+    <%= image_tag activity.owner.gravatar_url %>
+  </div>
+  <%= link_to activity.owner.username, activity.owner if activity.owner %>
+  joined project
+  <% if activity.trackable %>
+    <%= link_to activity.trackable.name, activity.trackable %>
+  <% else %>
+    <p>wich has since been remove</p>
+  <% end %>
+</div>
