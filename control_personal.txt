@@ -95,6 +95,8 @@ Work Group
             destroy:  ok
             add_user: ok
         remove_user:  ok
+    request_for_join: ok
+      assign_roles:   ok Preguntar pq el elseif
 
       Policy
             index:    ok
@@ -108,10 +110,12 @@ Work Group
             destroy:  ok
             add_user: ok
         remove_user:  ok
+    request_for_join: ok
+      assign_roles:   ok
 
       Views:
             index:    ok
-            show:     ok Agregar notificaciones de agregado de miembros
+            show:     ok Agregar notificaciones de agregado de miembros!!!!!
    show_projects:     ok
      show_manage:     ok Corregi la asignacion de roles y partes de vistas
             new:      ok
@@ -121,34 +125,56 @@ Work Group
             destroy:  ok
             add_user: ok
         remove_user:  ok
+    request_for_join: ok
+      assign_roles:   ok
 
 Project
-      model:
+      model:          ok
       controller:
-            index:
-            show:
-            new:
-            create:
-            edit:
-            update:
-            destroy:
+            index:    no hay
+            show:     ok
+    show_activities:  ok
+      show_blockers:  ok
+        show_manage:  ok
+            new:      ok
+            create:   ok
+            edit:     ok
+            update:   ok
+            destroy:  ok
+            join:     ok
+            leave:    ok
+        assign_roles: ok
       Policy
-            index:
-            show:
-            new:
-            create:
-            edit:
-            update:
-            destroy:
+            index:    no hay
+            show:     ok
+    show_activities:  ok
+      show_blockers:  ok
+        show_manage:  ok
+            new:      ok
+            create:   ok
+            edit:     ok
+            update:   ok
+            destroy:  ok
+            join:     ok
+            leave:    ok
+        assign_roles: ok
       Views:
-            index:
-            show:
-            new:
-            create:
-            edit:
-            update:
-            destroy:
-Task  model:
+            index:    no hay
+            show:     ok
+    show_activities:  ok
+      show_blockers:  ok
+        show_manage:  ok
+            new:      ok
+            create:   ok
+            edit:     ok
+            update:   ok
+            destroy:  ok
+            join:     ok
+            leave:    ok
+        assign_roles: ok
+
+Task
+    model:
       controller:
             index:
             show:

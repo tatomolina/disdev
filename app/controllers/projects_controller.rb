@@ -1,36 +1,35 @@
 class ProjectsController < ApplicationController
 
-  def index
-    authorize Project
-    @projects = Project.all
-  end
-
   def show
     @project = Project.find(params[:id])
+    # Assign wich nav-bar link should be active
     @active_project = :show
     authorize @project
   end
 
   def show_activities
     @project = Project.find(params[:id])
+    # Assign wich nav-bar link should be active
     @active_project = :show_activities
     @activities = PublicActivity::Activity
-    .paginate(:page => params[:page], :per_page => 5)
+    .all
     .order("created_at desc")
     authorize @project
   end
 
   def show_blockers
     @project = Project.find(params[:id])
+    # Assign wich nav-bar link should be active
     @active_project = :show_blockers
     @activities = PublicActivity::Activity
-    .paginate(:page => params[:page], :per_page => 5)
+    .all
     .order("created_at desc")
     authorize @project
   end
 
   def show_manage
     @project = Project.find(params[:id])
+    # Assign wich nav-bar link should be active
     @active_project = :show_manage
     authorize @project
   end
@@ -39,17 +38,25 @@ class ProjectsController < ApplicationController
     authorize Project
     @project = Project.new
     @workGroup = WorkGroup.find(params[:work_group])
+    # Assign wich nav-bar link should be active
+    @active_group = :show_projects
   end
 
   def create
     @project = Project.new(project_params)
     authorize @project
-    @project.work_group = WorkGroup.find(params[:work_group_id])
+    @workGroup = WorkGroup.find(params[:work_group_id])
+    @project.work_group = @workGroup
     if @project.save
       @project.add! current_user
-      current_user.add_role :manager, @project
+      flash[:notice] = "Project succesfully created"
       redirect_to @project
     else
+      flash[:alert] = "#{@project.errors.count} errors prohibited this project from being saved: "
+      @project.errors.full_messages.each do |msg|
+        flash[:alert] << "#{msg}"
+        flash[:alert] << ", " unless @project.errors.full_messages.last == msg
+      end
       render 'new'
     end
   end
@@ -57,16 +64,25 @@ class ProjectsController < ApplicationController
   def edit
     @project = Project.find(params[:id])
     authorize @project
+    @workGroup = @project.work_group
+    @active_project = :show_manage
   end
 
   def update
 		@project = Project.find(params[:id])
+    @workGroup = @project.work_group
     authorize @project
 
 		if @project.update(project_params)
+      flash[:notice] = "Project succesfully updated"
 			redirect_to @project
 		else
       #If i cant update, i render again the edit view
+      flash[:alert] = "#{@project.errors.count} errors prohibited this project from being saved: "
+      @project.errors.full_messages.each do |msg|
+        flash[:alert] << "#{msg}"
+        flash[:alert] << ", " unless @project.errors.full_messages.last == msg
+      end
 			render 'edit'
 		end
   end
@@ -100,6 +116,7 @@ class ProjectsController < ApplicationController
 
   def assign_roles
     @project = Project.find(params[:id])
+    authorize @project
     user_ids = []
     params[:roles].each do |role|
       user_ids << role.last

@@ -3,6 +3,15 @@ class Project < ActiveRecord::Base
   # Specify that group is scopped to rolify roles
   resourcify
 
+  validates :name, uniqueness: true, presence: true,
+    length: {
+      minimum: 1,
+      maximum: 20,
+      tokenizer: lambda { |str| str.scan(/\w+/) },
+      too_short: "Must have at least %{count} words",
+      too_long: "Must have at most %{count} words"
+    }
+
   belongs_to :work_group
   has_many :stand_ups, :dependent => :destroy
   #N:M association with users

@@ -7,31 +7,35 @@
   <div class="col-md-10">
     <%= render partial: 'project_navbar', locals: {project: @project, user: nil} %>
 
-    <% blocker_activities = [] %>
+    <div class="panel panel-default overview">
 
-    <% @activities.each do |activity| %>
-        <% if activity.trackable.try(:stand_up).try(:project) == @project %>
-          <% blocker_activities << activity %>
-        <% end %>
-    <% end %>
+      <% blocker_activities = [] %>
 
-    <% if blocker_activities.any? %>
-      <table class="table">
-        <% blocker_activities.each do |blocker_activity| %>
-          <tr>
-            <td>
-              <div class="row">
-                <%= render_activity blocker_activity %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-      </table>
-      <%= will_paginate @activities, renderer: BootstrapPagination::Rails %>
-    <% else %>
-      <h3>
-        There's nothing new
-      </h3>
-    <% end %>
+      <% @activities.each do |activity| %>
+          <% if activity.trackable.try(:stand_up).try(:project) == @project %>
+            <% blocker_activities << activity %>
+          <% end %>
+      <% end %>
+
+      <% if blocker_activities.any? %>
+      <% blocker_activities = blocker_activities.paginate(:per_page => 5, :page => params[:page]) %>
+        <table class="table">
+          <% blocker_activities.each do |blocker_activity| %>
+            <tr>
+              <td>
+                <div class="row">
+                  <%= render_activity blocker_activity %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+        <%= will_paginate blocker_activities, renderer: BootstrapPagination::Rails %>
+      <% else %>
+        <h3>
+          There's nothing new
+        </h3>
+      <% end %>
+    </div>
   </div>
 </div>

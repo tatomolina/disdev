@@ -28,12 +28,16 @@
       </div>
       <div class="panel-body">
         <table class="table">
-          <% @projects.each do |project| %>
-            <tr>
-              <td>
-                <%= link_to project.name, project_path(project) %>
-              </td>
-            </tr>
+          <% if @projects.any? %>
+            <% @projects.each do |project| %>
+              <tr>
+                <td>
+                  <%= link_to project.name, project_path(project) %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <p>You aren't on any project yet</p>
           <% end %>
         </table>
         <%= will_paginate @projects, :page_links => false, renderer: BootstrapPagination::Rails %>

@@ -13,7 +13,7 @@ RSpec.describe BlockersController, :type => :controller do
   describe 'GET show' do
     it "returns 200 (ok) response code" do
       @blocker = Blocker.create!(title: "super blocker", description: "I'm a super blocker")
-      get blocker_path(@blocker)
+      get :show, id: @blocker.id
       expect(response).to have_http_status(:ok)
     end
 
@@ -23,5 +23,4 @@ RSpec.describe BlockersController, :type => :controller do
     end
   end
 =end
-
 end
