@@ -8,7 +8,7 @@ Devise.setup do |config|
 
   config.authentication_keys = [ :login ]
 
-  
+
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
@@ -259,4 +259,6 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+  config.omniauth :github, "d719101c6b66f837bd22", "484f21a50cbd7238ace84df39b78f8372e7b353f", scope: "user"
 end

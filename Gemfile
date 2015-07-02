@@ -7,6 +7,9 @@ gem 'rails', '4.1.4'
 # Fix the conflict with the system 'rake':
 gem 'rake', '~> 0.9.6'
 
+
+gem 'omniauth'
+gem 'omniauth-github', '~> 1.1.2'
 gem 'gravtastic'
 gem 'chosen-rails'
 gem 'mailboxer', '~> 0.12.5'
@@ -16,6 +19,7 @@ gem 'public_activity'
 gem 'composite_primary_keys', '= 7.0.10'
 gem 'pundit', '~> 1.0.0'
 gem 'rolify', '~> 4.0.0'
+gem 'bootstrap-social-rails'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'devise', '~> 3.4.1'
 gem 'rails_admin', '~> 0.6.7'

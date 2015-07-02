@@ -24,7 +24,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:github]
 
   # Users can have many answers
   has_many :answers
@@ -39,6 +40,24 @@ class User < ActiveRecord::Base
   # Multiple association with projects
   has_many :project_memberships
   has_many :projects, :through => :project_memberships
+
+  def self.from_omniauth(auth)
+    # Check if the email is all ready registered and if it is if it has his uid and provider setted yet
+    # Do this to not ovorride all ready registered accounts
+    @user = (find_by email: auth.info.email)
+    if ((@user.present?) && (@user.provider.blank? && @user.uid.blank?))
+      @user.provider = auth.provider
+      @user.uid = auth.uid
+      @user.save!
+    end
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.username = auth.info.nickname
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+    end
+  end
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

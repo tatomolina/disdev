@@ -17,6 +17,7 @@
       <%= f.password_field :password, class: 'form-control' %>
     </div>
       <%= f.submit 'Sign in', :class => 'right btn btn-default' %>
+      <%= link_to "Sign in with GitHub", user_omniauth_authorize_path(:github), class: "btn btn-social btn-github" %>
       <% if devise_mapping.rememberable? -%>
         <div class="checkbox" style="width:150px">
           <label>
