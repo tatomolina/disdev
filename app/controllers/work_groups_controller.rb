@@ -88,9 +88,10 @@ class WorkGroupsController < ApplicationController
 		@workGroup = WorkGroup.find(params[:id])
     authorize @workGroup
 
-    @workGroup.users each do |user|
+    @workGroup.users.each do |user|
       @workGroup.remove_roles user
     end
+    
 		if @workGroup.destroy
       flash[:notice] = "Work Group correctly deleted"
       redirect_to user_path(current_user)
