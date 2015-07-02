@@ -2,6 +2,7 @@ class ProfilesController < ApplicationController
   after_action :verify_authorized
   def edit
     @profile = current_user.profile
+    @user = current_user
     authorize @profile
   end
 

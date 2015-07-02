@@ -33,7 +33,7 @@
             <% end %>
             <% if policy(@blocker).destroy? %>
               <%= link_to 'Delete', blocker_path(@blocker), method: :delete,
-               class: "btn btn-default" %>
+               class: "btn btn-default", data: {confirm: 'Are you sure?'} %>
             <% end %>
           </div>
         </div>
@@ -45,7 +45,7 @@
               <tr>
                 <td>
                   <% if policy(answer).destroy? %>
-                    <%= link_to 'Delete', answer_path(answer), method: :delete %>
+                    <%= link_to 'Delete', answer_path(answer), data: {confirm: 'Are you sure?'}, method: :delete %>
                   <% end %>
                   <div class="text-center">
                     <%= answer.answer %>

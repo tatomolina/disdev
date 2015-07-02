@@ -55,7 +55,7 @@
           <% end %>
           <% if policy(@project).destroy? %>
             <%= link_to 'Delete group', project_path(@project), method: :delete,
-            class: "btn btn-default" %>
+            class: "btn btn-default", data: {confirm: 'Are you sure?'} %>
           <% end %>
         </div>
     </div>

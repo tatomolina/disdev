@@ -17,7 +17,7 @@ class Blocker < ActiveRecord::Base
     too_long: "must have at most %{count} words"
   }
 
-  has_many :answers
+  has_many :answers, dependent: :destroy
 
   belongs_to :stand_up
 end

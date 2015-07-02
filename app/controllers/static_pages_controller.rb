@@ -13,12 +13,6 @@ skip_after_action :verify_authorized
   def help
   end
 
-  def about
-  end
-
-  def contact
-  end
-
   def new_user
   end
 

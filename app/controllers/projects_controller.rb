@@ -44,9 +44,9 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-    authorize @project
     @workGroup = WorkGroup.find(params[:work_group_id])
     @project.work_group = @workGroup
+    authorize @project
     if @project.save
       @project.add! current_user
 

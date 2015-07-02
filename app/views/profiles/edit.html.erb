@@ -1,25 +1,38 @@
-<div class="authform">
-<h1>Editing profile</h1>
+<div class="row">
+  <br>
+  <div class="col-md-2">
+    <%= render 'users/user_profile', :user => @user %>
+  </div>
 
-<%= form_for @profile do |f| %>
-  <div class="form-group">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, class: 'form-control' %>
+  <div class="col-md-10">
+    <%= render 'users/user_navbar', :user => @user %>
+
+    <div class="panel panel-default">
+      <div class="authform">
+      <h1>Editing profile</h1>
+
+      <%= form_for @profile do |f| %>
+        <div class="form-group">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :date_of_birth %>
+          <%= f.date_field :date_of_birth, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :languages %>
+          <%= f.select(:language_ids, Language.all.collect {|p| [ p.language, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>
+        </div>
+        <p>
+          <%= f.submit 'Update', :class => 'btn btn-default' %>
+        </p>
+      <% end %>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :date_of_birth %>
-    <%= f.date_field :date_of_birth, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :languages %>
-    <%= f.select(:language_ids, Language.all.collect {|p| [ p.language, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>
-  </div>
-  <p>
-    <%= f.submit 'Update', :class => 'btn btn-primary' %>
-  </p>
-<% end %>
 </div>
