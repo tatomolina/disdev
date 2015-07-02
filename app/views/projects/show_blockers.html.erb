@@ -12,7 +12,7 @@
       <% blocker_activities = [] %>
 
       <% @activities.each do |activity| %>
-          <% if activity.trackable.try(:stand_up).try(:project) == @project %>
+          <% if(activity.trackable.try(:stand_up).try(:project) == @project) %>
             <% blocker_activities << activity %>
           <% end %>
       <% end %>
